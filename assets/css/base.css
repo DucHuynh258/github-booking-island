@@ -1,0 +1,73 @@
+:root {
+    --primary-color: #228b22;
+    --white-color: #fff;
+    --black-color: #000;
+    --text-color: #333;
+    --border-color: #dbdbdb;
+    --description-color: rgb(16, 16, 16, 0.6);
+
+}
+
+* {
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+    line-height: 1.6rem;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    box-sizing: border-box;
+}
+
+/* Button */
+.btn--m {
+    font-size: 1.4rem;
+    min-width: 190px;
+    min-height: 55px;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    outline: none;
+}
+
+.btn--s {
+    --diameter: 54px;
+    font-size: 1.4rem;
+    width: var(--diameter);
+    height: var(--diameter);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    outline: none;
+    transition: all linear 0.15s;
+}
+
+/* Animation */
+@keyframes sweep {
+    from {
+        width: 0;
+    } to {
+        width: 72%;
+    }
+}
+
+/* margin */
+.mt-8 {
+    margin-top: 8px !important;
+}
+
+.mt-16 {
+    margin-top: 16px !important;
+}
+
+.mt-32 {
+    margin-top: 32px !important;
+}
+
+.mt-64 {
+    margin-top: 64px !important;
+}
+
+.mt-108 {
+    margin-top: 108px !important;
+}
