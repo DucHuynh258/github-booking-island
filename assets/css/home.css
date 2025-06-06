@@ -871,7 +871,6 @@
 
 /* Review */
 .review {
-
 }
 
 .review__heading {
@@ -889,35 +888,24 @@
 }
 
 .review__item {
-    border: 3px solid #f8f8f8;
+    background-color: #f8f8f8;
     border-radius: 32px;
+    border: 5px solid #f8f8f8;
     height: 502px;
 }
 
 .review__rating-with-content {
-    border: 3px solid #f8f8f8;
+    background-color: var(--white-color);
     border-radius: 32px;
     height: 350px;
     padding: 42px;
-    margin: -3px -2px 0 -2px;
-    z-index: 10;
-    position: relative;
+    transform: translateY(4px);
+    border: 5px solid #f8f8f8;
+    transform: translateY(-5px);
+    width: calc(100% + 10px);
+    margin-left: -5px;
 }
 
-.review__rating-with-content::before {
-    content: "";
-    width: 375px;
-    height: 25px;
-    position: absolute;
-    border-bottom: 3px solid #F8F8F8;
-    border-left: 3px solid #F8F8F8;
-    border-right: 1px solid #F8F8F8;
-    border-bottom-left-radius: 32px;
-    border-bottom-right-radius: 32px;
-    bottom: -3px;
-    left: -3px;
-    background-color: var(--white-color);
-}
 
 .review__rating {
     display: flex;
@@ -925,7 +913,6 @@
     font-size: 2rem;
     color: var(--primary-color);
     margin-bottom: 42px;
-
 }
 
 .review__rating--disable {
@@ -945,29 +932,20 @@
     font-size: 1.6rem;
     line-height: 2.4rem;
     color: var(--description-color);
-
 }
 
 .review__user-section {
-    background-color: #f8f8f8;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 8px;
-    height: 160px;
+    margin-left: -5px;
+    height: 146px;
+    width: calc(100% + 10px);
     border-bottom-left-radius: 32px;
     border-bottom-right-radius: 32px;
-    position: relative;
-    z-index: 0;
-}
-
-.review__user-section::before {
-    content: "";
-    width: calc(100%);
-    height: 22px;
-    position: absolute;
-    top: -20px;
-    background-color: #f8f8f8;
+    border: 5px solid #f8f8f8;
+    border-top: none;
 }
 
 .review__user-avt {
@@ -990,14 +968,9 @@
 
 .review__user-place {
     font-size: 1.6rem;
-
 }
 
-.review__item-box:nth-child(2) .review__user-section {
-    background-color: var(--primary-color);
-}
-
-.review__item-box:nth-child(2) .review__user-section::before {
+.review__item-box:nth-child(2) .review__item {
     background-color: var(--primary-color);
 }
 /* Review */
