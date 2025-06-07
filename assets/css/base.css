@@ -21,13 +21,17 @@ html {
 
 /* Button */
 .btn--m {
+    --height: 55px;
     font-size: 1.4rem;
     min-width: 190px;
-    min-height: 55px;
+    min-height: var(--height);
     border: none;
     border-radius: 40px;
     cursor: pointer;
     outline: none;
+    display: block; 
+    line-height: var(--height);
+    text-align: center;
 }
 
 .btn--s {
