@@ -16,7 +16,7 @@
     text-decoration: none;
 }
 
-.login {
+.modal {
     display: flex;
     align-self: center;
     margin: auto;
@@ -32,35 +32,93 @@
     user-select: none;
 }
 
-.login-content {
+.content {
     width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.login-content__heading {
+.content__heading {
     font-size: 3rem;
     margin: 18px 0 54px 0;
     color: var(--text-color);
 }
 
-.login-content__input {
+.content__input-wrapper {
+    position: relative;
+    height: 52px;
+    width: 284px;
+    margin-bottom: 18px;
+}
+
+.content__input-label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 18px;
+    z-index: 2;
+    font-size: 1.3rem;
+    color: #757575;
+    transition: all 0.25s ease;
+    user-select: none;
+    cursor: text;
+}
+
+.content__input {
+}
+
+.content__input,
+.content__input-password {
     height: 52px;
     width: 284px;
     border-radius: 32px;
-    border: 2px solid var(--border-color);
+    padding: 0 18px;
+    font-size: 1.3rem;
     outline: none;
-    margin-bottom: 18px;
-    padding: 0 12px;
-    font-size: 1.3rem;
+    border: 2px solid var(--border-color);
+    position: relative;
 }
 
-.login-content__input::placeholder {
-    font-size: 1.3rem;
+.content__input-password {
+    margin-top: -2px;
+    margin-left: -20px;
 }
 
-.login-content__submit {
+.content__input-tooggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
+    outline: none;
+}
+
+.content__input-tooggle-password-icon {
+
+}
+
+.content__input:focus, 
+.content__input-password:focus {
+    border-color: var(--primary-color);
+}
+
+.content__input-password:focus + .content__input-label,
+.content__input-password:not(:placeholder-shown) + .content__input-label,
+.content__input:focus + .content__input-label,
+.content__input:not(:placeholder-shown) + .content__input-label {
+    transform: translateY(-33px);
+    font-size: 1.1rem;
+    color: var(--primary-color); /* Màu của label khi focus */
+    background-color: var(--white-color);
+    padding: 0 4px;
+    border-radius: 12px;
+}
+
+.content__submit {
     height: 52px;
     width: 284px;
     background-color: var(--primary-color);
@@ -72,19 +130,19 @@
     cursor: pointer;
 }
 
-.login-content__submit:hover {
+.submit-btn:hover {
     opacity: 0.85;
 }
 
-.login-content__description {
+.content__description {
     font-size: 1.4rem;
 }
 
-.login-content__link {
+.content__link {
     color: var(--primary-color);
 }
 
-.login-content__link:hover {
+.content__link:hover {
     opacity: 0.8;
 }
 
@@ -107,7 +165,7 @@
     display: block;
 }
 
-.login-content__with-google {
+.content__with-google {
     height: 52px;
     width: 284px;
     background-color: var(--white-color);
