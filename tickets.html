@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt Vé Tàu & Phà - Booking Island Travel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/grid.css">
+    <link rel="stylesheet" href="./assets/css/home.css">
+    <link rel="stylesheet" href="./assets/css/tickets.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+    <div class="app">
+        <header class="header">
+            <div class="grid wide">
+                <div class="logo">
+                    <a class="logo__link" href="./home.html">
+                        <img src="./assets/img/base/logo.png" alt="logo" class="logo__img">
+                    </a>
+                </div>
+
+                <div class="navbar">
+                    <ul class="navbar__list">
+                        <li class="navbar__item">
+                            <a class="navbar__link" href="./home.html">HOME</a>
+                        </li>
+                        <li class="navbar__item">
+                            <a class="navbar__link" href="">HOTEL</a>
+                        </li>
+                        <li class="navbar__item">
+                            <a class="navbar__link" href="">TOURS</a>
+                        </li>
+                        <li class="navbar__item navbar__item--selected">
+                            <a class="navbar__link" href="./tickets.html">TICKETS</a>
+                        </li>
+                        <li class="navbar__item">
+                            <a class="navbar__link" href="">CONTACT</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="register-box">
+                    <a href="./log_in.html" class="register-btn btn--m">Đăng Nhập</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="app_container">
+            <div class="ticket-search-container">
+                <div class="grid wide">
+                    <div class="ticket-search-form">
+                        <h2 class="ticket-search-form__heading">Đặt vé tàu cao tốc và phà</h2>
+                        <form action="" class="form-body">
+                            <div class="form-row">
+                                <div class="form-group col l-6">
+                                    <i class="form-group__icon fa-solid fa-plane-departure"></i>
+                                    <div class="form-group__body">
+                                        <label for="departure">Điểm đi</label>
+                                        <select id="departure" class="form-group__select">
+                                            <option value="vungtau">Vũng Tàu</option>
+                                            <option value="phuquoc">Phú Quốc</option>
+                                            <option value="phanthiet">Phan Thiết</option>
+                                            <option value="camranh">Cam Ranh</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col l-6">
+                                    <i class="form-group__icon fa-solid fa-plane-arrival"></i>
+                                    <div class="form-group__body">
+                                        <label for="destination">Điểm đến</label>
+                                        <select id="destination" class="form-group__select">
+                                            <option value="condao">Côn Đảo</option>
+                                            <option value="phuquy">Phú Quý</option>
+                                            <option value="binhhung">Bình Hưng</option>
+                                            <option value="namdu">Nam Du</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col l-3">
+                                    <i class="form-group__icon fa-solid fa-calendar-day"></i>
+                                    <div class="form-group__body">
+                                        <label for="departure-date">Ngày đi</label>
+                                        <input type="date" id="departure-date" class="form-group__input">
+                                    </div>
+                                </div>
+                                <div class="form-group col l-3" id="return-date-group">
+                                    <i class="form-group__icon fa-solid fa-calendar-day"></i>
+                                    <div class="form-group__body">
+                                        <label for="return-date">Ngày về</label>
+                                        <input type="date" id="return-date" class="form-group__input">
+                                    </div>
+                                </div>
+                                <div class="form-group col l-6">
+                                    <i class="form-group__icon fa-solid fa-users"></i>
+                                    <div class="form-group__body">
+                                        <label for="passengers">Số lượng hành khách</label>
+                                        <select id="passengers" class="form-group__select">
+                                            <option value="1">1 người</option>
+                                            <option value="2">2 người</option>
+                                            <option value="3">3 người</option>
+                                            <option value="4">4 người</option>
+                                            <option value="5">5+ người</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row form-row--bottom">
+                                <div class="round-trip-group">
+                                    <input type="checkbox" id="round-trip-checkbox">
+                                    <label for="round-trip-checkbox">Khứ hồi</label>
+                                </div>
+                                <button type="submit" class="search-btn btn--m">TÌM VÉ</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid wide">
+                <div class="benefits-section mt-64">
+                    <div class="row">
+                        <div class="col l-3">
+                            <div class="benefit-item">
+                                <i class="benefit-item__icon fa-solid fa-tags"></i>
+                                <h4 class="benefit-item__heading">Giá vé tốt nhất</h4>
+                                <span class="benefit-item__desc">Giá vé cạnh tranh và nhiều ưu đãi hấp dẫn.</span>
+                            </div>
+                        </div>
+                        <div class="col l-3">
+                            <div class="benefit-item">
+                                <i class="benefit-item__icon fa-solid fa-shield-halved"></i>
+                                <h4 class="benefit-item__heading">Thanh toán an toàn</h4>
+                                <span class="benefit-item__desc">Bảo mật thông tin thanh toán tuyệt đối.</span>
+                            </div>
+                        </div>
+                        <div class="col l-3">
+                            <div class="benefit-item">
+                                <i class="benefit-item__icon fa-solid fa-headset"></i>
+                                <h4 class="benefit-item__heading">Hỗ trợ 24/7</h4>
+                                <span class="benefit-item__desc">Luôn sẵn sàng giải đáp mọi thắc mắc của bạn.</span>
+                            </div>
+                        </div>
+                        <div class="col l-3">
+                            <div class="benefit-item">
+                                <i class="benefit-item__icon fa-solid fa-check-to-slot"></i>
+                                <h4 class="benefit-item__heading">Xác nhận tức thì</h4>
+                                <span class="benefit-item__desc">Nhận vé điện tử ngay sau khi đặt thành công.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="popular-routes mt-108">
+                    <h3 class="popular-routes__heading">Tuyến Tàu Cao Tốc Phổ Biến</h3>
+                    <div class="row sm-gutter">
+                        <div class="col l-4">
+                            <a href="#" class="route-card">
+                                <img src="./assets/img/home_page/Bai_Nho_PQ.jpg" alt="Phú Quý" class="route-card__img">
+                                <div class="route-card__content">
+                                    <h4 class="route-card__name">Phan Thiết - Phú Quý</h4>
+                                    <span class="route-card__price">Từ 390.000đ</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col l-4">
+                            <a href="#" class="route-card">
+                                <img src="./assets/img/home_page/full_island.jpg" alt="Côn Đảo" class="route-card__img">
+                                <div class="route-card__content">
+                                    <h4 class="route-card__name">Vũng Tàu - Côn Đảo</h4>
+                                    <span class="route-card__price">Từ 790.000đ</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col l-4">
+                            <a href="#" class="route-card">
+                                <img src="./assets/img/home_page/VinWonder_PQ1.jpg" alt="Phú Quốc" class="route-card__img">
+                                <div class="route-card__content">
+                                    <h4 class="route-card__name">Rạch Giá - Phú Quốc</h4>
+                                    <span class="route-card__price">Từ 340.000đ</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer mt-108">
+            <div class="grid wide">
+                <div class="footer-container row">
+                    <div class="col l-4">
+                        <div class="footer__logo-with-link">
+                            <img src="./assets/img/base/logo.png" alt="logo" class="footer__logo">
+                            <span class="footer__logo-title">Khám phá những hòn đảo với cảnh sắc hoang sơ, một trải nghiệm đáng nhớ.</span>
+                            <div class="footer__social-media">
+                                <a href="" class="footer__social-media__logo">
+                                    <i class="fa-brands fa-facebook-f"></i>
+                                </a>
+                                <a href="" class="footer__social-media__logo">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+                                <a href="" class="footer__social-media__logo">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                </a>
+                                <a href="" class="footer__social-media__logo">
+                                    <i class="fa-brands fa-twitter"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col l-8">
+                        <div class="footer__content">
+                            <ul class="footer__content-list">
+                                <li class="footer__content-item">
+                                    <h4 class="footer__content-item__heading">Công Ty</h4>
+                                    <a href="" class="footer__content-item__title">Về Chúng Tôi</a>
+                                    <a href="" class="footer__content-item__title">Hướng Dẫn Viên</a>
+                                    <a href="" class="footer__content-item__title">Các Gói</a>
+                                    <a href="" class="footer__content-item__title">Liên Hệ</a>
+                                </li>
+                                <li class="footer__content-item">
+                                    <h4 class="footer__content-item__heading">Du Lịch</h4>
+                                    <a href="" class="footer__content-item__title">Đảo Phú Quý</a>
+                                    <a href="" class="footer__content-item__title">Đảo Phú Quốc</a>
+                                    <a href="" class="footer__content-item__title">Đảo Bình Hưng</a>
+                                </li>
+                                <li class="footer__content-item">
+                                    <h4 class="footer__content-item__heading">Liên kết Khác</h4>
+                                    <a href="" class="footer__content-item__title">Hỗ Trợ Khách Hàng</a>
+                                    <a href="" class="footer__content-item__title">Điều Kiện & Điều Khoản</a>
+                                    <a href="" class="footer__content-item__title">Chính Sách Giá Tốt</a>
+                                </li>
+                            </ul>
+                            <div class="footer__content-decription">
+                                <span>Like Để Cập Nhật Cẩm Nang Du Lịch</span>
+                                <div class="footer__content-decription__like">
+                                    <i class="footer__content-decription__like-icon fa-solid fa-thumbs-up"></i>
+                                    <span>Like 5.3T</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
