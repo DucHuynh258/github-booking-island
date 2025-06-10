@@ -1,0 +1,187 @@
+/* ---- Ticket Search Form ---- */
+
+.ticket-search-container {
+    position: relative;
+    padding: 80px 0;
+    color: white;
+    background-image: url('../img/home_page/Bien_PQ.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.ticket-search-form {
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #333;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.ticket-search-form__heading {
+    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--primary-color);
+}
+
+.form-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-row {
+    display: flex;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 8px 16px;
+    flex: 1;
+}
+
+.form-group__icon {
+    font-size: 2rem;
+    color: #888;
+    margin-right: 12px;
+}
+
+.form-group__body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-group__body label {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+.form-group__select,
+.form-group__input {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    font-size: 1.6rem;
+    outline: none;
+    font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+.form-group__select {
+    cursor: pointer;
+}
+
+.form-row--bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.round-trip-group {
+    display: flex;
+    align-items: center;
+}
+
+.round-trip-group label {
+    font-size: 1.6rem;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+#round-trip-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.search-btn {
+    font-size: 1.8rem;
+    padding: 12px 60px;
+}
+
+#return-date-group.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+
+/* ---- Benefits Section ---- */
+
+.benefit-item {
+    text-align: center;
+    padding: 20px;
+}
+
+.benefit-item__icon {
+    font-size: 4rem;
+    color: var(--primary-color);
+    margin-bottom: 16px;
+}
+
+.benefit-item__heading {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.benefit-item__desc {
+    font-size: 1.5rem;
+    color: #757575;
+    line-height: 1.5;
+}
+
+
+/* ---- Popular Routes ---- */
+
+.popular-routes__heading {
+    text-align: center;
+    font-size: 2.8rem;
+    margin-bottom: 32px;
+}
+
+.route-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.route-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.route-card__img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+.route-card__content {
+    padding: 20px;
+    background-color: white;
+}
+
+.route-card__name {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.route-card__price {
+    font-size: 1.6rem;
+    color: var(--primary-color);
+    font-weight: 700;
+}
