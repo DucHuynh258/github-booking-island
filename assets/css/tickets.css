@@ -2,26 +2,31 @@
 
 .ticket-search-container {
     position: relative;
-    padding: 80px 0;
-    color: white;
-    background-image: url('../img/home_page/Bien_PQ.jpg');
+    background: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), url('../img/home_page/Bien_PQ.jpg');
     background-size: cover;
     background-position: center;
+    height: 654px;
+    border-radius: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .ticket-search-form {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 255, 255, 0.5);
     color: #333;
     padding: 32px;
-    border-radius: 12px;
+    border-radius: 16px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    min-width: 80%;
 }
 
 .ticket-search-form__heading {
     text-align: center;
-    font-size: 2.8rem;
+    font-size: 3.2rem;
+    text-transform: capitalize;
     font-weight: 700;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
     color: var(--primary-color);
 }
 
@@ -29,6 +34,10 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+}
+
+.form-body {
+    user-select: none;
 }
 
 .form-row {
@@ -83,18 +92,23 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 16px;
 }
 
 .round-trip-group {
     display: flex;
     align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    height: 46px;
+    width: 100px;
 }
 
 .round-trip-group label {
     font-size: 1.6rem;
     margin-left: 8px;
     cursor: pointer;
+    user-select: none;
 }
 
 #round-trip-checkbox {
@@ -105,7 +119,13 @@
 
 .search-btn {
     font-size: 1.8rem;
-    padding: 12px 60px;
+    transition: all linear 0.16s;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.search-btn:hover {
+    filter: brightness(1.15);
 }
 
 #return-date-group.disabled {

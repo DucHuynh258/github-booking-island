@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đặt Vé Tàu & Phà - Booking Island Travel</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/base.css">
     <link rel="stylesheet" href="./assets/css/grid.css">
@@ -24,7 +23,7 @@
                         <img src="./assets/img/base/logo.png" alt="logo" class="logo__img">
                     </a>
                 </div>
-
+                
                 <div class="navbar">
                     <ul class="navbar__list">
                         <li class="navbar__item">
@@ -44,80 +43,90 @@
                         </li>
                     </ul>
                 </div>
-
+                
                 <div class="register-box">
                     <a href="./log_in.html" class="register-btn btn--m">Đăng Nhập</a>
                 </div>
             </div>
         </header>
-
+        
         <div class="app_container">
-            <div class="ticket-search-container">
-                <div class="grid wide">
+            <div class="grid wide">
+                <div class="ticket-search-container">
                     <div class="ticket-search-form">
                         <h2 class="ticket-search-form__heading">Đặt vé tàu cao tốc và phà</h2>
                         <form action="" class="form-body">
-                            <div class="form-row">
-                                <div class="form-group col l-6">
-                                    <i class="form-group__icon fa-solid fa-plane-departure"></i>
-                                    <div class="form-group__body">
-                                        <label for="departure">Điểm đi</label>
-                                        <select id="departure" class="form-group__select">
-                                            <option value="vungtau">Vũng Tàu</option>
-                                            <option value="phuquoc">Phú Quốc</option>
-                                            <option value="phanthiet">Phan Thiết</option>
-                                            <option value="camranh">Cam Ranh</option>
-                                        </select>
+                            <div class="row">
+                                <div class="col l-6">
+                                    <div class="form-group">
+                                        <i class="form-group__icon fa-solid fa-plane-departure"></i>
+                                        <div class="form-group__body">
+                                            <label for="departure">Điểm đi</label>
+                                            <select id="departure" class="form-group__select">
+                                                <option value="vungtau">Vũng Tàu</option>
+                                                <option value="phuquoc">Phú Quốc</option>
+                                                <option value="phanthiet">Phan Thiết</option>
+                                                <option value="camranh">Cam Ranh</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group col l-6">
-                                    <i class="form-group__icon fa-solid fa-plane-arrival"></i>
-                                    <div class="form-group__body">
-                                        <label for="destination">Điểm đến</label>
-                                        <select id="destination" class="form-group__select">
-                                            <option value="condao">Côn Đảo</option>
-                                            <option value="phuquy">Phú Quý</option>
-                                            <option value="binhhung">Bình Hưng</option>
-                                            <option value="namdu">Nam Du</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col l-3">
-                                    <i class="form-group__icon fa-solid fa-calendar-day"></i>
-                                    <div class="form-group__body">
-                                        <label for="departure-date">Ngày đi</label>
-                                        <input type="date" id="departure-date" class="form-group__input">
-                                    </div>
-                                </div>
-                                <div class="form-group col l-3" id="return-date-group">
-                                    <i class="form-group__icon fa-solid fa-calendar-day"></i>
-                                    <div class="form-group__body">
-                                        <label for="return-date">Ngày về</label>
-                                        <input type="date" id="return-date" class="form-group__input">
-                                    </div>
-                                </div>
-                                <div class="form-group col l-6">
-                                    <i class="form-group__icon fa-solid fa-users"></i>
-                                    <div class="form-group__body">
-                                        <label for="passengers">Số lượng hành khách</label>
-                                        <select id="passengers" class="form-group__select">
-                                            <option value="1">1 người</option>
-                                            <option value="2">2 người</option>
-                                            <option value="3">3 người</option>
-                                            <option value="4">4 người</option>
-                                            <option value="5">5+ người</option>
-                                        </select>
+                                <div class="col l-6">
+                                    <div class="form-group">
+                                        <i class="form-group__icon fa-solid fa-plane-arrival"></i>
+                                        <div class="form-group__body">
+                                            <label for="destination">Điểm đến</label>
+                                            <select id="destination" class="form-group__select">
+                                                <option value="condao">Côn Đảo</option>
+                                                <option value="phuquy">Phú Quý</option>
+                                                <option value="binhhung">Bình Hưng</option>
+                                                <option value="namdu">Nam Du</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-row form-row--bottom">
+                            <div class="row">
+                                <div class="col l-3">
+                                    <div class="form-group">
+                                        <i class="form-group__icon fa-solid fa-calendar-day"></i>
+                                        <div class="form-group__body">
+                                            <label for="departure-date">Ngày đi</label>
+                                            <input type="date" id="departure-date" class="form-group__input">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col l-3">
+                                    <div class="form-group" id="return-date-group">
+                                        <i class="form-group__icon fa-solid fa-calendar-day"></i>
+                                        <div class="form-group__body">
+                                            <label for="return-date">Ngày về</label>
+                                            <input type="date" id="return-date" class="form-group__input">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col l-6">
+                                    <div class="form-group">
+                                        <i class="form-group__icon fa-solid fa-users"></i>
+                                        <div class="form-group__body">
+                                            <label for="passengers">Số lượng hành khách</label>
+                                            <select id="passengers" class="form-group__select">
+                                                <option value="1">1 người</option>
+                                                <option value="2">2 người</option>
+                                                <option value="3">3 người</option>
+                                                <option value="4">4 người</option>
+                                                <option value="5">5+ người</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row--bottom">
                                 <div class="round-trip-group">
                                     <input type="checkbox" id="round-trip-checkbox">
                                     <label for="round-trip-checkbox">Khứ hồi</label>
                                 </div>
-                                <button type="submit" class="search-btn btn--m">TÌM VÉ</button>
+                                <button type="submit" class="search-btn btn--m">Tìm Vé</button>
                             </div>
                         </form>
                     </div>
