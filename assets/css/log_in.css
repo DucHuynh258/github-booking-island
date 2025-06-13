@@ -37,6 +37,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 8px;
 }
 
 .content__heading {
@@ -63,6 +64,23 @@
     transition: all 0.25s ease;
     user-select: none;
     cursor: text;
+}
+
+.error-message {
+    display: none;
+    font-size: 11px;
+    margin-left: 10px;
+    margin-top: 2px;
+    color: red;
+}
+
+.errorPassword-message {
+    display: none;
+    position: relative;
+    top: 2px;
+    right: 10px;
+    color: red;
+    font-size: 11px;
 }
 
 .content__input {
