@@ -161,47 +161,184 @@
 
 /* ---- Popular Routes ---- */
 
-.popular-routes__heading {
-    text-align: center;
-    font-size: 2.8rem;
-    margin-bottom: 32px;
+.ticket-section {
+
 }
 
-.route-card {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.ticket-header {
+    display: flex;
+    justify-content: space-between;
 }
 
-.route-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+.ticket-heading-content {
+
+} 
+
+.ticket-heading {
+    font-size: 4rem;
+    line-height: 4rem;
+    margin: 0;
+    text-transform: capitalize;
 }
 
-.route-card__img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    display: block;
-}
-
-.route-card__content {
-    padding: 20px;
-    background-color: white;
-}
-
-.route-card__name {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-.route-card__price {
+.ticket-decription {
     font-size: 1.6rem;
-    color: var(--primary-color);
-    font-weight: 700;
+    color: var(--description-color);
+    display: block;
+    margin: 12px 0;
+}   
+
+.ticket-nav {
+    display: flex;
+    justify-content: space-between;
+    width: 120px;
 }
+
+.ticket-nav-btn {
+    background-color: var(--black-color);
+}
+
+.ticket-nav-btn:hover {
+    opacity: 0.8;
+}
+
+.ticket-nav-btn--disabled.ticket-nav-btn:hover {
+    opacity: unset;
+}
+
+.ticket-nav-btn--disabled.ticket-nav-btn {
+    background-color: #f0f0f0;
+}
+
+.ticket-nav-btn--disabled.ticket-nav-btn .ticket-nav-icon {
+    color: var(--black-color);
+}
+
+.ticket-nav-btn--disabled {
+
+}
+
+.ticket-nav-icon {
+    color: var(--white-color);
+    font-size: 2rem;
+}
+
+.arrow-section {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.arrow-time {
+    color: var(--description-color);
+    display: block;
+    text-align: center;
+}
+
+.arrow-right,
+.arrow-left {
+    display: flex;
+    align-items: center;
+}
+
+.arrow-right__icon,
+.arrow-left__icon {
+    font-size: 1.6rem;
+    color: #000;
+    color: var(--description-color);
+}
+
+.arrow-right__line,
+.arrow-left__line {
+    width: 48px;
+    height: 2px;
+    border: 1px solid rgb(103 109 112);
+}
+
+.arrow-right {
+
+}
+
+.arrow-right__icon {
+    margin-left: -1px;
+}
+
+.arrow-right__line {
+
+}
+
+.tickets-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin: 0 -12px;
+    margin-top: 12px;
+    overflow-x: scroll;
+    height: 164px;
+    align-items: center;
+}
+
+.tickets-list::-webkit-scrollbar {
+    display: none;
+}
+
+.tickets-item {
+    background-color: #e8f8ff;
+    padding: 14px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+.tickets-item__brand {
+    background-color: var(--white-color);
+    color: var(--text-color);
+    font-size: 1.5rem;
+    padding: 6px 8px;
+    border-radius: 14px;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.05);
+    display: inline-block;
+}
+
+.tickets-item__footer,
+.tickets-item__places {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tickets-item__place-name {
+    font-size: 1.7rem;
+    margin: 18px 0;
+    width: 90px;
+}
+
+.tickets-item__place-name:last-child {
+    text-align: end;
+}
+
+.tickets-item__footer {
+    align-items: center;
+}
+
+.tickets-item__price {
+    font-size: 1.9rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.tickets-item__more-btn {
+    display: block;
+    font-size: 1.5rem;
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+
