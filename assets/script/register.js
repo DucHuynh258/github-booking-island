@@ -1,5 +1,5 @@
 
-const divRegister = document.getElementById("divRegister");
+const divRegister = document.getElementById("content__submit-id");
 
 const nameElement = document.getElementById("name");
 const emailElement = document.getElementById("email");
