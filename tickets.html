@@ -180,8 +180,8 @@
                             <h3 class="ticket-heading">tuyến tàu phan thiết - phú quý </h3>
                             <span class="ticket-decription">Khám phá các tuyến tàu Phan Thiết - Phú Quý và đặt vé ngay với giá ưu đãi!</span>
                         </div>
-                            <div class="ticket-nav">
-                                <button class="ticket-nav-btn btn--s ticket-nav-btn--disabled">
+                        <div class="ticket-nav">
+                            <button class="ticket-nav-btn btn--s ticket-nav-btn--disabled">
                                 <i class="ticket-nav-icon fas fa-chevron-left"></i>
                             </button>
                             <button class="ticket-nav-btn btn--s">
@@ -343,8 +343,8 @@
                             <h3 class="ticket-heading">tuyến tàu đến phú quốc </h3>
                             <span class="ticket-decription">Khám phá các tuyến tàu ra đảo Phú Quốc và đặt vé ngay với giá ưu đãi!</span>
                         </div>
-                            <div class="ticket-nav">
-                                <button class="ticket-nav-btn btn--s ticket-nav-btn--disabled">
+                        <div class="ticket-nav">
+                            <button class="ticket-nav-btn btn--s ticket-nav-btn--disabled">
                                 <i class="ticket-nav-icon fas fa-chevron-left"></i>
                             </button>
                             <button class="ticket-nav-btn btn--s">
@@ -506,8 +506,8 @@
                             <h3 class="ticket-heading">tuyến tàu cam ranh - bình Hưng </h3>
                             <span class="ticket-decription">Khám phá các tuyến tàu Cam Ranh - Bình Hưng và đặt vé ngay với giá ưu đãi!</span>
                         </div>
-                            <div class="ticket-nav">
-                                <button class="ticket-nav-btn btn--s ticket-nav-btn--disabled">
+                        <div class="ticket-nav">
+                            <button class="ticket-nav-btn btn--s ticket-nav-btn--disabled">
                                 <i class="ticket-nav-icon fas fa-chevron-left"></i>
                             </button>
                             <button class="ticket-nav-btn btn--s">
@@ -704,50 +704,52 @@
     </div>
 
         <script>
-            document.addEventListener('DOMContentLoaded', () => {
-            const list = document.querySelector('.tickets-list');
-            const btnPrev = document.querySelector('.ticket-nav-btn .fa-chevron-left').parentElement;
-            const btnNext = document.querySelector('.ticket-nav-btn .fa-chevron-right').parentElement;
-            const scrollAmount = 408; // Số px scroll mỗi lần bấm
+        document.addEventListener('DOMContentLoaded', () => {
+            // Select all ticket lists and their respective navigation buttons
+            const ticketSections = document.querySelectorAll('.ticket-section');
 
-            // Hàm kiểm tra trạng thái scroll để bật/tắt nút
-            function updateButtons() {
-                // scrollLeft = khoảng cách đã scroll từ trái
-                // scrollWidth = tổng chiều rộng nội dung
-                // clientWidth = chiều rộng phần tử nhìn thấy
-                if (list.scrollLeft <= 0) {
-                btnPrev.classList.add('ticket-nav-btn--disabled');
-                } else {
-                btnPrev.classList.remove('ticket-nav-btn--disabled');
+            ticketSections.forEach((section) => {
+                const list = section.querySelector('.tickets-list');
+                const btnPrev = section.querySelector('.ticket-nav-btn .fa-chevron-left').parentElement;
+                const btnNext = section.querySelector('.ticket-nav-btn .fa-chevron-right').parentElement;
+                const scrollAmount = 408; // Number of pixels to scroll per click
+
+                // Function to update the buttons based on the scroll position
+                function updateButtons() {
+                    if (list.scrollLeft <= 0) {
+                        btnPrev.classList.add('ticket-nav-btn--disabled');
+                    } else {
+                        btnPrev.classList.remove('ticket-nav-btn--disabled');
+                    }
+
+                    if (list.scrollLeft + list.clientWidth >= list.scrollWidth - 1) {
+                        btnNext.classList.add('ticket-nav-btn--disabled');
+                    } else {
+                        btnNext.classList.remove('ticket-nav-btn--disabled');
+                    }
                 }
 
-                if (list.scrollLeft + list.clientWidth >= list.scrollWidth - 1) {
-                btnNext.classList.add('ticket-nav-btn--disabled');
-                } else {
-                btnNext.classList.remove('ticket-nav-btn--disabled');
-                }
-            }
+                // Scroll the list to the left
+                btnPrev.addEventListener('click', () => {
+                    if (!btnPrev.classList.contains('ticket-nav-btn--disabled')) {
+                        list.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                    }
+                });
 
-            // Scroll list sang trái
-            btnPrev.addEventListener('click', () => {
-                if (!btnPrev.classList.contains('ticket-nav-btn--disabled')) {
-                list.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-                }
+                // Scroll the list to the right
+                btnNext.addEventListener('click', () => {
+                    if (!btnNext.classList.contains('ticket-nav-btn--disabled')) {
+                        list.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                    }
+                });
+
+                // Update the button states when scrolling
+                list.addEventListener('scroll', updateButtons);
+
+                // Initialize the button states on page load
+                updateButtons();
             });
-
-            // Scroll list sang phải
-            btnNext.addEventListener('click', () => {
-                if (!btnNext.classList.contains('ticket-nav-btn--disabled')) {
-                list.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-                }
-            });
-
-            // Cập nhật trạng thái nút khi scroll
-            list.addEventListener('scroll', updateButtons);
-
-            // Khởi tạo trạng thái nút lúc đầu
-            updateButtons();
-            });
+        });
 
     </script>
 </body>
