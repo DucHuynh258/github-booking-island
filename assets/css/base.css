@@ -47,6 +47,24 @@ html {
 }
 
 /* Animation */
+
+.autoDisplay {
+    animation: autoDisplayAnimation both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 80%;
+}
+
+@keyframes autoDisplayAnimation{
+    from {
+        filter: blur(8px);
+        transform: translateY(-170px) scale(0.2);
+    } 50%{
+        opacity: 1;
+        filter: blur(0px);
+        transform: translateX(0) scale(1);
+    }
+}
+
 @keyframes sweep {
     from {
         width: 0;

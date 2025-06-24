@@ -6,8 +6,9 @@
     <title>Booking Island Travel</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/home.css">
+    <link rel="stylesheet" href="./assets/css/header-component.css">
     <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/home.css">
     <link rel="stylesheet" href="./assets/css/grid.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
@@ -21,7 +22,7 @@
                     </a>
                 </div>
 
-                <div class="navbar">
+                <div class="navbar" id="navbar">
                     <ul class="navbar__list">
                         <li class="navbar__item navbar__item--selected">
                             <a class="navbar__link" href="">HOME</a>
@@ -97,7 +98,7 @@
                 <!-- Slider -->
 
                 <!-- Popular place -->
-                <div class="popular-places mt-108">
+                <div class="popular-places mt-108 autoDisplay">
                     <div class="popular-places__header-with-nav">
                         <div class="popular-places__header">
                             <h3 class="popular-places__heading">Điểm Đến Phổ Biến</h3>
@@ -237,7 +238,7 @@
                 <!-- Popular place -->
 
                 <!-- Advertisement -->
-                <div class="advertisement-1 mt-108">
+                <div class="advertisement-1 mt-108 autoDisplay">
                     <div class="advertisement-1__header">
                         <h2 class="advertisement-1__heading">Hành Trình Du Lịch Trên Đảo Trở Nên Đơn Giản!</h2>
                         <span class="advertisement-1__header-titile">Du Lịch Các Hòn Đảo Tại Việt Nam Là Cách Tuyệt Vời Để Khám Phá Thiên Nhiên Hoang Sơ Và Tận Hưởng Những Trải Nghiệm Độc Đáo.</span>
@@ -268,7 +269,7 @@
                 <!-- Advertisement -->
 
                 <!-- Sale section -->
-                <div class="mt-108 row sm-gutter sale">
+                <div class="mt-108 row sm-gutter sale autoDisplay">
                     <div class="col l-4">
                         <div class="sale__img-with-sale">
                             <div class="sale__img"></div>
@@ -302,7 +303,7 @@
                 <!-- Sale section -->
                 
                 <!-- About section -->
-                <div class="about mt-108">
+                <div class="about mt-108 autoDisplay">
                     <div class="about-text row">
                         <div class="col l-4">
                             <h4 class="about__heading">VỀ CHÚNG TÔI</h4>
@@ -343,7 +344,7 @@
                 <!-- About section -->
 
                 <!-- Advertisement -->
-                <div class="advertisement-2 mt-108">
+                <div class="advertisement-2 mt-108 autoDisplay">
                     <div class="advertisement-2__header">
                         <h3 class="advertisement-2__heading">Khám phá vẻ đẹp của các hòn đảo</h3>
                         <span class="advertisement-2__header-title">Khám phá các hòn đảo Việt Nam là lựa chọn lý tưởng để hòa mình vào thiên nhiên nguyên sơ và tận hưởng giữa biển trời mênh mông.</span>
@@ -382,7 +383,7 @@
                 <!-- Advertisement -->
 
                 <!-- Review -->
-                <div class="review mt-108">
+                <div class="review mt-108 autoDisplay">
                     <h3 class="review__heading">Được hàng nghìn du khách yêu thích</h3>
                     <ul class="review__list row">
                         <div class="col l-4 review__item-box">
@@ -519,7 +520,8 @@
             </div>
         </footer>
     </div>
-
+    
+    <script src="./assets/script/header.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
         const list = document.querySelector('.popular-places__list');

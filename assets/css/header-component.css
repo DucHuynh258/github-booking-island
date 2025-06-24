@@ -1,0 +1,129 @@
+/* Header */
+
+.sticky {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 560px;
+    height: 54px;
+    backdrop-filter: blur(10px);
+    z-index: 1000; /* Ensures the header stays on top */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visibility */
+    border-radius: 32px;
+}
+
+.sticky .navbar__item:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+}
+
+.sticky .navbar__item:hover .navbar__link {
+    color: var(--black-color);
+}
+
+.sticky .navbar__item {
+    transform:  translateY(4px);
+}
+
+
+.header {
+    margin-top: 8px;
+}
+
+.header>div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    width: 300px;
+}
+
+.logo__link {
+    text-decoration: none;
+}
+
+.logo__img {
+    width: 300px;
+}
+
+.navbar {
+}
+
+.navbar__item--selected .navbar__link::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 42px;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.navbar__list {
+    display: flex;
+    list-style: none;
+    transform: translateY(-30%);
+    padding: 0;
+}
+
+.navbar__item {
+    font-size: 1.5rem;
+    margin: 0 26px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.navbar__link::before {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 42px;
+    border-bottom: 2px solid var(--border-color);    
+    display: none;
+    animation: sweep linear 0.17s;
+}
+
+.navbar__item:hover .navbar__link::before {
+    display: block;
+}
+
+.navbar__item:hover .navbar__link {
+    color: var(--primary-color);
+}
+
+.navbar__link {
+    text-decoration: none;
+    color: var(--black-color);
+    transition: all linear 0.17s;
+}
+
+.register-box {
+    transform: translateY(-10%);
+    margin: 0 40px 0 70px;
+}
+
+.register-btn {
+    background-color: var(--black-color);
+    color: var(--white-color);
+    transition: all linear 0.25s;
+    text-decoration: none;
+}
+
+.register-btn:hover {
+    background-color: var(--white-color);
+    color: var(--text-color);
+    border: 3px solid var(--black-color);
+    font-weight: 500;
+     text-shadow: 0 0 3px var(--white-color), 0 0 5px rgba(0, 0, 0, 0.6);
+}
+/* Header */
