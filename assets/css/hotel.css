@@ -1,0 +1,142 @@
+.app-container {
+
+}
+
+.banner {
+    background: linear-gradient(rgba(255,255,255, 0.01), rgba(255,255,255,0.35)), url('../img/hotel_page/dao_binh_hung_banner.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 654px;
+    border-radius: 45px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 120px;
+}
+
+.banner-header-box {
+    transform: translateY(-50px);
+    margin-bottom: 12px;
+}
+
+.banner-header {
+    font-size: 4rem;
+    color: var(--text-color);
+    text-transform: capitalize;
+    margin: 0;
+    margin-bottom: 8px;
+    line-height: 5rem;
+}
+
+.banner-description {
+    font-size: 2rem;
+    color: var(--text-color);
+}
+
+.filter {
+    transform: translateY(-50px);
+    background-color: rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    padding: 12px;
+    border-radius: 8px;
+    gap: 8px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: var(--white-color);
+    border-radius: 8px;
+    height: 46px;
+    padding: 16px;
+    font-size: 1.6rem;
+}
+
+.search-bar__icon {
+    margin-right: 12px;
+}
+
+.search-bar__input {
+    border: none;
+    outline: none;
+    color: var(--text-color);
+    
+}
+
+.calendar-room {
+    display: flex;
+}
+
+.filter-calendar {
+    display: flex;
+    flex: 4;
+    gap: 2px;
+    justify-content: space-between;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.filter-calendar__item {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white-color);
+    flex: 1;
+    font-size: 1.4rem;
+}
+
+.filter-calendar__item:nth-child(1) {
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+    padding: 6px 26px 0 12px;
+}
+
+.filter-calendar__item:nth-child(2) {
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 6px 12px 0 26px;
+}
+
+
+.filter-calendar__item input {
+    height: 30px;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+}
+
+.filter-calendar__item input[type="date"]::-webkit-calendar-picker-indicator {
+    font-size: 2rem;
+    margin-left: -20px;
+}
+
+.day-of-week {
+    color: #707070;
+
+}
+
+.night-info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.6rem;
+    background-color: var(--white-color);
+    color: #707070;
+}
+
+.night-info__icon {
+    
+}
+
+.filter-room {
+    flex: 4;
+}   
+
+.filter-search-btn {
+    flex: 1;
+
+}
+
