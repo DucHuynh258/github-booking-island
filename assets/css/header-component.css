@@ -129,4 +129,25 @@
     font-weight: 500;
      text-shadow: 0 0 3px var(--white-color), 0 0 5px rgba(0, 0, 0, 0.6);
 }
+
+.user-name{
+    font-size: 1.6rem;
+    color: #fff;
+    margin-right: 10px;
+}
+
+.logout-btn{
+    background-color: var(--black-color);
+    color: var(--white-color);
+    transition: all linear 0.25s;
+    text-decoration: none;
+}
+
+.logout-btn:hover {
+    background-color: var(--white-color);
+    color: var(--text-color);
+    border: 3px solid var(--black-color);
+    font-weight: 500;
+    text-shadow: 0 0 3px var(--white-color), 0 0 5px rgba(0, 0, 0, 0.6);
+}
 /* Header */

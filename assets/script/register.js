@@ -1,6 +1,6 @@
 
-const divRegister = document.getElementById("content__submit-id");
-
+const contentSubmit = document.getElementById("content__submit-id");
+const successDiv = document.getElementById('successMessage');
 const nameElement = document.getElementById("name");
 const emailElement = document.getElementById("email");
 
@@ -25,57 +25,92 @@ function validateEmail (email) {
     );
 };
 
+function validatePassword(pw) {
+    return /[A-Z]/       .test(pw) &&
+           /[a-z]/       .test(pw) &&
+           /[0-9]/       .test(pw) &&
+           /[^A-Za-z0-9]/.test(pw) &&
+           pw.length > 7;
+}
 
-divRegister.addEventListener("click", function(e){
+
+contentSubmit.addEventListener("click", async function(e){
 
     e.preventDefault();
-    // Validate input data
-    if (!nameElement.value){
+    userNameError.style.display = "none";
+    emailError.style.display = "none";
+    passwordError.style.display = "none";
+    rePasswordError.style.display = "none";
+
+    let isValid = true;
+
+    // Kiểm tra tên
+    if (!nameElement.value) {
         userNameError.style.display = "block";
-    }else{
-        userNameError.style.display = "none";
+        userNameError.innerHTML = "Tên không được để trống";
+        isValid = false;
     }
 
-    if (!emailElement.value){
+    // Kiểm tra email
+    if (!emailElement.value) {
         emailError.style.display = "block";
-    }else{
-        emailError.style.display = "none";
-        // Check Email
-        if(!validateEmail(emailElement.value)) {
-            emailError.style.display = "block";
-            emailError.innerHTML = "Email không đúng định dạng"
-        }
+        emailError.innerHTML = "Email không được để trống";
+        isValid = false;
+    } else if (!validateEmail(emailElement.value)) {
+        emailError.style.display = "block";
+        emailError.innerHTML = "Email không đúng định dạng";
+        isValid = false;
     }
 
-    if (!passwordField.value){
+    // Kiểm tra mật khẩu
+    if (!passwordField.value) {
         passwordError.style.display = "block";
-    }else{
-        passwordError.style.display = "none";
+        passwordError.innerHTML = "Mật khẩu không được để trống";
+        isValid = false;
+    } else if (!validatePassword(passwordField.value)) {
+        passwordError.style.display = "block";
+        passwordError.innerHTML = "Mật khẩu không đúng định dạng";
+        isValid = false;
     }
 
-    if (!rePasswordField.value){
+    // Kiểm tra mật khẩu trùng
+    if (!rePasswordField.value) {
         rePasswordError.style.display = "block";
-    }else{
-        rePasswordError.style.display = "none";
-    }
-
-    // Check Password
-    if(passwordField.value !== rePasswordField.value){
+        rePasswordError.innerHTML = "Mật khẩu không được để trống";
+        isValid = false;
+    } else if (passwordField.value !== rePasswordField.value) {
         rePasswordError.style.display = "block";
         rePasswordError.innerHTML = "Mật khẩu không khớp";
-    }
+        isValid = false;
+    } 
 
-    // Send data from register to localStorage
-    if(nameElement.value && emailElement.value && passwordField.value && rePasswordField.value && passwordField.value === rePasswordField.value && validateEmail(emailElement.value)) {
-        // Get data from register and merge into user object
-        const user = {
-            userId: Math.ceil(Math.random() * 100000000),
-            userName: nameElement.value,
-            email: emailElement,
-            password: passwordField.value,
-        };
-        
-        // console.log(user);
+    if (isValid) {
+        try {
+            const response = await fetch('http://localhost:5000/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userName: nameElement.value,
+                    email: emailElement.value,
+                    password: passwordField.value,
+                }),
+            });
+          
+            const data = await response.json();
+            if (response.ok) {
+                successDiv.style.display = 'block';
+
+                setTimeout(() => {
+                    window.location.href = '../../log_in.html';
+                }, 1000);
+            } else {
+                emailError.style.display = "block";
+                emailError.innerHTML = data.message || "Đăng ký thất bại";
+            }
+        } catch (error) {
+            emailError.style.display = "block";
+            emailError.innerHTML = "Lỗi server, vui lòng thử lại";
+        }
     }
 });
 
@@ -97,7 +132,6 @@ togglePassword.addEventListener('click', function () {
     }
 });
 
-
 // Toggle for re-password field
 toggleRePassword.addEventListener('click', function () {
     const type = rePasswordField.type === 'password' ? 'text' : 'password';
@@ -112,5 +146,4 @@ toggleRePassword.addEventListener('click', function () {
         reEyeIcon.classList.add('fa-eye-slash');
     }
 });
-
 

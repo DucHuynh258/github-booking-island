@@ -43,8 +43,10 @@
                     </ul>
                 </div>
 
-                <div class="register-box">
-                    <a href="./log_in.html" class="register-btn btn--m">Đăng Nhập</a>
+                <div class="register-box" id="register-box">
+                    <a href="./log_in.html" class="register-btn btn--m" id="login-btn">Đăng Nhập</a>
+                    <span class="user-name" id="user-name" style="display: none;"></span>
+                    <button class="logout-btn btn--m" id="logout-btn" style="display: none;">Đăng Xuất</button>
                 </div>
             </div>
         </header>
@@ -525,48 +527,83 @@
     <script src="./assets/script/header.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-        const list = document.querySelector('.popular-places__list');
-        const btnPrev = document.querySelector('.popular-places__nav-btn .fa-chevron-left').parentElement;
-        const btnNext = document.querySelector('.popular-places__nav-btn .fa-chevron-right').parentElement;
-        const scrollAmount = 307; // Số px scroll mỗi lần bấm
+            const token = localStorage.getItem('token');
+            const userName = localStorage.getItem('userName');
+            const loginBtn = document.getElementById('login-btn');
+            const userNameSpan = document.getElementById('user-name');
+            const logoutBtn = document.getElementById('logout-btn');
 
-        // Hàm kiểm tra trạng thái scroll để bật/tắt nút
-        function updateButtons() {
-            // scrollLeft = khoảng cách đã scroll từ trái
-            // scrollWidth = tổng chiều rộng nội dung
-            // clientWidth = chiều rộng phần tử nhìn thấy
-            if (list.scrollLeft <= 0) {
-            btnPrev.classList.add('popular-places__nav-btn--disabled');
-            } else {
-            btnPrev.classList.remove('popular-places__nav-btn--disabled');
+            if (token && userName) {
+                // Xác minh token
+                fetch('http://localhost:5000/api/user', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.userName) {
+                        loginBtn.style.display = 'none';
+                        userNameSpan.style.display = 'inline';
+                        userNameSpan.textContent = `Xin chào, ${data.userName}`;
+                        logoutBtn.style.display = 'inline';
+                    } else {
+                        localStorage.removeItem('token');
+                        localStorage.removeItem('userName');
+                    }
+                })
+                .catch(() => {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('userName');
+                });
             }
 
-            if (list.scrollLeft + list.clientWidth >= list.scrollWidth - 1) {
-            btnNext.classList.add('popular-places__nav-btn--disabled');
-            } else {
-            btnNext.classList.remove('popular-places__nav-btn--disabled');
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('userName');
+                window.location.reload();
+            });
+
+            const list = document.querySelector('.popular-places__list');
+            const btnPrev = document.querySelector('.popular-places__nav-btn .fa-chevron-left').parentElement;
+            const btnNext = document.querySelector('.popular-places__nav-btn .fa-chevron-right').parentElement;
+            const scrollAmount = 307; // Số px scroll mỗi lần bấm
+
+            // Hàm kiểm tra trạng thái scroll để bật/tắt nút
+            function updateButtons() {
+                // scrollLeft = khoảng cách đã scroll từ trái
+                // scrollWidth = tổng chiều rộng nội dung
+                // clientWidth = chiều rộng phần tử nhìn thấy
+                if (list.scrollLeft <= 0) {
+                    btnPrev.classList.add('popular-places__nav-btn--disabled');
+                } else {
+                    btnPrev.classList.remove('popular-places__nav-btn--disabled');
+                }
+
+                if (list.scrollLeft + list.clientWidth >= list.scrollWidth - 1) {
+                    btnNext.classList.add('popular-places__nav-btn--disabled');
+                } else {
+                    btnNext.classList.remove('popular-places__nav-btn--disabled');
+                }
             }
-        }
 
-        // Scroll list sang trái
-        btnPrev.addEventListener('click', () => {
-            if (!btnPrev.classList.contains('popular-places__nav-btn--disabled')) {
-            list.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-            }
-        });
+            // Scroll list sang trái
+            btnPrev.addEventListener('click', () => {
+                if (!btnPrev.classList.contains('popular-places__nav-btn--disabled')) {
+                    list.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                }
+            });
 
-        // Scroll list sang phải
-        btnNext.addEventListener('click', () => {
-            if (!btnNext.classList.contains('popular-places__nav-btn--disabled')) {
-            list.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-            }
-        });
+            // Scroll list sang phải
+            btnNext.addEventListener('click', () => {
+                if (!btnNext.classList.contains('popular-places__nav-btn--disabled')) {
+                    list.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                }
+            });
 
-        // Cập nhật trạng thái nút khi scroll
-        list.addEventListener('scroll', updateButtons);
+            // Cập nhật trạng thái nút khi scroll
+            list.addEventListener('scroll', updateButtons);
 
-        // Khởi tạo trạng thái nút lúc đầu
-        updateButtons();
+            // Khởi tạo trạng thái nút lúc đầu
+            updateButtons();
         });
 
     </script>
