@@ -23,6 +23,7 @@
                 <div class="content__input-wrapper">
                     <input type="email" id="email" class="content__input" placeholder=" " required>
                     <label for="email" class="content__input-label">Địa Chỉ Email</label>
+                    <div id="email-error" class="error-message">Email không được để trống</div>
                 </div>
 
                 <div class="content__input-wrapper">
@@ -32,9 +33,10 @@
                         <button type="button" id="togglePassword" class="content__input-tooggle-password">
                             <i class="content__input-tooggle-password-icon fa-solid fa-eye"></i>
                         </button>
+                        <div id="password-error" class="errorPassword-message">Mật khẩu không được để trống</div>
                     </div>
                 </div>
-                <button class="content__submit">Đăng Nhập</button>
+                <button class="content__submit" id="content__submit">Đăng Nhập</button>
                 <span class="content__description">Bạn chưa có tài khoản? Hãy <a href="./register.html" class="content__link">đăng ký</a></span>
                 <hr class="order-line">
                 <button class="content__with-google">

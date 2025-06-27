@@ -16,6 +16,36 @@
     text-decoration: none;
 }
 
+#successMessage{
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #e0ffe0;
+    padding: 30px 60px;
+    border: 2px solid #00aa00;
+    border-radius: 10px;
+    font-size: 20px;
+    color: #006600;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    text-align: center;
+}
+
+.dots::after {
+    content: '';
+    display: inline-block;
+    animation: dots 1.5s steps(3, end) infinite;
+}
+
+ @keyframes dots {
+    0% { content: ''; }
+    33% { content: '.'; }
+    66% { content: '..'; }
+    100% { content: '...'; }
+ }
+
 .modal {
     display: flex;
     align-self: center;
