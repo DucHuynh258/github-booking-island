@@ -3,6 +3,7 @@ const contentSubmit = document.getElementById("content__submit-id");
 const successDiv = document.getElementById('successMessage');
 const nameElement = document.getElementById("name");
 const emailElement = document.getElementById("email");
+const contentInputWrapper = document.getElementById("content__input-wrapper")
 
 const togglePassword = document.getElementById('togglePassword');
 const passwordField = document.getElementById('password');
@@ -69,7 +70,8 @@ contentSubmit.addEventListener("click", async function(e){
         isValid = false;
     } else if (!validatePassword(passwordField.value)) {
         passwordError.style.display = "block";
-        passwordError.innerHTML = "Mật khẩu không đúng định dạng";
+        contentInputWrapper.style.marginBottom = "30px";
+        passwordError.innerHTML = "Mật khẩu có ít nhất 8 ký tự gồm số, chữ hoa, chữ thường và 1 ký tự đặc biệt!";
         isValid = false;
     }
 
