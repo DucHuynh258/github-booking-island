@@ -3,7 +3,7 @@
 }
 
 .banner {
-    background: linear-gradient(rgba(255,255,255, 0.01), rgba(255,255,255,0.35)), url('../img/hotel_page/dao_binh_hung_banner.jpg');
+    background: linear-gradient(rgba(45, 43, 43, 0.384), rgba(26, 19, 19, 0.105)), url('../img/hotel_page/roman_banner.jpg');
     background-size: cover;
     background-position: center;
     height: 654px;
@@ -21,16 +21,19 @@
 
 .banner-header {
     font-size: 4rem;
-    color: var(--text-color);
+    color: white;
     text-transform: capitalize;
     margin: 0;
     margin-bottom: 8px;
     line-height: 5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
 }
 
 .banner-description {
     font-size: 2rem;
-    color: var(--text-color);
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .filter {
