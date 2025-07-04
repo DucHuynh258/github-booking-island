@@ -3,7 +3,7 @@
 }
 
 .banner {
-    background: linear-gradient(rgba(45, 43, 43, 0.384), rgba(26, 19, 19, 0.105)), url('../img/hotel_page/roman_banner.jpg');
+    background: linear-gradient(rgba(255, 255, 255, 0.384), rgba(255, 255, 255, 0.205)), url('../img/hotel_page/dao_binh_hung_banner.jpg ');
     background-size: cover;
     background-position: center;
     height: 654px;
@@ -286,3 +286,58 @@
 
 }
 
+.location-section {
+
+}
+
+.location-title {
+    margin-bottom: 18px;
+}
+
+.location-header {
+    font-size: 5rem;
+    line-height: 6rem;
+    margin: 0;
+    margin-bottom: 4px;
+    color: var(--text-color);
+}
+
+.location-description {
+    font-size: 2rem;
+    color: var(--description-color);
+}
+
+.location-content {
+    position: relative;
+    height: 304px;
+    border-radius: 16px;
+    overflow: hidden; /* Đảm bảo ảnh không bị tràn */
+    cursor: pointer;
+    transition: box-shadow 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+.location-bg {
+    position: absolute;
+    inset: 0;
+    background: url('../img/hotel_page/phuquoc_show_ebkmxx_.webp') center/cover no-repeat;
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), rotate 0.4s cubic-bezier(0.4,0,0.2,1);
+    z-index: 1;
+}
+
+.location-content:hover .location-bg {
+    transform: scale(1.1);
+    rotate: 1deg;
+}
+
+.location-img-description {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-size: 2.2rem;
+    color: var(--white-color);
+    z-index: 2;
+}
+
+.location-content:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
