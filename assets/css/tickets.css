@@ -19,6 +19,18 @@
     border-radius: 16px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     min-width: 80%;
+    /* Thêm transition để hiệu ứng mượt mà */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+/* === HIỆU ỨNG NỔI LÊN CHO KHUNG TÌM KIẾM (MỚI) === */
+
+.ticket-search-form:hover {
+    transform: translateY(-5px);
+    /* Nâng nhẹ khung lên */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    /* Tạo bóng đổ rõ hơn */
 }
 
 .ticket-search-form__heading {
@@ -34,9 +46,6 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-}
-
-.form-body {
     user-select: none;
 }
 
@@ -168,8 +177,6 @@
     justify-content: space-between;
 }
 
-.ticket-heading-content {}
-
 .ticket-heading {
     font-size: 4rem;
     line-height: 4rem;
@@ -182,39 +189,6 @@
     color: var(--description-color);
     display: block;
     margin: 12px 0;
-}
-
-.ticket-nav {
-    display: flex;
-    justify-content: space-between;
-    width: 120px;
-}
-
-.ticket-nav-btn {
-    background-color: var(--black-color);
-}
-
-.ticket-nav-btn:hover {
-    opacity: 0.8;
-}
-
-.ticket-nav-btn--disabled.ticket-nav-btn:hover {
-    opacity: unset;
-}
-
-.ticket-nav-btn--disabled.ticket-nav-btn {
-    background-color: #f0f0f0;
-}
-
-.ticket-nav-btn--disabled.ticket-nav-btn .ticket-nav-icon {
-    color: var(--black-color);
-}
-
-.ticket-nav-btn--disabled {}
-
-.ticket-nav-icon {
-    color: var(--white-color);
-    font-size: 2rem;
 }
 
 .arrow-section {
@@ -239,7 +213,6 @@
 .arrow-right__icon,
 .arrow-left__icon {
     font-size: 1.6rem;
-    color: #000;
     color: var(--description-color);
 }
 
@@ -250,28 +223,16 @@
     border: 1px solid rgb(103 109 112);
 }
 
-.arrow-right {}
-
 .arrow-right__icon {
     margin-left: -1px;
 }
 
-.arrow-right__line {}
-
 .tickets-list {
     display: flex;
+    flex-wrap: wrap;
     list-style: none;
-    margin: 0;
-    padding: 0;
     margin: 0 -12px;
     margin-top: 12px;
-    overflow-x: scroll;
-    height: 164px;
-    align-items: center;
-}
-
-.tickets-list::-webkit-scrollbar {
-    display: none;
 }
 
 .tickets-item {
@@ -280,6 +241,19 @@
     border-radius: 8px;
     box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.15);
     position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* Thêm transition để hiệu ứng mượt mà */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+/* === HIỆU ỨNG NỔI LÊN KHI DI CHUỘT CHO VÉ === */
+
+.tickets-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .tickets-item__brand {
@@ -290,6 +264,7 @@
     border-radius: 14px;
     box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.05);
     display: inline-block;
+    align-self: flex-start;
 }
 
 .tickets-item__footer,
@@ -299,6 +274,11 @@
     list-style: none;
     margin: 0;
     padding: 0;
+}
+
+.tickets-item__places {
+    flex-grow: 1;
+    align-items: center;
 }
 
 .tickets-item__place-name {
@@ -332,125 +312,7 @@
 }
 
 
-/* Thêm các style này vào cuối file tickets.css của bạn */
-
-
-/* Popup styles */
-
-.popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: none;
-    /* Ban đầu ẩn */
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.popup-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 28px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #333;
-}
-
-.popup-content h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.booking-details .form-group {
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-}
-
-.booking-details .form-group label {
-    margin-right: 10px;
-    font-weight: bold;
-}
-
-.booking-details input[type="number"] {
-    width: 60px;
-    padding: 5px;
-}
-
-#seat-selection {
-    margin-top: 20px;
-}
-
-.seat-map {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-    margin-top: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.seat {
-    background-color: #ccc;
-    text-align: center;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.seat.selected {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.seat.unavailable {
-    background-color: #f44336;
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-.booking-details p {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-top: 20px;
-    text-align: right;
-}
-
-#confirm-booking {
-    display: block;
-    width: 100%;
-    margin-top: 20px;
-}
-
-.tickets-item__more-btn.book-ticket-btn {
-    background-color: #007bff;
-    color: white;
-}
-
-
-/* === POPUP AND BOOKING STYLES === */
-
-
-/* Pop-up overlay */
+/* === POP-UP STYLES === */
 
 .popup-overlay {
     position: fixed;
@@ -460,14 +322,10 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
     display: none;
-    /* Hidden by default */
     justify-content: center;
     align-items: center;
     z-index: 1000;
 }
-
-
-/* Pop-up content box */
 
 .popup-content {
     background-color: #fff;
@@ -486,9 +344,6 @@
     color: #333;
 }
 
-
-/* Close button on pop-up */
-
 .close-btn {
     position: absolute;
     top: 10px;
@@ -502,8 +357,23 @@
     color: #888;
 }
 
+.booking-details .form-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
 
-/* Seat selection section */
+.booking-details .form-group label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.booking-details input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
 #seat-selection {
     margin-top: 20px;
@@ -514,9 +384,6 @@
     font-size: 16px;
     font-weight: 500;
 }
-
-
-/* Grid for the seat map */
 
 .seat-map {
     display: grid;
@@ -540,21 +407,16 @@
 
 .seat.selected {
     background-color: #28a745;
-    /* Green for selected */
     color: white;
     font-weight: bold;
 }
 
 .seat.unavailable {
     background-color: #dc3545;
-    /* Red for unavailable */
     color: white;
     cursor: not-allowed;
     opacity: 0.7;
 }
-
-
-/* Total price text */
 
 .booking-details p {
     font-size: 1.2rem;
@@ -571,9 +433,48 @@
 }
 
 
+/* === FILTERING EFFECTS === */
+
+.tickets-item__more-btn.book-ticket-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+@keyframes fadeOutScale {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.ticket-col-fade-out {
+    animation: fadeOutScale 0.3s ease-out forwards;
+}
+
+.ticket-col-fade-in {
+    animation: fadeInScale 0.4s ease-in forwards;
+}
+
+
 /* === NO RESULTS MESSAGE === */
 
 .no-results {
+    width: 100%;
     text-align: center;
     padding: 50px 20px;
     background-color: #f8f9fa;

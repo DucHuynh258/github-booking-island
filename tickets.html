@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
@@ -25,8 +25,7 @@
                         <img src="./assets/img/base/logo.png" alt="logo" class="logo__img">
                     </a>
                 </div>
-
-                <div class="navbar" id="navbar">
+                <nav class="navbar" id="navbar">
                     <ul class="navbar__list">
                         <li class="navbar__item">
                             <a class="navbar__link" href="./home.html">HOME</a>
@@ -44,20 +43,19 @@
                             <a class="navbar__link" href="">CONTACT</a>
                         </li>
                     </ul>
-                </div>
-
+                </nav>
                 <div class="register-box">
                     <a href="./log_in.html" class="register-btn btn--m">Đăng Nhập</a>
                 </div>
             </div>
         </header>
 
-        <div class="app_container">
+        <main class="app_container">
             <div class="grid wide">
                 <div class="ticket-search-container">
                     <div class="ticket-search-form">
                         <h2 class="ticket-search-form__heading">Đặt vé tàu cao tốc và máy bay</h2>
-                        <form action="" class="form-body">
+                        <form id="main-search-form" class="form-body">
                             <div class="row">
                                 <div class="col l-6">
                                     <div class="form-group">
@@ -65,13 +63,11 @@
                                         <div class="form-group__body">
                                             <label for="departure">Điểm đi</label>
                                             <select id="departure" class="form-group__select">
-                                                <option value="vungtau">Rạch Giá</option>
-                                                <option value="vungtau">Hà Tiên</option>
-                                                <option value="phanthiet">Phan Thiết</option>
-                                                <option value="camranh">Cam Ranh</option>
-                                                <option value="binhhung">Đảo Bình Hưng</option>
-                                                <option value="phuquy">Đảo Phú Quý</option>
-                                                <option value="phuquoc">Đảo Phú Quốc</option>
+                                                <option value="any">Tất cả điểm đi</option>
+                                                <option value="Rạch Giá">Rạch Giá</option>
+                                                <option value="Hà Tiên">Hà Tiên</option>
+                                                <option value="Phan Thiết">Phan Thiết</option>
+                                                <option value="Cam Ranh">Cam Ranh</option>
                                             </select>
                                         </div>
                                     </div>
@@ -82,13 +78,10 @@
                                         <div class="form-group__body">
                                             <label for="destination">Điểm đến</label>
                                             <select id="destination" class="form-group__select">
-                                                <option value="vungtau">Rạch Giá</option>
-                                                <option value="vungtau">Hà Tiên</option>
-                                                <option value="phanthiet">Phan Thiết</option>
-                                                <option value="camranh">Cam Ranh</option>
-                                                <option value="binhhung">Đảo Bình Hưng</option>
-                                                <option value="phuquy">Đảo Phú Quý</option>
-                                                <option value="phuquoc">Đảo Phú Quốc</option>
+                                                <option value="any">Tất cả điểm đến</option>
+                                                <option value="Phú Quốc">Đảo Phú Quốc</option>
+                                                <option value="Phú Quý">Đảo Phú Quý</option>
+                                                <option value="Bình Hưng">Đảo Bình Hưng</option>
                                             </select>
                                         </div>
                                     </div>
@@ -123,7 +116,6 @@
                                                 <option value="2">2 người</option>
                                                 <option value="3">3 người</option>
                                                 <option value="4">4 người</option>
-                                                <option value="5">5+ người</option>
                                             </select>
                                         </div>
                                     </div>
@@ -141,162 +133,44 @@
                 </div>
             </div>
 
-            <div class="grid wide">
-                <div class="benefits-section mt-64">
-                    <div class="row">
-                        <div class="col l-3">
-                            <div class="benefit-item">
-                                <i class="benefit-item__icon fa-solid fa-tags"></i>
-                                <h4 class="benefit-item__heading">Giá vé tốt nhất</h4>
-                                <span class="benefit-item__desc">Giá vé cạnh tranh và nhiều ưu đãi hấp dẫn.</span>
-                            </div>
-                        </div>
-                        <div class="col l-3">
-                            <div class="benefit-item">
-                                <i class="benefit-item__icon fa-solid fa-shield-halved"></i>
-                                <h4 class="benefit-item__heading">Thanh toán an toàn</h4>
-                                <span class="benefit-item__desc">Bảo mật thông tin thanh toán tuyệt đối.</span>
-                            </div>
-                        </div>
-                        <div class="col l-3">
-                            <div class="benefit-item">
-                                <i class="benefit-item__icon fa-solid fa-headset"></i>
-                                <h4 class="benefit-item__heading">Hỗ trợ 24/7</h4>
-                                <span class="benefit-item__desc">Luôn sẵn sàng giải đáp mọi thắc mắc của bạn.</span>
-                            </div>
-                        </div>
-                        <div class="col l-3">
-                            <div class="benefit-item">
-                                <i class="benefit-item__icon fa-solid fa-check-to-slot"></i>
-                                <h4 class="benefit-item__heading">Xác nhận tức thì</h4>
-                                <span class="benefit-item__desc">Nhận vé điện tử ngay sau khi đặt thành công.</span>
-                            </div>
-                        </div>
-                    </div>
+            <div class="grid wide" id="tickets-result-container">
+                <div id="no-results-message" class="no-results" style="display: none;">
+                    <i class="fa-solid fa-ticket"></i>
+                    <h3>Không tìm thấy vé phù hợp</h3>
+                    <p>Vui lòng thử tìm kiếm với lựa chọn khác.</p>
                 </div>
 
-                <div class="ticket-section mt-108">
+                <section class="ticket-section mt-108">
                     <div class="ticket-header">
-                        <div class="ticket-heading-content">
-                            <h3 class="ticket-heading">tuyến tàu phan thiết - phú quý </h3>
-                            <span class="ticket-decription">Khám phá các tuyến tàu Phan Thiết - Phú Quý và đặt vé ngay với giá ưu đãi!</span>
-                        </div>
-                        <div class="ticket-nav">
-                            <button class="ticket-nav-btn btn--s ticket-nav-btn--disabled">
-                                <i class="ticket-nav-icon fas fa-chevron-left"></i>
-                            </button>
-                            <button class="ticket-nav-btn btn--s">
-                                <i class="ticket-nav-icon fas fa-chevron-right"></i>
-                            </button>
+                        <h3 class="ticket-heading">Tuyến tàu Phan Thiết - Phú Quý</h3>
+                    </div>
+                    <div class="row tickets-list">
+                        <div class="col l-4">
+                            <article class="tickets-item">
+                                <div class="arrow-section"><span class="arrow-time">2h 10p</span></div>
+                                <h4 class="tickets-item__brand">Tàu Superdong</h4>
+                                <ul class="tickets-item__places">
+                                    <li class="tickets-item__place-name">Phan Thiết</li>
+                                    <li class="tickets-item__place-name">Phú Quý</li>
+                                </ul>
+                                <div class="tickets-item__footer">
+                                    <span class="tickets-item__price">400.000 đ</span>
+                                    <a href="#" class="tickets-item__more-btn book-ticket-btn" data-price="400000">Đặt vé</a>
+                                </div>
+                            </article>
                         </div>
                     </div>
-                    <ul class="tickets-list">
-                        <div class="col l-4">
-                            <li class="tickets-item">
-                                <div class="arrow-section">
-                                    <span class="arrow-time">2h10p</span>
-                                    <div class="arrow-left">
-                                        <i class="arrow-left__icon fa-solid fa-arrow-left"></i>
-                                        <div class="arrow-left__line"></div>
-                                    </div>
-                                    <div class="arrow-right">
-                                        <div class="arrow-right__line"></div>
-                                        <i class="arrow-right__icon fa-solid fa-arrow-right"></i>
-                                    </div>
-                                </div>
-                                <span class="tickets-item__brand">Tàu Superdong</span>
-                                <ul class="tickets-item__places">
-                                    <li class="tickets-item__place-name">Phan Thiết</li>
-                                    <li class="tickets-item__place-name">Phú Quý</li>
-                                </ul>
-                                <div class="tickets-item__footer">
-                                    <span class="tickets-item__price">400.000 đ</span>
-                                    <a href="#" class="tickets-item__more-btn book-ticket-btn" data-price="400000">Đặt vé</a>
-                                </div>
-                            </li>
-                        </div>
-                        <div class="col l-4">
-                            <li class="tickets-item">
-                                <div class="arrow-section">
-                                    <span class="arrow-time">2h10p</span>
-                                    <div class="arrow-left">
-                                        <i class="arrow-left__icon fa-solid fa-arrow-left"></i>
-                                        <div class="arrow-left__line"></div>
-                                    </div>
-                                    <div class="arrow-right">
-                                        <div class="arrow-right__line"></div>
-                                        <i class="arrow-right__icon fa-solid fa-arrow-right"></i>
-                                    </div>
-                                </div>
-                                <span class="tickets-item__brand">Tàu Superdong</span>
-                                <ul class="tickets-item__places">
-                                    <li class="tickets-item__place-name">Phan Thiết</li>
-                                    <li class="tickets-item__place-name">Phú Quý</li>
-                                </ul>
-                                <div class="tickets-item__footer">
-                                    <span class="tickets-item__price">400.000 đ</span>
-                                    <a href="#" class="tickets-item__more-btn book-ticket-btn" data-price="400000">Đặt vé</a>
-                                </div>
-                            </li>
-                        </div>
-                        <div class="col l-4">
-                            <li class="tickets-item">
-                                <div class="arrow-section">
-                                    <span class="arrow-time">2h10p</span>
-                                    <div class="arrow-left">
-                                        <i class="arrow-left__icon fa-solid fa-arrow-left"></i>
-                                        <div class="arrow-left__line"></div>
-                                    </div>
-                                    <div class="arrow-right">
-                                        <div class="arrow-right__line"></div>
-                                        <i class="arrow-right__icon fa-solid fa-arrow-right"></i>
-                                    </div>
-                                </div>
-                                <span class="tickets-item__brand">Tàu Superdong</span>
-                                <ul class="tickets-item__places">
-                                    <li class="tickets-item__place-name">Phan Thiết</li>
-                                    <li class="tickets-item__place-name">Phú Quý</li>
-                                </ul>
-                                <div class="tickets-item__footer">
-                                    <span class="tickets-item__price">400.000 đ</span>
-                                    <a href="#" class="tickets-item__more-btn book-ticket-btn" data-price="400000">Đặt vé</a>
-                                </div>
-                            </li>
-                        </div>
+                </section>
 
-                    </ul>
-                </div>
-
-                <div class="ticket-section mt-108">
+                <section class="ticket-section mt-108">
                     <div class="ticket-header">
-                        <div class="ticket-heading-content">
-                            <h3 class="ticket-heading">tuyến tàu đến phú quốc </h3>
-                            <span class="ticket-decription">Khám phá các tuyến tàu ra đảo Phú Quốc và đặt vé ngay với giá ưu đãi!</span>
-                        </div>
-                        <div class="ticket-nav">
-                            <button class="ticket-nav-btn btn--s ticket-nav-btn--disabled">
-                                <i class="ticket-nav-icon fas fa-chevron-left"></i>
-                            </button>
-                            <button class="ticket-nav-btn btn--s">
-                                <i class="ticket-nav-icon fas fa-chevron-right"></i>
-                            </button>
-                        </div>
+                        <h3 class="ticket-heading">Tuyến tàu đến Phú Quốc</h3>
                     </div>
-                    <ul class="tickets-list">
+                    <div class="row tickets-list">
                         <div class="col l-4">
-                            <li class="tickets-item">
-                                <div class="arrow-section">
-                                    <span class="arrow-time">1h30p</span>
-                                    <div class="arrow-left">
-                                        <i class="arrow-left__icon fa-solid fa-arrow-left"></i>
-                                        <div class="arrow-left__line"></div>
-                                    </div>
-                                    <div class="arrow-right">
-                                        <div class="arrow-right__line"></div>
-                                        <i class="arrow-right__icon fa-solid fa-arrow-right"></i>
-                                    </div>
-                                </div>
-                                <span class="tickets-item__brand">Tàu Superdong</span>
+                            <article class="tickets-item">
+                                <div class="arrow-section"><span class="arrow-time">1h 30p</span></div>
+                                <h4 class="tickets-item__brand">Tàu Superdong</h4>
                                 <ul class="tickets-item__places">
                                     <li class="tickets-item__place-name">Rạch Giá</li>
                                     <li class="tickets-item__place-name">Phú Quốc</li>
@@ -305,22 +179,12 @@
                                     <span class="tickets-item__price">340.000 đ</span>
                                     <a href="#" class="tickets-item__more-btn book-ticket-btn" data-price="340000">Đặt vé</a>
                                 </div>
-                            </li>
+                            </article>
                         </div>
                         <div class="col l-4">
-                            <li class="tickets-item">
-                                <div class="arrow-section">
-                                    <span class="arrow-time">1h40p</span>
-                                    <div class="arrow-left">
-                                        <i class="arrow-left__icon fa-solid fa-arrow-left"></i>
-                                        <div class="arrow-left__line"></div>
-                                    </div>
-                                    <div class="arrow-right">
-                                        <div class="arrow-right__line"></div>
-                                        <i class="arrow-right__icon fa-solid fa-arrow-right"></i>
-                                    </div>
-                                </div>
-                                <span class="tickets-item__brand">Tàu Phú Quốc Express</span>
+                            <article class="tickets-item">
+                                <div class="arrow-section"><span class="arrow-time">1h 40p</span></div>
+                                <h4 class="tickets-item__brand">Tàu Phú Quốc Express</h4>
                                 <ul class="tickets-item__places">
                                     <li class="tickets-item__place-name">Hà Tiên</li>
                                     <li class="tickets-item__place-name">Phú Quốc</li>
@@ -329,129 +193,34 @@
                                     <span class="tickets-item__price">250.000 đ</span>
                                     <a href="#" class="tickets-item__more-btn book-ticket-btn" data-price="250000">Đặt vé</a>
                                 </div>
-                            </li>
-                        </div>
-                        <div class="col l-4">
-                            <li class="tickets-item">
-                                <div class="arrow-section">
-                                    <span class="arrow-time">1h30p</span>
-                                    <div class="arrow-left">
-                                        <i class="arrow-left__icon fa-solid fa-arrow-left"></i>
-                                        <div class="arrow-left__line"></div>
-                                    </div>
-                                    <div class="arrow-right">
-                                        <div class="arrow-right__line"></div>
-                                        <i class="arrow-right__icon fa-solid fa-arrow-right"></i>
-                                    </div>
-                                </div>
-                                <span class="tickets-item__brand">Tàu Superdong</span>
-                                <ul class="tickets-item__places">
-                                    <li class="tickets-item__place-name">Rạch Giá</li>
-                                    <li class="tickets-item__place-name">Phú Quốc</li>
-                                </ul>
-                                <div class="tickets-item__footer">
-                                    <span class="tickets-item__price">340.000 đ</span>
-                                    <a href="#" class="tickets-item__more-btn book-ticket-btn" data-price="340000">Đặt vé</a>
-                                </div>
-                            </li>
-                        </div>
-
-                    </ul>
-                </div>
-
-                <div class="ticket-section mt-108">
-                    <div class="ticket-header">
-                        <div class="ticket-heading-content">
-                            <h3 class="ticket-heading">tuyến tàu cam ranh - bình Hưng </h3>
-                            <span class="ticket-decription">Khám phá các tuyến tàu Cam Ranh - Bình Hưng và đặt vé ngay với giá ưu đãi!</span>
-                        </div>
-                        <div class="ticket-nav">
-                            <button class="ticket-nav-btn btn--s ticket-nav-btn--disabled">
-                                <i class="ticket-nav-icon fas fa-chevron-left"></i>
-                            </button>
-                            <button class="ticket-nav-btn btn--s">
-                                <i class="ticket-nav-icon fas fa-chevron-right"></i>
-                            </button>
+                            </article>
                         </div>
                     </div>
-                    <ul class="tickets-list">
-                        <div class="col l-4">
-                            <li class="tickets-item">
-                                <div class="arrow-section">
-                                    <span class="arrow-time">40p</span>
-                                    <div class="arrow-left">
-                                        <i class="arrow-left__icon fa-solid fa-arrow-left"></i>
-                                        <div class="arrow-left__line"></div>
-                                    </div>
-                                    <div class="arrow-right">
-                                        <div class="arrow-right__line"></div>
-                                        <i class="arrow-right__icon fa-solid fa-arrow-right"></i>
-                                    </div>
-                                </div>
-                                <span class="tickets-item__brand">Cano</span>
-                                <ul class="tickets-item__places">
-                                    <li class="tickets-item__place-name">Cam Ranh</li>
-                                    <li class="tickets-item__place-name">Bình Hưng</li>
-                                </ul>
-                                <div class="tickets-item__footer">
-                                    <span class="tickets-item__price">40.000 đ</span>
-                                    <a href="#" class="tickets-item__more-btn book-ticket-btn" data-price="40000">Đặt vé</a>
-                                </div>
-                            </li>
-                        </div>
-                        <div class="col l-4">
-                            <li class="tickets-item">
-                                <div class="arrow-section">
-                                    <span class="arrow-time">40p</span>
-                                    <div class="arrow-left">
-                                        <i class="arrow-left__icon fa-solid fa-arrow-left"></i>
-                                        <div class="arrow-left__line"></div>
-                                    </div>
-                                    <div class="arrow-right">
-                                        <div class="arrow-right__line"></div>
-                                        <i class="arrow-right__icon fa-solid fa-arrow-right"></i>
-                                    </div>
-                                </div>
-                                <span class="tickets-item__brand">Cano</span>
-                                <ul class="tickets-item__places">
-                                    <li class="tickets-item__place-name">Cam Ranh</li>
-                                    <li class="tickets-item__place-name">Bình Hưng</li>
-                                </ul>
-                                <div class="tickets-item__footer">
-                                    <span class="tickets-item__price">40.000 đ</span>
-                                    <a href="#" class="tickets-item__more-btn book-ticket-btn" data-price="40000">Đặt vé</a>
-                                </div>
-                            </li>
-                        </div>
-                        <div class="col l-4">
-                            <li class="tickets-item">
-                                <div class="arrow-section">
-                                    <span class="arrow-time">40p</span>
-                                    <div class="arrow-left">
-                                        <i class="arrow-left__icon fa-solid fa-arrow-left"></i>
-                                        <div class="arrow-left__line"></div>
-                                    </div>
-                                    <div class="arrow-right">
-                                        <div class="arrow-right__line"></div>
-                                        <i class="arrow-right__icon fa-solid fa-arrow-right"></i>
-                                    </div>
-                                </div>
-                                <span class="tickets-item__brand">Cano</span>
-                                <ul class="tickets-item__places">
-                                    <li class="tickets-item__place-name">Cam Ranh</li>
-                                    <li class="tickets-item__place-name">Bình Hưng</li>
-                                </ul>
-                                <div class="tickets-item__footer">
-                                    <span class="tickets-item__price">40.000 đ</span>
-                                    <a href="#" class="tickets-item__more-btn book-ticket-btn" data-price="40000">Đặt vé</a>
-                                </div>
-                            </li>
-                        </div>
-                    </ul>
-                </div>
+                </section>
 
+                <section class="ticket-section mt-108">
+                    <div class="ticket-header">
+                        <h3 class="ticket-heading">Tuyến tàu Cam Ranh - Bình Hưng</h3>
+                    </div>
+                    <div class="row tickets-list">
+                        <div class="col l-4">
+                            <article class="tickets-item">
+                                <div class="arrow-section"><span class="arrow-time">40p</span></div>
+                                <h4 class="tickets-item__brand">Cano</h4>
+                                <ul class="tickets-item__places">
+                                    <li class="tickets-item__place-name">Cam Ranh</li>
+                                    <li class="tickets-item__place-name">Bình Hưng</li>
+                                </ul>
+                                <div class="tickets-item__footer">
+                                    <span class="tickets-item__price">40.000 đ</span>
+                                    <a href="#" class="tickets-item__more-btn book-ticket-btn" data-price="40000">Đặt vé</a>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </section>
             </div>
-        </div>
+        </main>
 
         <footer class="footer mt-108">
             <div class="grid wide">

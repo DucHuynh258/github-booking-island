@@ -570,13 +570,10 @@
             const list = document.querySelector('.popular-places__list');
             const btnPrev = document.querySelector('.popular-places__nav-btn .fa-chevron-left').parentElement;
             const btnNext = document.querySelector('.popular-places__nav-btn .fa-chevron-right').parentElement;
-            const scrollAmount = 307; // Số px scroll mỗi lần bấm
+            const scrollAmount = 307;
 
-            // Hàm kiểm tra trạng thái scroll để bật/tắt nút
             function updateButtons() {
-                // scrollLeft = khoảng cách đã scroll từ trái
-                // scrollWidth = tổng chiều rộng nội dung
-                // clientWidth = chiều rộng phần tử nhìn thấy
+
                 if (list.scrollLeft <= 0) {
                     btnPrev.classList.add('popular-places__nav-btn--disabled');
                 } else {
@@ -590,7 +587,6 @@
                 }
             }
 
-            // Scroll list sang trái
             btnPrev.addEventListener('click', () => {
                 if (!btnPrev.classList.contains('popular-places__nav-btn--disabled')) {
                     list.scrollBy({
@@ -599,8 +595,6 @@
                     });
                 }
             });
-
-            // Scroll list sang phải
             btnNext.addEventListener('click', () => {
                 if (!btnNext.classList.contains('popular-places__nav-btn--disabled')) {
                     list.scrollBy({
@@ -610,13 +604,101 @@
                 }
             });
 
-            // Cập nhật trạng thái nút khi scroll
             list.addEventListener('scroll', updateButtons);
-
-            // Khởi tạo trạng thái nút lúc đầu
             updateButtons();
         });
     </script>
+</body>
+
+</html>
+<script src="./assets/script/header.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('token');
+        const userName = localStorage.getItem('userName');
+        const loginBtn = document.getElementById('login-btn');
+        const userNameSpan = document.getElementById('user-name');
+        const logoutBtn = document.getElementById('logout-btn');
+
+        if (token && userName) {
+            fetch('http://localhost:5000/api/user', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.userName) {
+                        loginBtn.style.display = 'none';
+                        userNameSpan.style.display = 'inline';
+                        userNameSpan.textContent = `Xin chào, ${data.userName}`;
+                        logoutBtn.style.display = 'inline';
+                    } else {
+                        localStorage.removeItem('token');
+                        localStorage.removeItem('userName');
+                    }
+                })
+                .catch(() => {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('userName');
+                });
+        }
+
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userName');
+            window.location.reload();
+        });
+
+        const saleBookBtn = document.querySelector('.sale__content-button');
+        if (saleBookBtn) {
+            saleBookBtn.addEventListener('click', () => {
+                window.location.href = 'tickets.html';
+            });
+        }
+
+        const list = document.querySelector('.popular-places__list');
+        const btnPrev = document.querySelector('.popular-places__nav-btn .fa-chevron-left').parentElement;
+        const btnNext = document.querySelector('.popular-places__nav-btn .fa-chevron-right').parentElement;
+        const scrollAmount = 307;
+
+        function updateButtons() {
+            if (!list) return;
+            if (list.scrollLeft <= 0) {
+                btnPrev.classList.add('popular-places__nav-btn--disabled');
+            } else {
+                btnPrev.classList.remove('popular-places__nav-btn--disabled');
+            }
+
+            if (list.scrollLeft + list.clientWidth >= list.scrollWidth - 1) {
+                btnNext.classList.add('popular-places__nav-btn--disabled');
+            } else {
+                btnNext.classList.remove('popular-places__nav-btn--disabled');
+            }
+        }
+        btnPrev.addEventListener('click', () => {
+            if (!btnPrev.classList.contains('popular-places__nav-btn--disabled')) {
+                list.scrollBy({
+                    left: -scrollAmount,
+                    behavior: 'smooth'
+                });
+            }
+        });
+
+        btnNext.addEventListener('click', () => {
+            if (!btnNext.classList.contains('popular-places__nav-btn--disabled')) {
+                list.scrollBy({
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+            }
+        });
+        if (list) {
+            list.addEventListener('scroll', updateButtons);
+        }
+        updateButtons();
+    });
+</script>
 </body>
 
 </html>
