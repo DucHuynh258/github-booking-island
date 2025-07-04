@@ -52,38 +52,95 @@
         <div class="app-container">
             <div class="grid wide">
                 <div class="banner">
-                    <div class="banner-header-box">
-                        <h3 class="banner-header">Trải nghiệm kỳ nghỉ tuyệt vời</h3>
-                        <span class="banner-description">Khách sạn view đẹp giá tốt nhất</span>
-                    </div>
-
-                    <div class="filter">
-                        <div class="search-bar">
-                            <div class="search-bar__icon">
-                                <i class="fa-solid fa-location-dot"></i>
-                            </div>
-                            <input class="search-bar__input" type="text" name="search" id="search" placeholder="Bạn muốn đi đâu?">
+                    <div class="banner-content">
+                        <div class="banner-header-box">
+                            <h3 class="banner-header">Trải nghiệm kỳ nghỉ tuyệt vời</h3>
+                            <span class="banner-description">Khách sạn view đẹp giá tốt nhất</span>
                         </div>
-
-                        <div class="calendar-room">
-                            <ul class="filter-calendar">
-                                <li class="filter-calendar__item">
-                                    <span class="day-of-week" id="checkin-day">Thứ ba</span>
-                                    <input type="date" id="checkin" name="checkin" onchange="updateDates()">
-                                </li>
-                                <li class="filter-calendar__item">
-                                    <span class="day-of-week" id="checkout-day">Thứ tư</span>
-                                    <input type="date" id="checkout" name="checkout" onchange="updateDates()">
-                                </li>
-                                <div class="night-info">
-                                    <span id="night-count">1</span>
-                                    <i class="night-info__icon fa-regular fa-moon"></i>
+                        
+                        <div class="filter">
+                            <div class="search-bar">
+                                <div class="search-bar__icon">
+                                    <i class="fa-solid fa-location-dot"></i>
                                 </div>
-                            </ul>
-                            <div class="filter-room">
-
+                                <input class="search-bar__input" type="text" name="search" id="search" placeholder="Bạn muốn đi đâu?">
                             </div>
-                            <button class="filter-search-btn">Tìm</button>
+                            
+                            <div class="calendar-room">
+                                <ul class="filter-calendar">
+                                    <li class="filter-calendar__item">
+                                        <span class="day-of-week" id="checkin-day">Thứ ba</span>
+                                        <input type="date" id="checkin" name="checkin" onchange="updateDates()">
+                                    </li>
+                                    <li class="filter-calendar__item">
+                                        <span class="day-of-week" id="checkout-day">Thứ tư</span>
+                                        <input type="date" id="checkout" name="checkout" onchange="updateDates()">
+                                    </li>
+                                    <div class="night-info">
+                                        <span id="night-count">1</span>
+                                        <i class="night-info__icon fa-regular fa-moon"></i>
+                                    </div>
+                                </ul>
+                                <div class="filter-room">
+                                    <div class="filter-room__icon">
+                                        <i class="fa-regular fa-user"></i>
+                                    </div>
+                                    <div class="filter-room__content">
+                                        <span class="filter-room__room">1 Phòng</span>
+                                        <span class="filter-room__people">2 người lớn, 0 trẻ em</span>
+                                    </div>
+                                    <div class="filter-room__modal">
+                                        <div class="filter-room__modal-box">
+                                            <div class="filter-room__modal-content">
+                                                <div class="filter-room__modal-text">
+                                                    <span class="filter-room__modal-title">Phòng</span>
+                                                    <span class="filter-room__modal-description"></span>
+                                                </div>
+                                                <div class="filter-room__modal-func">
+                                                    <button class="filter-room__modal-btn">
+                                                        <span>-</span>
+                                                    </button>
+                                                    <span class="filter-room__modal-value">1</span>
+                                                    <button class="filter-room__modal-btn">
+                                                        <span>+</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="filter-room__modal-content">
+                                                <div class="filter-room__modal-text">
+                                                    <span class="filter-room__modal-title">Người Lớn</span>
+                                                    <span class="filter-room__modal-description">Từ 17 tuổi</span>
+                                                </div>
+                                                <div class="filter-room__modal-func">
+                                                    <button class="filter-room__modal-btn">
+                                                        <span>-</span>
+                                                    </button>
+                                                    <span class="filter-room__modal-value">2</span>
+                                                    <button class="filter-room__modal-btn">
+                                                        <span>+</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="filter-room__modal-content">
+                                                <div class="filter-room__modal-text">
+                                                    <span class="filter-room__modal-title">Trẻ em</span>
+                                                    <span class="filter-room__modal-description">Từ 0 - 16 tuổi</span>
+                                                </div>
+                                                <div class="filter-room__modal-func">
+                                                    <button class="filter-room__modal-btn">
+                                                        <span>-</span>
+                                                    </button>
+                                                    <span class="filter-room__modal-value">0</span>
+                                                    <button class="filter-room__modal-btn">
+                                                        <span>+</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="filter-search-btn">Tìm</button>
+                            </div>
                         </div>
                     </div>
                 </div>

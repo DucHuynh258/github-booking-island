@@ -14,32 +14,39 @@
     padding-left: 120px;
 }
 
+.banner-content {
+
+}
+
 .banner-header-box {
     transform: translateY(-50px);
     margin-bottom: 12px;
 }
 
 .banner-header {
-    font-size: 4rem;
-    color: var(--text-color);
+    font-size: 5rem;
+    color: var(--primary-color);
+    text-shadow: 0 0 5px rgba(255,255,255, 0.5);
     text-transform: capitalize;
     margin: 0;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     line-height: 5rem;
+    display: block;
 }
 
 .banner-description {
-    font-size: 2rem;
-    color: var(--text-color);
+    font-size: 2.6rem;
+    color: var(--primary-color);
+    text-shadow: 0 0 5px rgba(255,255,255, 1);
 }
 
 .filter {
-    transform: translateY(-50px);
     background-color: rgba(0, 0, 0, 0.35);
+    transform: translateY(-50px);
     display: flex;
     flex-direction: column;
-    width: 600px;
-    padding: 12px;
+    width: 680px;
+    padding: 16px;
     border-radius: 8px;
     gap: 8px;
 }
@@ -62,11 +69,13 @@
     border: none;
     outline: none;
     color: var(--text-color);
-    
+    width: 100%;
+    padding: 12px 0;
 }
 
 .calendar-room {
     display: flex;
+    gap: 8px;
 }
 
 .filter-calendar {
@@ -90,13 +99,13 @@
 .filter-calendar__item:nth-child(1) {
     border-bottom-left-radius: 8px;
     border-top-left-radius: 8px;
-    padding: 6px 26px 0 12px;
+    padding: 6px 22px 0 12px;
 }
 
 .filter-calendar__item:nth-child(2) {
     border-bottom-right-radius: 8px;
     border-top-right-radius: 8px;
-    padding: 6px 12px 0 26px;
+    padding: 6px 12px 0 22px;
 }
 
 
@@ -109,7 +118,7 @@
 
 .filter-calendar__item input[type="date"]::-webkit-calendar-picker-indicator {
     font-size: 2rem;
-    margin-left: -20px;
+    margin-left: -14px;
 }
 
 .day-of-week {
@@ -133,10 +142,147 @@
 
 .filter-room {
     flex: 4;
+    border-radius: 8px;
+    background-color: var(--white-color);
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
 }   
+
+.filter-room:hover .filter-room__modal {
+    display: block;
+}
+
+.filter-room__icon {
+    font-size: 2rem;
+    margin: 0 10px;
+}
+
+.filter-room__content {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.4rem;
+    gap: 4px;
+}
+
+.filter-room__room {
+    color: var(--description-color);
+}
+
+.filter-room__people {
+    
+}
+
 
 .filter-search-btn {
     flex: 1;
+    background-color: var(--primary-color);
+    border: none;
+    outline: none;
+    color: var(--white-color);
+    border-radius: 6px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: filter 0.13s ease-in;
+}
+
+.filter-search-btn:hover {
+    filter: brightness(0.9);
+}
+
+.filter-room__modal {
+    position: absolute;
+    top: 64px;
+    background-color: #dfdfdf;    
+    width: 100%;
+    padding: 6px;
+    border-radius: 8px;
+    display: none;
+    transform-origin: calc(50%) top;
+    animation: growth 0.13s linear;
+}
+
+.filter-room__modal::before {
+    content: "";
+    position: absolute;
+    right: 50%;
+    top: -23px;
+    transform: translateX(50%);
+    border-width: 12px 10px;
+    border-style: solid;
+    border-color: transparent transparent #dfdfdf transparent;
+    cursor: pointer;
+}
+
+.filter-room__modal::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    top: -14px;
+    left: 0;
+}
+
+.filter-room__modal-box {
+    background-color: var(--white-color);
+    border-radius: 6px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.filter-room__modal-content {
+    font-size: 1.6rem;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filter-room__modal-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 100px;
+}
+
+.filter-room__modal-title {
+    margin-bottom: 6px;
+    line-height: 1rem
+}
+
+.filter-room__modal-description {
+    font-size: 1.4rem;
+    color: var(--description-color);
+}
+
+.filter-room__modal-func {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 100px;
+}
+
+.filter-room__modal-btn {
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    font-size: 2.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+}
+
+.filter-room__modal-btn span {
+    font-size: 2.6rem;
+}
+
+.filter-room__modal-value {
 
 }
 
