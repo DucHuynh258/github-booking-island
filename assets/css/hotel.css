@@ -278,8 +278,15 @@
     cursor: pointer;
 }
 
+.filter-room__modal-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    transition: background-color 0.2s ease-in-out;
+}
+
 .filter-room__modal-btn span {
     font-size: 2.6rem;
+    transform: translateY(-1px);
 }
 
 .filter-room__modal-value {
