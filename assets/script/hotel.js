@@ -25,3 +25,49 @@ function getDayOfWeek(dayIndex) {
   const days = ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy'];
   return days[dayIndex];
 }
+
+// Chức năng tăng giảm số phòng, người lớn, trẻ em
+function setupRoomFilter() {
+  // Lấy các phần tử modal value
+  const modalValues = document.querySelectorAll('.filter-room__modal-value');
+  // Lấy các nút + và -
+  const modalBtns = document.querySelectorAll('.filter-room__modal-btn');
+
+  // Lấy phần hiển thị tổng số phòng, người lớn, trẻ em
+  const roomText = document.querySelector('.filter-room__room');
+  const peopleText = document.querySelector('.filter-room__people');
+
+  // Giá trị mặc định
+  let room = parseInt(modalValues[0].textContent);
+  let adult = parseInt(modalValues[1].textContent);
+  let child = parseInt(modalValues[2].textContent);
+
+  // Cập nhật hiển thị tổng
+  function updateSummary() {
+    roomText.textContent = `${room} Phòng`;
+    peopleText.textContent = `${adult} người lớn, ${child} trẻ em`;
+  }
+
+  // Gán sự kiện cho các nút
+  modalBtns.forEach((btn, idx) => {
+    btn.addEventListener('click', function() {
+      // idx: 0(- phòng), 1(+ phòng), 2(- người lớn), 3(+ người lớn), 4(- trẻ em), 5(+ trẻ em)
+      if (idx === 0 && room > 1) room--;
+      if (idx === 1) room++;
+      if (idx === 2 && adult > 1) adult--;
+      if (idx === 3) adult++;
+      if (idx === 4 && child > 0) child--;
+      if (idx === 5) child++;
+      // Cập nhật giá trị modal
+      modalValues[0].textContent = room;
+      modalValues[1].textContent = adult;
+      modalValues[2].textContent = child;
+      updateSummary();
+    });
+  });
+}
+
+// Khởi tạo khi DOM đã sẵn sàng
+window.addEventListener('DOMContentLoaded', function() {
+  setupRoomFilter();
+});
