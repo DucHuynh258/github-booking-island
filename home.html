@@ -14,6 +14,46 @@
     <link rel="stylesheet" href="./assets/css/home.css">
     <link rel="stylesheet" href="./assets/css/grid.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        .slider__content, .slider__bg {
+            transition: opacity 0.7s;
+        }
+        .slider__content.fade-out {
+            opacity: 0;
+        }
+        .slider__content.fade-in {
+            opacity: 1;
+        }
+        .slider__bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 0;
+            background-size: cover;
+            background-position: center;
+            border-radius: 16px;
+            opacity: 0;
+            transition: opacity 0.7s;
+        }
+        .slider__bg.active {
+            opacity: 1;
+        }
+        .slider__bg::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 16px;
+            background: linear-gradient(rgba(255,255,255,0.45), rgba(255,255,255,0.45));
+            pointer-events: none;
+        }
+        .slider {
+            position: relative;
+            overflow: hidden;
+        }
+        .slider__content {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
 </head>
 
 <body>
@@ -567,13 +607,20 @@
                 window.location.reload();
             });
 
+            const saleBookBtn = document.querySelector('.sale__content-button');
+            if (saleBookBtn) {
+                saleBookBtn.addEventListener('click', () => {
+                    window.location.href = 'tickets.html';
+                });
+            }
+
             const list = document.querySelector('.popular-places__list');
             const btnPrev = document.querySelector('.popular-places__nav-btn .fa-chevron-left').parentElement;
             const btnNext = document.querySelector('.popular-places__nav-btn .fa-chevron-right').parentElement;
             const scrollAmount = 307;
 
             function updateButtons() {
-
+                if (!list) return;
                 if (list.scrollLeft <= 0) {
                     btnPrev.classList.add('popular-places__nav-btn--disabled');
                 } else {
@@ -586,7 +633,6 @@
                     btnNext.classList.remove('popular-places__nav-btn--disabled');
                 }
             }
-
             btnPrev.addEventListener('click', () => {
                 if (!btnPrev.classList.contains('popular-places__nav-btn--disabled')) {
                     list.scrollBy({
@@ -595,6 +641,7 @@
                     });
                 }
             });
+
             btnNext.addEventListener('click', () => {
                 if (!btnNext.classList.contains('popular-places__nav-btn--disabled')) {
                     list.scrollBy({
@@ -603,102 +650,111 @@
                     });
                 }
             });
-
-            list.addEventListener('scroll', updateButtons);
+            if (list) {
+                list.addEventListener('scroll', updateButtons);
+            }
             updateButtons();
         });
-    </script>
-</body>
 
-</html>
-<script src="./assets/script/header.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const token = localStorage.getItem('token');
-        const userName = localStorage.getItem('userName');
-        const loginBtn = document.getElementById('login-btn');
-        const userNameSpan = document.getElementById('user-name');
-        const logoutBtn = document.getElementById('logout-btn');
+        // Slider functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slider__slide-item');
+            const sliderContent = document.querySelector('.slider__content');
+            const sliderNextBtn = document.querySelector('.slider__next-btn');
+            let currentSlide = 0;
+            let autoSlideInterval;
 
-        if (token && userName) {
-            fetch('http://localhost:5000/api/user', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.userName) {
-                        loginBtn.style.display = 'none';
-                        userNameSpan.style.display = 'inline';
-                        userNameSpan.textContent = `Xin chào, ${data.userName}`;
-                        logoutBtn.style.display = 'inline';
-                    } else {
-                        localStorage.removeItem('token');
-                        localStorage.removeItem('userName');
-                    }
-                })
-                .catch(() => {
-                    localStorage.removeItem('token');
-                    localStorage.removeItem('userName');
-                });
-        }
+            // Nội dung cho từng slide (có thể mở rộng)
+            const slideContents = [
+                {
+                    heading: 'Trải Nghiệm Sự Diệu Kỳ Của Du Lịch!',
+                    sub: 'NÂNG CAO HÀNH TRÌNH DU LỊCH CỦA BẠN',
+                },
+                {
+                    heading: 'Khám Phá Những Hòn Đảo Tuyệt Đẹp!',
+                    sub: 'KHÁM PHÁ VẺ ĐẸP HOANG SƠ',
+                },
+                {
+                    heading: 'Đặt Tour Ngay Hôm Nay!',
+                    sub: 'HÀNH TRÌNH ĐÁNG NHỚ ĐANG CHỜ BẠN',
+                }
+            ];
 
-        logoutBtn.addEventListener('click', () => {
-            localStorage.removeItem('token');
-            localStorage.removeItem('userName');
-            window.location.reload();
-        });
-
-        const saleBookBtn = document.querySelector('.sale__content-button');
-        if (saleBookBtn) {
-            saleBookBtn.addEventListener('click', () => {
-                window.location.href = 'tickets.html';
+            // Thêm hình nền cho từng slide
+            const slider = document.querySelector('.slider');
+            const bgImages = [
+                './assets/img/home_page/main_part.jpeg',
+                './assets/img/home_page/island.webp',
+                './assets/img/home_page/Bien.jpg'
+            ];
+            // Tạo các div nền cho slider
+            bgImages.forEach((img, idx) => {
+                const bgDiv = document.createElement('div');
+                bgDiv.className = 'slider__bg' + (idx === 0 ? ' active' : '');
+                bgDiv.style.backgroundImage = `url('${img}')`;
+                bgDiv.style.backgroundColor = `linear-gradient(rgba(255,255,255,0.45), rgba(255,255,255,0.45))`;
+                slider.insertBefore(bgDiv, slider.firstChild);
             });
-        }
+            const bgDivs = document.querySelectorAll('.slider__bg');
 
-        const list = document.querySelector('.popular-places__list');
-        const btnPrev = document.querySelector('.popular-places__nav-btn .fa-chevron-left').parentElement;
-        const btnNext = document.querySelector('.popular-places__nav-btn .fa-chevron-right').parentElement;
-        const scrollAmount = 307;
-
-        function updateButtons() {
-            if (!list) return;
-            if (list.scrollLeft <= 0) {
-                btnPrev.classList.add('popular-places__nav-btn--disabled');
-            } else {
-                btnPrev.classList.remove('popular-places__nav-btn--disabled');
+            function showSlide(index) {
+                // Hiệu ứng fade out
+                sliderContent.classList.remove('fade-in');
+                sliderContent.classList.add('fade-out');
+                setTimeout(() => {
+                    slides.forEach((slide, i) => {
+                        slide.classList.toggle('slider__slide-item--selected', i === index);
+                        if (i === index) {
+                            slide.classList.add('animating');
+                            setTimeout(() => slide.classList.remove('animating'), 500);
+                        } else {
+                            slide.classList.remove('animating');
+                        }
+                    });
+                    // Cập nhật nội dung
+                    if (sliderContent) {
+                        sliderContent.querySelector('.slider__litle-heading').textContent = slideContents[index].sub;
+                        sliderContent.querySelector('.slider__heading').textContent = slideContents[index].heading;
+                    }
+                    // Chuyển hình nền
+                    bgDivs.forEach((bg, i) => {
+                        bg.classList.toggle('active', i === index);
+                    });
+                    // Hiệu ứng fade in
+                    sliderContent.classList.remove('fade-out');
+                    sliderContent.classList.add('fade-in');
+                }, 350);
+                currentSlide = index;
             }
 
-            if (list.scrollLeft + list.clientWidth >= list.scrollWidth - 1) {
-                btnNext.classList.add('popular-places__nav-btn--disabled');
-            } else {
-                btnNext.classList.remove('popular-places__nav-btn--disabled');
-            }
-        }
-        btnPrev.addEventListener('click', () => {
-            if (!btnPrev.classList.contains('popular-places__nav-btn--disabled')) {
-                list.scrollBy({
-                    left: -scrollAmount,
-                    behavior: 'smooth'
+            slides.forEach((slide, i) => {
+                slide.style.cursor = 'pointer';
+                slide.addEventListener('click', () => {
+                    showSlide(i);
+                    resetAutoSlide();
+                });
+            });
+
+            if (sliderNextBtn) {
+                sliderNextBtn.addEventListener('click', () => {
+                    showSlide((currentSlide + 1) % slides.length);
+                    resetAutoSlide();
                 });
             }
-        });
 
-        btnNext.addEventListener('click', () => {
-            if (!btnNext.classList.contains('popular-places__nav-btn--disabled')) {
-                list.scrollBy({
-                    left: scrollAmount,
-                    behavior: 'smooth'
-                });
+            function autoSlide() {
+                autoSlideInterval = setInterval(() => {
+                    showSlide((currentSlide + 1) % slides.length);
+                }, 4000);
             }
+            function resetAutoSlide() {
+                clearInterval(autoSlideInterval);
+                autoSlide();
+            }
+            showSlide(0);
+            autoSlide();
         });
-        if (list) {
-            list.addEventListener('scroll', updateButtons);
-        }
-        updateButtons();
-    });
-</script>
+    </script>
 </body>
 
 </html>
