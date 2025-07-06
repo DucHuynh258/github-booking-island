@@ -9,7 +9,7 @@
 
 /* Slider */
 .slider {
-    background: linear-gradient(rgba(255,255,255,0.45), rgba(255,255,255,0.45)), url('../img/home_page/island.webp');
+    background: linear-gradient(rgba(255,255,255,0.15), rgba(255,255,255,0.15)), url('../img/home_page/island.webp');
     background-size: cover;
     background-position: center;
     height: 654px;
@@ -19,6 +19,15 @@
     position: relative;
 }
 
+.slider__content, .slider__bg {
+    transition: opacity 0.7s;
+}
+.slider__content.fade-out {
+    opacity: 0;
+}
+.slider__content.fade-in {
+    opacity: 1;
+}
 .slider__bg {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -40,15 +49,15 @@
     background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3));
     pointer-events: none;
 }
-.slider__content, .slider__bg {
-    transition: opacity 0.7s;
+.slider {
+    position: relative;
+    overflow: hidden;
 }
-.slider__content.fade-out {
-    opacity: 0;
+.slider__content {
+    position: relative;
+    z-index: 1;
 }
-.slider__content.fade-in {
-    opacity: 1;
-}
+
 .slider {
     position: relative;
     overflow: hidden;

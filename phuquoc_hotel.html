@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt Khách Sạn | Booking Island Travel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/header-component.css">
+    <link rel="stylesheet" href="./assets/css/footer-component.css">
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/grid.css">
+    <link rel="stylesheet" href="./assets/css/phuquoc_hotel.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <div class="grid wide">
+                <div class="logo">
+                    <a class="logo__link" href="">
+                        <img src="./assets/img/base/logo.png" alt="logo" class="logo__img">
+                    </a>
+                </div>
+
+                <div class="navbar" id="navbar">
+                    <ul class="navbar__list">
+                        <li class="navbar__item ">
+                            <a class="navbar__link" href="./home.html">HOME</a>
+                        </li>
+                        <li class="navbar__item navbar__item--selected">
+                            <a class="navbar__link" href="#">HOTEL</a>
+                        </li>
+                        <li class="navbar__item">
+                            <a class="navbar__link" href="">TOURS</a>
+                        </li>
+                        <li class="navbar__item">
+                            <a class="navbar__link" href="./tickets.html">TICKETS</a>
+                        </li>
+                        <li class="navbar__item">
+                            <a class="navbar__link" href="">CONTACT</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="register-box">
+                    <a href="./log_in.html" class="register-btn btn--m">Đăng Nhập</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="app-container">
+            <div class="grid wide">
+                <div class="filter">
+                    <div class="row sm-gutter">
+                        <div class="col l-3 m-6 c-12">
+                            <div class="search-bar">
+                                
+                            </div>
+                        </div>
+                        <div class="col l-7 m-6 c-12">
+                            <div class="calendar-room">
+                                <ul class="filter-calendar">
+                                    <li class="filter-calendar__item">
+                                        <span class="day-of-week" id="checkin-day">Thứ ba</span>
+                                        <input type="date" id="checkin" name="checkin" onchange="updateDates()">
+                                    </li>
+                                    <li class="filter-calendar__item">
+                                        <span class="day-of-week" id="checkout-day">Thứ tư</span>
+                                        <input type="date" id="checkout" name="checkout" onchange="updateDates()">
+                                    </li>
+                                    <div class="night-info">
+                                        <span id="night-count">1</span>
+                                        <i class="night-info__icon fa-regular fa-moon"></i>
+                                    </div>
+                                </ul>
+                                <div class="filter-room">
+                                    <div class="filter-room__icon">
+                                        <i class="fa-regular fa-user"></i>
+                                    </div>
+                                    <div class="filter-room__content">
+                                        <span class="filter-room__room">1 Phòng</span>
+                                        <span class="filter-room__people">2 người lớn, 0 trẻ em</span>
+                                    </div>
+                                    <div class="filter-room__modal">
+                                        <div class="filter-room__modal-box">
+                                            <div class="filter-room__modal-content">
+                                                <div class="filter-room__modal-text">
+                                                    <span class="filter-room__modal-title">Phòng</span>
+                                                    <span class="filter-room__modal-description"></span>
+                                                </div>
+                                                <div class="filter-room__modal-func">
+                                                    <button class="filter-room__modal-btn">
+                                                        <span>-</span>
+                                                    </button>
+                                                    <span class="filter-room__modal-value">1</span>
+                                                    <button class="filter-room__modal-btn">
+                                                        <span>+</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="filter-room__modal-content">
+                                                <div class="filter-room__modal-text">
+                                                    <span class="filter-room__modal-title">Người Lớn</span>
+                                                    <span class="filter-room__modal-description">Từ 17 tuổi</span>
+                                                </div>
+                                                <div class="filter-room__modal-func">
+                                                    <button class="filter-room__modal-btn">
+                                                        <span>-</span>
+                                                    </button>
+                                                    <span class="filter-room__modal-value">2</span>
+                                                    <button class="filter-room__modal-btn">
+                                                        <span>+</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="filter-room__modal-content">
+                                                <div class="filter-room__modal-text">
+                                                    <span class="filter-room__modal-title">Trẻ em</span>
+                                                    <span class="filter-room__modal-description">Từ 0 - 16 tuổi</span>
+                                                </div>
+                                                <div class="filter-room__modal-func">
+                                                    <button class="filter-room__modal-btn">
+                                                        <span>-</span>
+                                                    </button>
+                                                    <span class="filter-room__modal-value">0</span>
+                                                    <button class="filter-room__modal-btn">
+                                                        <span>+</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col l-2 m-12 c-12 d-flex align-items-center justify-content-center">
+                            <button class="filter-search-btn" style="width:100%;height:100%">Tìm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-section">
+                <div class="grid wide">
+                    <div class="main-header">
+                        <span class="main-header__title">Khách sạn Phú Quốc</span>
+                        <span class="main-header__description">*Giá trung bình phòng 1 đêm cho 2 khách</span>
+                    </div>
+                    <div class="main-container">
+                        <div class="row">
+                            <div class="col l-3">
+                                <div class="main-filter">
+                                    <div class="main-search-bar">
+                                        <form class="main-search-bar__form" autocomplete="off">
+                                            <input type="text" class="main-search-bar__input" placeholder="Nhập tên khách sạn" />
+                                            <button type="submit" class="main-search-bar__btn">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="main-filter__section">
+                                        <div class="main-filter__title">Loại hình nơi ở</div>
+                                        <div class="main-filter__options">
+                                            <label class="main-filter__option">
+                                                <input type="checkbox" name="accommodation-type" value="hotel">
+                                                <span>Khách sạn (Hotel)</span>
+                                            </label>
+                                            <label class="main-filter__option">
+                                                <input type="checkbox" name="accommodation-type" value="homestay">
+                                                <span>Homestay</span>
+                                            </label>
+                                            <label class="main-filter__option">
+                                                <input type="checkbox" name="accommodation-type" value="apartment">
+                                                <span>Căn hộ (Apartment)</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="main-filter__section">
+                                        <div class="main-filter__title">Hạng sao</div>
+                                        <div class="main-filter__options">
+                                            <label class="main-filter__option">
+                                                <input type="checkbox" name="star-rating" value="5">
+                                                <span class="main-filter__stars">
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                </span>
+                                            </label>
+                                            <label class="main-filter__option">
+                                                <input type="checkbox" name="star-rating" value="4">
+                                                <span class="main-filter__stars">
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                </span>
+                                            </label>
+                                            <label class="main-filter__option">
+                                                <input type="checkbox" name="star-rating" value="3">
+                                                <span class="main-filter__stars">
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                </span>
+                                            </label>
+                                            <label class="main-filter__option">
+                                                <input type="checkbox" name="star-rating" value="2">
+                                                <span class="main-filter__stars">
+                                                    <i class="fa-solid fa-star"></i>
+                                                    <i class="fa-solid fa-star"></i>
+                                                </span>
+                                            </label>
+                                            <label class="main-filter__option">
+                                                <input type="checkbox" name="star-rating" value="1">
+                                                <span class="main-filter__stars">
+                                                    <i class="fa-solid fa-star"></i>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col l-9">
+                                <div class="main-content">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer mt-108">
+            <div class="grid wide">
+                <div class="footer-container row">
+                    <div class="col l-4">
+                        <div class="footer__logo-with-link">
+                            <img src="./assets/img/base/logo.png" alt="logo" class="footer__logo">
+                            <span class="footer__logo-title">Khám phá những hòn đảo với cảnh sắc hoang sơ, một trải nghiệm đáng nhớ.</span>
+                            <div class="footer__social-media">
+                                <a href="" class="footer__social-media__logo">
+                                    <i class="fa-brands fa-facebook-f"></i>
+                                </a>
+                                <a href="" class="footer__social-media__logo">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+                                <a href="" class="footer__social-media__logo">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                </a>
+                                <a href="" class="footer__social-media__logo">
+                                    <i class="fa-brands fa-twitter"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col l-8">
+                        <div class="footer__content">
+                            <ul class="footer__content-list">
+                                <li class="footer__content-item">
+                                    <h4 class="footer__content-item__heading">Công Ty</h4>
+                                    <a href="" class="footer__content-item__title">Về Chúng Tôi</a>
+                                    <a href="" class="footer__content-item__title">Hướng Dẫn Viên</a>
+                                    <a href="" class="footer__content-item__title">Các Gói</a>
+                                    <a href="" class="footer__content-item__title">Liên Hệ</a>
+                                </li>
+                                <li class="footer__content-item">
+                                    <h4 class="footer__content-item__heading">Du Lịch</h4>
+                                    <a href="" class="footer__content-item__title">Đảo Phú Quý</a>
+                                    <a href="" class="footer__content-item__title">Đảo Phú Quốc</a>
+                                    <a href="" class="footer__content-item__title">Đảo Bình Hưng</a>
+                                </li>
+                                <li class="footer__content-item">
+                                    <h4 class="footer__content-item__heading">Liên kết Khác</h4>
+                                    <a href="" class="footer__content-item__title">Hỗ Trợ Khách Hàng</a>
+                                    <a href="" class="footer__content-item__title">Điều Kiện & Điều Khoản</a>
+                                    <a href="" class="footer__content-item__title">Chính Sách Giá Tốt</a>
+                                </li>
+                            </ul>
+                            <div class="footer__content-decription">
+                                <span>Like Để Cập Nhật Cẩm Nang Du Lịch</span>
+                                <div class="footer__content-decription__like">
+                                    <i class="footer__content-decription__like-icon fa-solid fa-thumbs-up"></i>
+                                    <span>Like 5.3T</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

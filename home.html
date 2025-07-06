@@ -14,46 +14,6 @@
     <link rel="stylesheet" href="./assets/css/home.css">
     <link rel="stylesheet" href="./assets/css/grid.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <style>
-        .slider__content, .slider__bg {
-            transition: opacity 0.7s;
-        }
-        .slider__content.fade-out {
-            opacity: 0;
-        }
-        .slider__content.fade-in {
-            opacity: 1;
-        }
-        .slider__bg {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            z-index: 0;
-            background-size: cover;
-            background-position: center;
-            border-radius: 16px;
-            opacity: 0;
-            transition: opacity 0.7s;
-        }
-        .slider__bg.active {
-            opacity: 1;
-        }
-        .slider__bg::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 16px;
-            background: linear-gradient(rgba(255,255,255,0.45), rgba(255,255,255,0.45));
-            pointer-events: none;
-        }
-        .slider {
-            position: relative;
-            overflow: hidden;
-        }
-        .slider__content {
-            position: relative;
-            z-index: 1;
-        }
-    </style>
 </head>
 
 <body>
@@ -683,9 +643,9 @@
             // Thêm hình nền cho từng slide
             const slider = document.querySelector('.slider');
             const bgImages = [
+                './assets/img/home_page/Bien.jpg',
                 './assets/img/home_page/main_part.jpeg',
-                './assets/img/home_page/island.webp',
-                './assets/img/home_page/Bien.jpg'
+                './assets/img/home_page/island.webp'
             ];
             // Tạo các div nền cho slider
             bgImages.forEach((img, idx) => {
