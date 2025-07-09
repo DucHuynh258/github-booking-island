@@ -1,16 +1,34 @@
-(function () {
-  emailjs.init("YOUR_PUBLIC_KEY"); 
-})();
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("contact-form");
 
-document.getElementById("contact-form").addEventListener("submit", function (e) {
-  e.preventDefault();
+  if (!form) return;
 
-  emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", this)
-    .then(() => {
-      alert("Gửi thành công! Chúng tôi sẽ phản hồi sớm nhất ");
-      this.reset();
-    }, (error) => {
-      console.error(error);
-      alert("Gửi thất bại, thử lại sau hoặc gọi số hotline nha!");
-    });
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const formData = {
+      name: form.from_name.value,
+      email: form.from_email.value,
+      phone: form.phone.value,
+      message: form.message.value
+    };
+
+  console.log(formData);
+    //Kiểm tra dữ liệu 
+    
+    fetch("http://localhost:5000/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData)
+    })
+      .then(res => res.json())
+      .then(data => {
+        alert(data.message);
+        form.reset();
+      })
+      .catch(err => {
+        console.error(err);
+        alert("Lỗi gửi liên hệ, thử lại sau nhé!");
+      });
+  });
 });

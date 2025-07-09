@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
+const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const app = express();
@@ -100,3 +101,41 @@ app.get('/api/user', async (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server đang chạy trên cổng ${PORT}`));
+
+// contactform gửi mail về
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.CONTACT_EMAIL,
+    pass: process.env.CONTACT_PASS
+  }
+});
+
+app.post('/api/contact', async (req, res) => {
+      console.log(" Đã nhận request liên hệ!");
+  const { name, email, phone, message } = req.body;
+
+  if (!name || !email || !phone || !message) {
+    return res.status(400).json({ message: 'Thiếu thông tin' });
+  }
+
+  const mailOptions = {
+    from: process.env.CONTACT_EMAIL, // Gửi từ Gmail của m
+    to: process.env.CONTACT_EMAIL,   // Nhận cũng về mail đó (hoặc khác nếu muốn)
+    subject: '📬 Khách hàng liên hệ từ Island Travel',
+    text: `
+      Tên: ${name}
+      Email: ${email}
+      SĐT: ${phone}
+      Nội dung: ${message}
+    `
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    res.status(200).json({ message: 'Gửi thành công! Tụi mình sẽ liên hệ lại sớm nhất ' });
+  } catch (err) {
+    console.error('Lỗi gửi mail:', err);
+    res.status(500).json({ message: 'Không gửi được, thử lại sau nhé.' });
+  }
+});

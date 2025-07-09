@@ -61,7 +61,7 @@ body {
 }
 
 .contact-info button {
-    background-color: #ffc107;
+    background-color: var(--primary-color);
     border: none;
     padding: 12px;
     color: white;
