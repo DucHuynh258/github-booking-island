@@ -423,6 +423,270 @@
 }
 
 .main-content {
-
+    display: flex;
+    flex-direction: column;
 }
+
+.main-content__item {
+    display: flex;
+    align-items: flex-start;
+    background: #fff;
+    border: 1.5px solid #ededed;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    padding: 18px 22px;
+    margin-bottom: 24px;
+    gap: 22px;
+    position: relative;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.main-content__item:hover {
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    transform: translateY(-2px)
+}
+
+.main-content__img {
+    width: 220px;
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.main-content__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
+
+.main-content__img-save-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #fff;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.main-content__img-save-btn:hover {
+    background: #f1f1f1;
+}
+
+.main-content__img-save-icon i {
+    color: #f79321;
+    font-size: 1.7rem;
+}
+
+.main-content__info {
+    flex: 1 1 0%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.main-content__header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 2px;
+}
+
+.main-content__header-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.main-content__title {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #0071c2;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.main-content__title:hover {
+    color: #005fa3;
+}
+
+.main-content__stars {
+    color: #fbbd09;
+    font-size: 1.7rem;
+    margin-left: 4px;
+    letter-spacing: 2px;
+}
+
+.main-content__badge {
+    background: #ffe599;
+    color: #f79321;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 6px;
+    padding: 4px 10px;
+    margin-left: 8px;
+    white-space: nowrap;
+}
+
+.main-content__location {
+    font-size: 1.3rem;
+    color: #0071c2;
+    margin-bottom: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.main-content__location-link, .main-content__map-link {
+    color: #0071c2;
+    text-decoration: underline;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.main-content__location-link:hover, .main-content__map-link:hover {
+    color: #005fa3;
+}
+
+.main-content__distance {
+    color: #666;
+    font-size: 1.2rem;
+}
+
+.main-content__room-info {
+    font-size: 1.2rem;
+    color: #222;
+    margin-bottom: 2px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-content__benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.main-content__room-info-room::before,
+.main-content__room-info-bed::before,
+.main-content__benefit::before {
+    content: "";
+    position: absolute;
+    left: -10px;
+    height: calc(100% + 8px);
+    transform: translateY(-4px);
+    border-left: solid 2px var(--border-color);
+}
+
+.main-content__benefit,
+.main-content__room-info-room,
+.main-content__room-info-bed {
+    position: relative;
+    transform: translateX(10px);
+}
+
+.main-content__benefit {
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.main-content__room-info-room {
+    font-weight: 600;
+    color: #222;
+}
+
+.main-content__room-info-bed {
+    margin-bottom: 8px;
+}
+
+.main-content__benefit--green {
+    color: #008009;
+    font-weight: 500;
+}
+
+.main-content__benefit--green i {
+    color: #008009;
+    font-size: 1.2rem;
+}
+
+.main-content__benefit--red {
+    color: #d60000;
+    font-weight: 600;
+}
+
+.main-content__benefit-desc {
+    color: #008009;
+    font-weight: 400;
+}
+
+.main-content__booking {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    min-width: 180px;
+    margin-left: 18px;
+    gap: 18px;
+}
+
+.main-content__price-info {
+    text-align: right;
+}
+
+.main-content__price-desc {
+    font-size: 1.2rem;
+    color: #222;
+    margin-bottom: 6px;
+}
+
+.main-content__price {
+    font-size: 2.1rem;
+    color: #222;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.main-content__tax {
+    font-size: 1.1rem;
+    color: #008009;
+}
+
+.main-content__book-btn {
+    background: #0071c2;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.main-content__book-btn:hover {
+    background: #005fa3;
+}
+
 

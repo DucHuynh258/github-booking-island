@@ -226,7 +226,49 @@
                             </div>
                             <div class="col l-9">
                                 <div class="main-content">
-                                    
+                                    <div class="main-content__item">
+                                        <div class="main-content__img">
+                                            <a href="" class="main-content__img-link">
+                                                <img src="./assets/img/hotel_page/phuquoc_hotel_page/tri-ki.webp" alt="Tri Kỷ">
+                                            </a>
+                                            <div class="main-content__img-save-btn">
+                                                <div class="main-content__img-save-icon">
+                                                    <i class="fa-regular fa-heart"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="main-content__info">
+                                            <div class="main-content__header">
+                                                <div class="main-content__header-info">
+                                                    <a href="#" class="main-content__title">Tri Kỷ
+                                                        <span class="main-content__stars">★★★</span>
+                                                    </a>
+                                                    <span class="main-content__badge">Mới trên Booking.com</span>
+                                                </div>
+                                                <div class="main-content__location">
+                                                    <a href="#" class="main-content__location-link">Duong Dong, Phú Quốc</a> ·
+                                                    <a href="#" class="main-content__map-link">Xem trên bản đồ</a> ·
+                                                    <span class="main-content__distance">Cách trung tâm 0,6km</span>
+                                                </div>
+                                            </div>
+                                            <div class="main-content__room-info">
+                                                <ul class="main-content__benefits">
+                                                    <div class="main-content__room-info-room">Phòng 4 Người</div>
+                                                    <div class="main-content__room-info-bed">2 giường đôi</div>
+                                                    <li class="main-content__benefit main-content__benefit--green"><i class="fa-solid fa-check"></i> Miễn phí hủy</li>
+                                                    <li class="main-content__benefit main-content__benefit--green"><i class="fa-solid fa-check"></i> Không cần thanh toán trước <span class="main-content__benefit-desc">– thanh toán tại chỗ nghỉ</span></li>
+                                                </ul>
+                                                <div class="main-content__booking">
+                                                    <div class="main-content__price-info">
+                                                        <div class="main-content__price-desc">1 đêm, 2 người lớn</div>
+                                                        <div class="main-content__price">VND 467.500</div>
+                                                        <div class="main-content__tax">Đã bao gồm thuế và phí</div>
+                                                    </div>
+                                                    <a href="#" class="main-content__book-btn">Xem chỗ trống <i class="fa-solid fa-arrow-right"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -294,5 +336,33 @@
             </div>
         </footer>
     </div>
+    <script>
+        // Tương tác với nút lưu (trái tim)
+        document.addEventListener('DOMContentLoaded', function() {
+            const saveBtns = document.querySelectorAll('.main-content__img-save-btn');
+            saveBtns.forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    btn.classList.toggle('main-content__img-save-btn--active');
+                });
+            });
+        });
+    </script>
+    <style>
+        .main-content__img-save-btn {
+            border-radius: 50%;
+            transition: background 0.2s, border 0.2s, scale 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.975);
+        }
+        .main-content__img-save-btn--active {
+            background: #e74c3c;
+        }
+        .main-content__img-save-btn--active .main-content__img-save-icon i {
+            color: #fff !important;
+        }
+        .main-content__img-save-btn--active:hover {
+            background: #e74c3c;
+            scale: 1.1;
+        }
+    </style>
 </body>
 </html>
