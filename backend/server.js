@@ -122,7 +122,7 @@ app.post('/api/contact', async (req, res) => {
   const mailOptions = {
     from: process.env.CONTACT_EMAIL, 
     to: process.env.CONTACT_EMAIL,   
-    subject: '📬 Khách hàng liên hệ từ Island Travel',
+    subject: 'Khách hàng liên hệ từ Island Travel',
     text: `
       Tên: ${name}
       Email: ${email}
