@@ -25,42 +25,47 @@
         <a href="./home.html" class="logo-link">
             <img src="./assets/img/base/logo.png" alt="" class="logo">
         </a>
+
         <div class="modal">
             <img src="./assets/img/log_in_page/binhhwebp1.png" alt="" class="img-section">
+
             <div class="content" id="divRegister">
                 <h3 class="content__heading">Đăng Ký</h3>
-                <div class="content__input-wrapper">
-                    <input type="text" id="name" class="content__input" placeholder=" " required>
-                    <label for="name" class="content__input-label">Họ Tên</label>
-                    <div id="userNameError" class="error-message">Tên không được để trống</div>
-                </div>
                 
-
-                <div class="content__input-wrapper">
-                    <input type="email" id="email" class="content__input" placeholder=" " required>
-                    <label for="email" class="content__input-label">Địa Chỉ Email</label>
-                    <div id="emailError" class="error-message">Email không được để trống</div>
-                </div>
-
-                <div class="content__input-wrappers" id="content__input-wrapper" style="transform: translateX(20px);">
-                    <input type="password" id="password" class="content__input-password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder=" " required>
-                    <label for="password" class="content__input-label" style="left: 0; top: calc(50% - 2px);">Mật Khẩu</label>
-                    <button type="button" id="togglePassword" class="content__input-tooggle-password">
-                        <i class="content__input-tooggle-password-icon fa-solid fa-eye" style="font-size: 1.4rem; margin-right: 20px; transform: translateY(-2px);"></i>
-                    </button>
-                    <div id="passwordError" class="errorPassword-message">Mật khẩu không được để trống</div>
-                </div>
-
-                <div class="content__input-wrappers" style="transform: translateX(20px);">
-                    <input type="password" id="re-password" class="content__input-password" placeholder=" " required>
-                    <label for="re-password" class="content__input-label" style="left: 0; top: calc(50% - 2px);">Nhập Lại Mật Khẩu</label>
-                    <button type="button" id="toggleRePassword" class="content__input-tooggle-password">
-                        <i class="content__input-tooggle-password-icon fa-solid fa-eye" style="font-size: 1.4rem; margin-right: 20px; transform: translateY(-2px);"></i>
-                    </button>   
-                    <div id="rePasswordError" class="errorPassword-message">Mật khẩu không được để trống</div>
-                </div>
-
-                <button class="content__submit" id="content__submit-id">Đăng Ký</button>
+                <form id="register-form">
+                    <div class="content__input-wrapper">
+                        <input type="text" id="name" class="content__input" placeholder=" " required>
+                        <label for="name" class="content__input-label">Họ Tên</label>
+                        <div id="userNameError" class="error-message">Tên không được để trống</div>
+                    </div>
+                    
+    
+                    <div class="content__input-wrapper">
+                        <input type="email" id="email" class="content__input" placeholder=" " required>
+                        <label for="email" class="content__input-label">Địa Chỉ Email</label>
+                        <div id="emailError" class="error-message">Email không được để trống</div>
+                    </div>
+    
+                    <div class="content__input-wrappers" id="content__input-wrapper" style="transform: translateX(20px);">
+                        <input type="password" id="password" class="content__input-password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder=" " required>
+                        <label for="password" class="content__input-label" style="left: 0; top: calc(50% - 2px);">Mật Khẩu</label>
+                        <button type="button" id="togglePassword" class="content__input-tooggle-password">
+                            <i class="content__input-tooggle-password-icon fa-solid fa-eye" style="font-size: 1.4rem; margin-right: 20px; transform: translateY(-2px);"></i>
+                        </button>
+                        <div id="passwordError" class="errorPassword-message">Mật khẩu không được để trống</div>
+                    </div>
+    
+                    <div class="content__input-wrappers" style="transform: translateX(20px);">
+                        <input type="password" id="re-password" class="content__input-password" placeholder=" " required>
+                        <label for="re-password" class="content__input-label" style="left: 0; top: calc(50% - 2px);">Nhập Lại Mật Khẩu</label>
+                        <button type="button" id="toggleRePassword" class="content__input-tooggle-password">
+                            <i class="content__input-tooggle-password-icon fa-solid fa-eye" style="font-size: 1.4rem; margin-right: 20px; transform: translateY(-2px);"></i>
+                        </button>   
+                        <div id="rePasswordError" class="errorPassword-message">Mật khẩu không được để trống</div>
+                    </div>
+    
+                    <button type="submit" class="content__submit" id="content__submit-id">Đăng Ký</button>
+                </form>
                 <span class="content__description">Bạn đã có tài khoản? Hãy <a href="./log_in.html" class="content__link">đăng nhập</a></span>
 
             </div>

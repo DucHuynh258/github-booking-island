@@ -7,6 +7,7 @@ const emailField = document.getElementById('email');
 const emailError = document.getElementById('email-error');
 const passwordError = document.getElementById('password-error');
 const button = document.getElementById('content__submit');
+const loginForm = document.getElementById('login-form');
 
 togglePassword.addEventListener('click', function () {
     const type = passwordField.type === 'password' ? 'text' : 'password';
@@ -96,3 +97,4 @@ button.addEventListener('click' , async function(e){
         }
     }
 });
+

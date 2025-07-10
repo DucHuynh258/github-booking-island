@@ -195,6 +195,7 @@
 
 .content__link {
     color: var(--primary-color);
+    text-decoration: none;
 }
 
 .content__link:hover {

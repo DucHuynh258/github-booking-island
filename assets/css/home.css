@@ -133,6 +133,7 @@
     font-size: 1.6rem;
     margin-right: 32px;
     transition: all linear 0.25s;
+    text-decoration: none;
 }
 
 .slider__book-btn:hover {

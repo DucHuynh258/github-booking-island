@@ -18,6 +18,8 @@ const emailError = document.getElementById("emailError");
 const passwordError = document.getElementById("passwordError");
 const rePasswordError = document.getElementById("rePasswordError");
 
+const registerForm = document.getElementById('register-form');
+
 function validateEmail (email) {
   return String(email)
     .toLowerCase()

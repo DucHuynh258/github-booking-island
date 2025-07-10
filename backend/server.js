@@ -6,6 +6,7 @@ const cors = require('cors');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
+
 const app = express();
 
 // Middleware
@@ -23,6 +24,7 @@ const userSchema = new mongoose.Schema({
     userName: String,
     email: { type: String, unique: true },
     password: String,
+    registrationDate: { type: Date, default: Date.now },
 });
 
 const User = mongoose.model('User', userSchema);
@@ -47,12 +49,26 @@ app.post('/api/register', async (req, res) => {
             userName,
             email,
             password: hashedPassword,
+            registrationDate: new Date(),
         });
 
         // Lưu vào cơ sở dữ liệu
             await user.save();
+        
+        // Format ngày giờ đăng ký theo định dạng Việt Nam
+        const formattedDate = new Date(user.registrationDate).toLocaleString('vi-VN', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
 
-        res.status(201).json({ message: 'Đăng ký thành công' });
+        res.status(201).json({ 
+            message: 'Đăng ký thành công',
+            registrationDate: formattedDate
+         });
     } catch (error) {
         res.status(500).json({ message: 'Lỗi server' });
     }
@@ -84,6 +100,7 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
+
 // API Lấy thông tin người dùng (yêu cầu token)
 app.get('/api/user', async (req, res) => {
     const token = req.headers.authorization?.split(' ')[1];
@@ -93,7 +110,19 @@ app.get('/api/user', async (req, res) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        res.json({ userName: decoded.userName });
+        const user = await User.findOne({ userId: decoded.userId });
+
+        res.json({ 
+            userName: decoded.userName,
+            registrationDate: new Date(user.registrationDate).toLocaleString('vi-VN', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            })
+        });
     } catch (error) {
         res.status(401).json({ message: 'Token không hợp lệ' });
     }
