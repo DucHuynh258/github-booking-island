@@ -19,18 +19,12 @@
     border-radius: 16px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     min-width: 80%;
-    /* Thêm transition để hiệu ứng mượt mà */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-
-/* === HIỆU ỨNG NỔI LÊN CHO KHUNG TÌM KIẾM (MỚI) === */
-
 .ticket-search-form:hover {
     transform: translateY(-5px);
-    /* Nâng nhẹ khung lên */
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-    /* Tạo bóng đổ rõ hơn */
 }
 
 .ticket-search-form__heading {
@@ -264,21 +258,42 @@
     margin-right: -1px;
 }
 
+
+/* ================================== */
+
+
+/* ---- ĐÃ CẬP NHẬT ---- */
+
+
+/* ================================== */
+
 .tickets-list {
     display: flex;
     list-style: none;
+    padding: 12px 0;
+    /* Thêm padding trên dưới cho đẹp */
     margin: 0;
-    padding: 0;
-    margin: 0 -12px;
     margin-top: 12px;
     overflow-x: scroll;
-    height: 200px;
-    align-items: center;
+    gap: 24px;
+    /* Đây là khoảng cách giữa các ô vé */
 }
+
+
+/* ================================== */
 
 .tickets-list::-webkit-scrollbar {
     display: none;
 }
+
+
+/* ================================== */
+
+
+/* ---- ĐÃ CẬP NHẬT ---- */
+
+
+/* ================================== */
 
 .tickets-item {
     background-color: #e8f8ff;
@@ -289,12 +304,15 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    /* Thêm transition để hiệu ứng mượt mà */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Thêm các thuộc tính này để đảm bảo kích thước ổn định */
+    flex-shrink: 0;
+    width: 320px;
+    /* Hoặc một kích thước khác bạn thấy phù hợp */
 }
 
 
-/* === HIỆU ỨNG NỔI LÊN KHI DI CHUỘT CHO VÉ === */
+/* ================================== */
 
 .tickets-item:hover {
     transform: translateY(-8px);
