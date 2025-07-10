@@ -40,6 +40,8 @@
 
 .header {
     margin-top: 8px;
+    position: relative;
+    z-index: 1; 
 }
 
 .header>div {
@@ -135,7 +137,7 @@
 
 .user-name{
     font-size: 1.6rem;
-    color: #fff;
+    color: #333;
     margin-right: 10px;
 }
 
@@ -149,7 +151,6 @@
 .logout-btn:hover {
     background-color: var(--white-color);
     color: var(--text-color);
-    border: 3px solid var(--black-color);
     font-weight: 500;
     text-shadow: 0 0 3px var(--white-color), 0 0 5px rgba(0, 0, 0, 0.6);
 }

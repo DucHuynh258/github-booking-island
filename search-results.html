@@ -50,6 +50,15 @@
                 </nav>
                 <div class="register-box">
                     <a href="./log_in.html" class="register-btn btn--m">Đăng Nhập</a>
+                    <div class="user-profile" id="user-profile" style="display: none; position: relative;">
+                        <span class="user-name" id="user-name"></span>
+                        <img src="" alt="User Avatar" class="user-avatar" id="user-avatar">
+                        <i class="fa-solid fa-chevron-down user-dropdown-icon" id="user-dropdown-icon"></i>
+                        <div class="dropdown-menu" id="dropdown-menu" style="display: none;">
+                            <a href="./profile.html" class="dropdown-item">Hồ Sơ Của Tôi</a>
+                            <button class="dropdown-item logout-btn" id="logout-btn">Đăng Xuất</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
@@ -150,6 +159,7 @@
     </div>
 
     <script src="./assets/script/search-results.js"></script>
+    <script  src="./assets/script/header.js"></script>
 </body>
 
 </html>

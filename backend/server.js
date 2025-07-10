@@ -24,6 +24,11 @@ const userSchema = new mongoose.Schema({
     userName: String,
     email: { type: String, unique: true },
     password: String,
+    phone: String,
+    dateOfBirth: Date,
+    gender: String,
+    address: String,
+    avatar: String,
     registrationDate: { type: Date, default: Date.now },
 });
 
@@ -31,7 +36,7 @@ const User = mongoose.model('User', userSchema);
 
 // API Đăng ký
 app.post('/api/register', async (req, res) => {
-    const { userName, email, password } = req.body;
+    const { userName, email, password, phone, dateOfBirth, gender, address} = req.body;
 
     try {
         // Kiểm tra email đã tồn tại chưa
@@ -49,6 +54,10 @@ app.post('/api/register', async (req, res) => {
             userName,
             email,
             password: hashedPassword,
+            phone,
+            dateOfBirth,
+            gender,
+            address,
             registrationDate: new Date(),
         });
 
@@ -114,6 +123,12 @@ app.get('/api/user', async (req, res) => {
 
         res.json({ 
             userName: decoded.userName,
+            email: user.email,
+            phone: user.phone,
+            dateOfBirth: user.dateOfBirth,
+            gender: user.gender,
+            address: user.address,
+            avatar: user.avatar,
             registrationDate: new Date(user.registrationDate).toLocaleString('vi-VN', {
                 day: '2-digit',
                 month: '2-digit',
@@ -128,8 +143,37 @@ app.get('/api/user', async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server đang chạy trên cổng ${PORT}`));
+// API Cập nhật hồ sơ
+app.put('/api/update-profile', async (req, res) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+        return res.status(401).json({ message: 'Không có token' });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findOne({ userId: decoded.userId });
+
+        if (!user) {
+            return res.status(404).json({ message: 'Không tìm thấy người dùng' });
+        }
+
+        const { userName, phone, dateOfBirth, gender, address, avatar } = req.body;
+
+        user.userName = userName || user.userName;
+        user.phone = phone || user.phone;
+        user.dateOfBirth = dateOfBirth || user.dateOfBirth;
+        user.gender = gender || user.gender;
+        user.address = address || user.address;
+        user.avatar = avatar || user.avatar;
+
+        await user.save();
+
+        res.json({ message: 'Cập nhật hồ sơ thành công' });
+    } catch (error) {
+        res.status(500).json({ message: 'Lỗi server' });
+    }
+});
 
 // contactform gửi mail về
 const transporter = nodemailer.createTransport({
@@ -168,3 +212,6 @@ app.post('/api/contact', async (req, res) => {
     res.status(500).json({ message: 'Không gửi được, thử lại sau nhé.' });
   }
 });
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server đang chạy trên cổng ${PORT}`));

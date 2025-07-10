@@ -48,8 +48,15 @@
 
                 <div class="register-box" id="register-box">
                     <a href="./log_in.html" class="register-btn btn--m" id="login-btn">Đăng Nhập</a>
-                    <span class="user-name" id="user-name" style="display: none;"></span>
-                    <button class="logout-btn btn--m" id="logout-btn" style="display: none;">Đăng Xuất</button>
+                    <div class="user-profile" id="user-profile" style="display: none; position: relative;">
+                        <span class="user-name" id="user-name"></span>
+                        <img src="" alt="User Avatar" class="user-avatar" id="user-avatar">
+                        <i class="fa-solid fa-chevron-down user-dropdown-icon" id="user-dropdown-icon"></i>
+                        <div class="dropdown-menu" id="dropdown-menu" style="display: none;">
+                            <a href="./profile.html" class="dropdown-item">Hồ Sơ Của Tôi</a>
+                            <button class="dropdown-item logout-btn" id="logout-btn">Đăng Xuất</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </header>
@@ -533,8 +540,19 @@
             const token = localStorage.getItem('token');
             const userName = localStorage.getItem('userName');
             const loginBtn = document.getElementById('login-btn');
+            const userProfile = document.getElementById('user-profile');
             const userNameSpan = document.getElementById('user-name');
+            const userAvatar = document.getElementById('user-avatar');
+            const dropdownIcon = document.getElementById('user-dropdown-icon');
+            const dropdownMenu = document.getElementById('dropdown-menu');
             const logoutBtn = document.getElementById('logout-btn');
+
+            // Default avatars
+            const defaultAvatars = [
+                './assets/img/avatars/avatar1.jpg',
+                './assets/img/avatars/avatar2.png',
+                './assets/img/avatars/avatar3.png'
+            ];
 
             if (token && userName) {
                 // Xác minh token
@@ -547,9 +565,10 @@
                     .then(data => {
                         if (data.userName) {
                             loginBtn.style.display = 'none';
-                            userNameSpan.style.display = 'inline';
+                            userProfile.style.display = 'flex';
                             userNameSpan.textContent = `Xin chào, ${data.userName}`;
-                            logoutBtn.style.display = 'inline';
+                            // Set avatar (use stored avatar or random default)
+                            userAvatar.src = data.avatar || defaultAvatars[Math.floor(Math.random() * defaultAvatars.length)];
                         } else {
                             localStorage.removeItem('token');
                             localStorage.removeItem('userName');
@@ -560,6 +579,18 @@
                         localStorage.removeItem('userName');
                     });
             }
+
+            // Toggle dropdown menu
+            dropdownIcon.addEventListener('click', () => {
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!userProfile.contains(e.target)) {
+                    dropdownMenu.style.display = 'none';
+                }
+            });
 
             logoutBtn.addEventListener('click', () => {
                 localStorage.removeItem('token');
