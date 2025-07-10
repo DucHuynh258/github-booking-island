@@ -34,6 +34,12 @@
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.result-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
 .result-item-info {
@@ -72,10 +78,54 @@
     text-decoration: none;
     cursor: pointer;
     border: none;
+    transition: filter 0.2s ease;
+}
+
+.select-ticket-btn:hover {
+    filter: brightness(1.1);
 }
 
 
-/* ---- Styles cho pop-up đặt vé ---- */
+/* ======================================= */
+
+
+/* ---- STYLES CHO HIỆU ỨNG POPUP ---- */
+
+
+/* ======================================= */
+
+.popup-overlay {
+    /* Thêm lại display flex để căn giữa */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Mặc định ẩn đi */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.popup-overlay.active {
+    /* Hiện ra khi có class 'active' */
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup-content {
+    /* Hiệu ứng phóng to */
+    transform: scale(0.9);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.popup-overlay.active .popup-content {
+    /* Trở về kích thước ban đầu khi hiện ra */
+    transform: scale(1);
+    opacity: 1;
+}
+
+
+/* ---- Styles cũ cho pop-up đặt vé ---- */
 
 .booking-details .form-group {
     margin-bottom: 20px;
@@ -84,18 +134,17 @@
 .booking-details .form-group .form-group__input {
     width: 100%;
     border: none;
-    background-color: transparent;
+    background-color: #f0f0f0;
     font-size: 1.6rem;
     outline: none;
     font-family: 'Be Vietnam Pro', sans-serif;
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
 .seat.occupied {
     background-color: #dc3545;
-    /* MÀU ĐỎ CHO GHẾ ĐÃ ĐƯỢC CHỌN */
     color: var(--white-color, #fff);
     cursor: not-allowed;
     opacity: 0.7;

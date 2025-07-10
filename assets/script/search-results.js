@@ -1,14 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // ---- PHẦN 1: HIỂN THỊ KẾT QUẢ TÌM KIẾM (Giữ nguyên) ----
+    // ---- PHẦN 1: HIỂN THỊ KẾT QUẢ TÌM KIẾM ----
     const allTrips = [
         { from: 'rachgia', to: 'phuquoc', time: '07:30', brand: 'Superdong', price: 340000 },
         { from: 'rachgia', to: 'phuquoc', time: '08:15', brand: 'Phú Quốc Express', price: 350000 },
-        { from: 'rachgia', to: 'phuquoc', time: '12:30', brand: 'Superdong', price: 340000 },
         { from: 'hatien', to: 'phuquoc', time: '09:00', brand: 'Superdong', price: 250000 },
-        { from: 'hatien', to: 'phuquoc', time: '13:00', brand: 'Phú Quốc Express', price: 250000 },
         { from: 'phanthiet', to: 'phuquy', time: '08:00', brand: 'Superdong', price: 400000 },
-        { from: 'phanthiet', to: 'phuquy', time: '08:30', brand: 'Phú Quý Express', price: 390000 },
-        { from: 'camranh', to: 'binhhung', time: '10:00', brand: 'Cano Bình Hưng', price: 50000 }
     ];
 
     const params = new URLSearchParams(window.location.search);
@@ -25,10 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'rachgia': 'Rạch Giá',
         'hatien': 'Hà Tiên',
         'phanthiet': 'Phan Thiết',
-        'camranh': 'Cam Ranh',
         'phuquoc': 'Đảo Phú Quốc',
-        'phuquy': 'Đảo Phú Quý',
-        'binhhung': 'Đảo Bình Hưng'
+        'phuquy': 'Đảo Phú Quý'
     };
 
     const fromText = locationMap[departure] || departure;
@@ -47,26 +41,23 @@ document.addEventListener('DOMContentLoaded', () => {
             li.innerHTML = `
                 <div class="result-item-info">
                     <i class="fa-solid fa-ship"></i>
-                    <div>
-                        <div class="result-item-time">${trip.time}</div>
-                        <div class="result-item-brand">${trip.brand}</div>
-                    </div>
+                    <div><div class="result-item-time">${trip.time}</div><div class="result-item-brand">${trip.brand}</div></div>
                 </div>
                 <div class="result-item-price">${trip.price.toLocaleString('vi-VN')} đ</div>
-                <button class="select-ticket-btn" data-brand="${trip.brand}" data-price="${trip.price}">Chọn vé</button>
+                <button class="select-ticket-btn" data-price="${trip.price}">Chọn vé</button>
             `;
             resultsList.appendChild(li);
         });
     } else {
-        resultsList.innerHTML = '<p>Rất tiếc, không tìm thấy chuyến đi nào phù hợp với lựa chọn của bạn.</p>';
+        resultsList.innerHTML = '<p>Rất tiếc, không tìm thấy chuyến đi nào phù hợp.</p>';
     }
 
-    // ---- PHẦN 2: QUẢN LÝ POPUP ĐẶT VÉ (Đã được cập nhật) ----
+    // ---- PHẦN 2: QUẢN LÝ POPUP ĐẶT VÉ ----
 
     const bookingPopup = document.getElementById('booking-popup');
     const closePopupBtn = document.getElementById('close-popup');
     const ticketQuantityInput = document.getElementById('ticket-quantity');
-    const phoneNumberInput = document.getElementById('phone-number'); // Lấy ô nhập SĐT
+    const phoneNumberInput = document.getElementById('phone-number');
     const totalPriceSpan = document.getElementById('total-price');
     const seatMap = document.getElementById('seat-map');
     const confirmBookingBtn = document.getElementById('confirm-booking');
@@ -76,16 +67,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.target.classList.contains('select-ticket-btn')) {
             const button = event.target;
             currentTripPrice = parseInt(button.dataset.price);
+
             ticketQuantityInput.value = passengers;
             totalPriceSpan.textContent = (currentTripPrice * passengers).toLocaleString('vi-VN');
+
             generateSeatMap();
-            bookingPopup.style.display = 'flex';
+            // Dùng classList.add để kích hoạt hiệu ứng CSS
+            bookingPopup.classList.add('active');
         }
     });
 
-    closePopupBtn.addEventListener('click', () => bookingPopup.style.display = 'none');
+    // Dùng classList.remove để đóng popup
+    closePopupBtn.addEventListener('click', () => bookingPopup.classList.remove('active'));
     window.addEventListener('click', (event) => {
-        if (event.target == bookingPopup) bookingPopup.style.display = 'none';
+        if (event.target == bookingPopup) bookingPopup.classList.remove('active');
     });
 
     ticketQuantityInput.addEventListener('input', () => {
@@ -100,9 +95,26 @@ document.addEventListener('DOMContentLoaded', () => {
             seat.className = 'seat';
             seat.textContent = i;
             if (Math.random() > 0.8) seat.classList.add('occupied');
-            else seat.addEventListener('click', () => {
-                if (!seat.classList.contains('occupied')) seat.classList.toggle('selected');
-            });
+            else {
+                seat.addEventListener('click', () => {
+                    const selectedSeats = document.querySelectorAll('.seat.selected').length;
+                    const maxSeats = parseInt(ticketQuantityInput.value);
+
+                    if (!seat.classList.contains('selected') && selectedSeats >= maxSeats) {
+                        Swal.fire({
+                            toast: true,
+                            position: 'top',
+                            icon: 'warning',
+                            title: `Chỉ được chọn tối đa ${maxSeats} ghế.`,
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                        return;
+                    }
+
+                    seat.classList.toggle('selected');
+                });
+            }
             seatMap.appendChild(seat);
         }
     }
@@ -110,20 +122,16 @@ document.addEventListener('DOMContentLoaded', () => {
     confirmBookingBtn.addEventListener('click', () => {
         const quantity = parseInt(ticketQuantityInput.value);
         const selectedSeats = document.querySelectorAll('.seat.selected').length;
-        const phoneNumber = phoneNumberInput.value.trim(); // Lấy giá trị SĐT
+        const phoneNumber = phoneNumberInput.value.trim();
 
-        // ---- KHỐI KIỂM TRA MỚI ----
         if (!phoneNumber) {
             Swal.fire({ icon: 'error', title: 'Thông tin còn thiếu', text: 'Vui lòng nhập số điện thoại của bạn!', confirmButtonColor: 'var(--primary-color)' });
-            return; // Dừng lại nếu SĐT trống
+            return;
         }
-        // Kiểm tra SĐT có phải là số và đủ 10 chữ số không (kiểm tra đơn giản)
         if (!/^\d{10}$/.test(phoneNumber)) {
             Swal.fire({ icon: 'error', title: 'Số điện thoại không hợp lệ', text: 'Số điện thoại phải có 10 chữ số.', confirmButtonColor: 'var(--primary-color)' });
-            return; // Dừng lại nếu SĐT không hợp lệ
+            return;
         }
-        // ---- HẾT KHỐI KIỂM TRA MỚI ----
-
         if (quantity <= 0) {
             Swal.fire({ icon: 'error', title: 'Lỗi...', text: 'Số lượng vé phải lớn hơn 0!', confirmButtonColor: 'var(--primary-color)' });
             return;
@@ -133,7 +141,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        bookingPopup.style.display = 'none';
-        Swal.fire({ icon: 'success', title: 'Đặt vé thành công!', text: 'Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi.', confirmButtonColor: 'var(--primary-color)' });
+        bookingPopup.classList.remove('active');
+        Swal.fire({
+            icon: 'success',
+            title: 'Đặt vé thành công!',
+            text: 'Vui lòng đến quầy để thanh toán.',
+            confirmButtonColor: 'var(--primary-color)'
+        });
     });
 });
