@@ -1,169 +1,110 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // ---- PHẦN MỚI: XỬ LÝ CHECKBOX KHỨ HỒI ----
+    const roundTripCheckbox = document.getElementById('round-trip-checkbox');
+    const returnDateGroup = document.getElementById('return-date-group');
+    const returnDateInput = document.getElementById('return-date');
 
-    // --- LOGIC FOR TICKET FILTER WITH EFFECTS ---
-    const searchForm = document.getElementById('main-search-form');
-    if (searchForm) {
-        searchForm.addEventListener('submit', (event) => {
-            // Ngăn trang không tải lại
-            event.preventDefault();
+    // Mặc định vô hiệu hóa ô ngày về khi tải trang
+    function setReturnDateDisabled(isDisabled) {
+        if (isDisabled) {
+            returnDateGroup.style.opacity = '0.5';
+            returnDateGroup.style.pointerEvents = 'none';
+            returnDateInput.disabled = true;
+            returnDateInput.value = ''; // Xóa ngày đã chọn nếu bỏ tick
+        } else {
+            returnDateGroup.style.opacity = '1';
+            returnDateGroup.style.pointerEvents = 'auto';
+            returnDateInput.disabled = false;
+        }
+    }
 
-            // MỚI: Thêm hiệu ứng cuộn mượt mà xuống kết quả
-            const resultsContainer = document.getElementById('tickets-result-container');
-            if (resultsContainer) {
-                resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+    // Chạy lần đầu để chắc chắn ô ngày về bị vô hiệu hóa
+    setReturnDateDisabled(true);
 
-            const selectedDeparture = document.getElementById('departure').value;
-            const selectedDestination = document.getElementById('destination').value;
-
-            const allTicketCols = document.querySelectorAll('.tickets-list .col.l-4');
-            const noResultsMessage = document.getElementById('no-results-message');
-            const allTicketSections = document.querySelectorAll('.ticket-section');
-
-            // --- Bước 1: Làm mờ tất cả các vé đang hiển thị ---
-            allTicketCols.forEach(col => {
-                if (col.style.display !== 'none') {
-                    col.classList.add('ticket-col-fade-out');
-                }
-            });
-
-            // --- Bước 2: Chờ hiệu ứng mờ đi hoàn tất rồi mới lọc và hiện ra ---
-            setTimeout(() => {
-                let visibleTicketsCount = 0;
-
-                allTicketCols.forEach(col => {
-                    col.classList.remove('ticket-col-fade-out');
-
-                    const ticket = col.querySelector('.tickets-item');
-                    if (!ticket) return;
-
-                    const places = ticket.querySelectorAll('.tickets-item__place-name');
-                    const ticketDeparture = places[0] ? places[0].textContent.trim() : '';
-                    const ticketDestination = places[1] ? places[1].textContent.trim() : '';
-
-                    const departureMatch = (selectedDeparture === 'any') || (ticketDeparture === selectedDeparture);
-                    const destinationMatch = (selectedDestination === 'any') || (ticketDestination.includes(selectedDestination));
-
-                    const isVisible = departureMatch && destinationMatch;
-
-                    if (isVisible) {
-                        col.style.display = 'block';
-                        col.classList.add('ticket-col-fade-in');
-                        visibleTicketsCount++;
-                    } else {
-                        col.style.display = 'none';
-                        col.classList.remove('ticket-col-fade-in');
-                    }
-                });
-
-                allTicketSections.forEach(section => {
-                    const visibleItemsInSection = section.querySelectorAll('.col.l-4[style*="display: block"]').length;
-                    section.style.display = visibleItemsInSection > 0 ? 'block' : 'none';
-                });
-
-                if (noResultsMessage) {
-                    noResultsMessage.style.display = visibleTicketsCount === 0 ? 'block' : 'none';
-                }
-
-                setTimeout(() => {
-                    allTicketCols.forEach(col => col.classList.remove('ticket-col-fade-in'));
-                }, 500);
-
-            }, 300);
+    // Lắng nghe sự kiện thay đổi của checkbox
+    if (roundTripCheckbox) {
+        roundTripCheckbox.addEventListener('change', function() {
+            setReturnDateDisabled(!this.checked);
         });
     }
 
-    // --- LOGIC FOR BOOKING POP-UP ---
-    const bookingPopup = document.getElementById('booking-popup');
-    const closePopupBtn = document.getElementById('close-popup');
-    const ticketQuantityInput = document.getElementById('ticket-quantity');
-    const totalPriceSpan = document.getElementById('total-price');
-    const seatMap = document.getElementById('seat-map');
-    const confirmBookingBtn = document.getElementById('confirm-booking');
-    let currentPrice = 0;
+    // ---- PHẦN KIỂM TRA FORM TÌM KIẾM ----
+    const searchForm = document.getElementById('ticket-search-form');
+    if (searchForm) {
+        searchForm.addEventListener('submit', function(event) {
+            const departureDateInput = document.getElementById('departure-date');
 
-    document.querySelectorAll('.book-ticket-btn').forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            currentPrice = parseInt(e.target.dataset.price, 10);
-            ticketQuantityInput.value = 1;
-            updateTotalPrice();
-            generateSeatMap();
-            if (bookingPopup) bookingPopup.style.display = 'flex';
+            if (!departureDateInput.value) {
+                event.preventDefault();
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Chưa chọn ngày đi',
+                    text: 'Vui lòng chọn ngày đi để tìm vé nhé!',
+                    confirmButtonColor: 'var(--primary-color, #007bff)'
+                });
+            }
+        });
+    }
+
+    // ---- PHẦN Xử lý nút "Xem" ----
+    const bookTicketButtons = document.querySelectorAll('.book-ticket-btn');
+    const locationValueMap = {
+        'Phan Thiết': 'phanthiet',
+        'Phú Quý': 'phuquy',
+        'Rạch Giá': 'rachgia',
+        'Phú Quốc': 'phuquoc',
+        'Hà Tiên': 'hatien',
+        'Cam Ranh': 'camranh',
+        'Bình Hưng': 'binhhung'
+    };
+
+    bookTicketButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            const ticketItem = button.closest('.tickets-item');
+            const fromText = ticketItem.querySelectorAll('.tickets-item__place-name')[0].textContent.trim();
+            const toText = ticketItem.querySelectorAll('.tickets-item__place-name')[1].textContent.trim();
+            const departureValue = locationValueMap[fromText];
+            const destinationValue = locationValueMap[toText];
+
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const todayDateString = `${year}-${month}-${day}`;
+
+            if (departureValue && destinationValue) {
+                window.location.href = `search-results.html?departure=${departureValue}&destination=${destinationValue}&date=${todayDateString}&passengers=1`;
+            } else {
+                alert('Lỗi: Không tìm thấy giá trị cho điểm đi hoặc điểm đến.');
+            }
         });
     });
 
-    const closePopup = () => {
-        if (bookingPopup) bookingPopup.style.display = 'none';
-    };
+    // --- PHẦN Mã cuộn slider ---
+    const ticketSections = document.querySelectorAll('.ticket-section');
+    ticketSections.forEach((section) => {
+        const list = section.querySelector('.tickets-list');
+        const btnPrev = section.querySelector('.ticket-nav-btn .fa-chevron-left').parentElement;
+        const btnNext = section.querySelector('.ticket-nav-btn .fa-chevron-right').parentElement;
+        const scrollAmount = 408;
 
-    if (closePopupBtn) closePopupBtn.addEventListener('click', closePopup);
-    if (bookingPopup) {
-        bookingPopup.addEventListener('click', (e) => {
-            if (e.target === bookingPopup) {
-                closePopup();
-            }
-        });
-    }
-
-    if (ticketQuantityInput) {
-        ticketQuantityInput.addEventListener('input', () => {
-            updateTotalPrice();
-            document.querySelectorAll('.seat.selected').forEach(seat => seat.classList.remove('selected'));
-        });
-    }
-
-    if (confirmBookingBtn) {
-        confirmBookingBtn.addEventListener('click', () => {
-            const quantity = parseInt(ticketQuantityInput.value, 10);
-            const total = totalPriceSpan.textContent;
-            const selectedSeats = document.querySelectorAll('.seat.selected');
-            const seatNames = Array.from(selectedSeats).map(seat => seat.textContent).join(', ');
-
-            if (selectedSeats.length !== quantity) {
-                alert(`Vui lòng chọn đủ ${quantity} ghế.`);
-                return;
-            }
-
-            alert(`🎉 ĐẶT VÉ THÀNH CÔNG! 🎉\n\nSố lượng: ${quantity} vé\nGhế đã chọn: ${seatNames}\nTổng tiền: ${total} đ`);
-            closePopup();
-        });
-    }
-
-    function updateTotalPrice() {
-        const quantity = parseInt(ticketQuantityInput.value, 10) || 0;
-        if (totalPriceSpan) totalPriceSpan.textContent = (currentPrice * quantity).toLocaleString('vi-VN');
-    }
-
-    function generateSeatMap() {
-        if (!seatMap) return;
-        seatMap.innerHTML = '';
-        const totalSeats = 20;
-
-        for (let i = 1; i <= totalSeats; i++) {
-            const seat = document.createElement('div');
-            seat.classList.add('seat');
-            seat.textContent = `G${i}`;
-
-            if (Math.random() > 0.85) {
-                seat.classList.add('unavailable');
-            } else {
-                seat.addEventListener('click', () => {
-                    const selectedCount = document.querySelectorAll('.seat.selected').length;
-                    const maxQuantity = parseInt(ticketQuantityInput.value, 10);
-
-                    if (seat.classList.contains('selected')) {
-                        seat.classList.remove('selected');
-                    } else {
-                        if (selectedCount < maxQuantity) {
-                            seat.classList.add('selected');
-                        } else {
-                            alert(`Bạn chỉ có thể chọn tối đa ${maxQuantity} ghế.`);
-                        }
-                    }
-                });
-            }
-            seatMap.appendChild(seat);
+        function updateButtons() {
+            btnPrev.classList.toggle('ticket-nav-btn--disabled', list.scrollLeft <= 0);
+            btnNext.classList.toggle('ticket-nav-btn--disabled', list.scrollLeft + list.clientWidth >= list.scrollWidth - 1);
         }
-    }
+
+        btnPrev.addEventListener('click', () => {
+            if (!btnPrev.classList.contains('ticket-nav-btn--disabled')) {
+                list.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            }
+        });
+        btnNext.addEventListener('click', () => {
+            if (!btnNext.classList.contains('ticket-nav-btn--disabled')) {
+                list.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+        });
+        list.addEventListener('scroll', updateButtons);
+        updateButtons();
+    });
 });

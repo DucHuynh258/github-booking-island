@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="./assets/css/grid.css">
     <link rel="stylesheet" href="./assets/css/tickets.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -57,16 +58,16 @@
                 <div class="ticket-search-container">
                     <div class="ticket-search-form">
                         <h2 class="ticket-search-form__heading">Đặt vé tàu cao tốc và máy bay</h2>
-                        <form action="" class="form-body">
+                        <form action="./search-results.html" method="GET" class="form-body" id="ticket-search-form">
                             <div class="row">
                                 <div class="col l-6">
                                     <div class="form-group">
                                         <i class="form-group__icon fa-solid fa-plane-departure"></i>
                                         <div class="form-group__body">
                                             <label for="departure">Điểm đi</label>
-                                            <select id="departure" class="form-group__select">
-                                                <option value="vungtau">Rạch Giá</option>
-                                                <option value="vungtau">Hà Tiên</option>
+                                            <select id="departure" name="departure" class="form-group__select">
+                                                <option value="rachgia">Rạch Giá</option>
+                                                <option value="hatien">Hà Tiên</option>
                                                 <option value="phanthiet">Phan Thiết</option>
                                                 <option value="camranh">Cam Ranh</option>
                                                 <option value="binhhung">Đảo Bình Hưng</option>
@@ -81,9 +82,9 @@
                                         <i class="form-group__icon fa-solid fa-plane-arrival"></i>
                                         <div class="form-group__body">
                                             <label for="destination">Điểm đến</label>
-                                            <select id="destination" class="form-group__select">
-                                                <option value="vungtau">Rạch Giá</option>
-                                                <option value="vungtau">Hà Tiên</option>
+                                            <select id="destination" name="destination" class="form-group__select">
+                                                <option value="rachgia">Rạch Giá</option>
+                                                <option value="hatien">Hà Tiên</option>
                                                 <option value="phanthiet">Phan Thiết</option>
                                                 <option value="camranh">Cam Ranh</option>
                                                 <option value="binhhung">Đảo Bình Hưng</option>
@@ -100,7 +101,7 @@
                                         <i class="form-group__icon fa-solid fa-calendar-day"></i>
                                         <div class="form-group__body">
                                             <label for="departure-date">Ngày đi</label>
-                                            <input type="date" id="departure-date" class="form-group__input">
+                                            <input type="date" id="departure-date" name="date" class="form-group__input">
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +110,7 @@
                                         <i class="form-group__icon fa-solid fa-calendar-day"></i>
                                         <div class="form-group__body">
                                             <label for="return-date">Ngày về</label>
-                                            <input type="date" id="return-date" class="form-group__input">
+                                            <input type="date" id="return-date" name="return_date" class="form-group__input">
                                         </div>
                                     </div>
                                 </div>
@@ -118,7 +119,7 @@
                                         <i class="form-group__icon fa-solid fa-users"></i>
                                         <div class="form-group__body">
                                             <label for="passengers">Số lượng hành khách</label>
-                                            <select id="passengers" class="form-group__select">
+                                            <select id="passengers" name="passengers" class="form-group__select">
                                                 <option value="1">1 người</option>
                                                 <option value="2">2 người</option>
                                                 <option value="3">3 người</option>
