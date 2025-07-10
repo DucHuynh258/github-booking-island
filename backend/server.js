@@ -120,8 +120,8 @@ app.post('/api/contact', async (req, res) => {
   }
 
   const mailOptions = {
-    from: process.env.CONTACT_EMAIL, // Gửi từ Gmail của m
-    to: process.env.CONTACT_EMAIL,   // Nhận cũng về mail đó (hoặc khác nếu muốn)
+    from: process.env.CONTACT_EMAIL, 
+    to: process.env.CONTACT_EMAIL,   
     subject: '📬 Khách hàng liên hệ từ Island Travel',
     text: `
       Tên: ${name}
