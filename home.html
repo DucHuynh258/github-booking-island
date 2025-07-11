@@ -51,6 +51,7 @@
                     <div class="user-profile" id="user-profile" style="display: none; position: relative;">
                         <span class="user-name" id="user-name"></span>
                         <img src="" alt="User Avatar" class="user-avatar" id="user-avatar">
+                        <div class="loading-spinner" id="loading-spinner" style="display: none;">Loading...</div>
                         <i class="fa-solid fa-chevron-down user-dropdown-icon" id="user-dropdown-icon"></i>
                         <div class="dropdown-menu" id="dropdown-menu" style="display: none;">
                             <a href="./profile.html" class="dropdown-item">Hồ Sơ Của Tôi</a>
@@ -537,66 +538,66 @@
     <script src="./assets/script/header.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const token = localStorage.getItem('token');
-            const userName = localStorage.getItem('userName');
-            const loginBtn = document.getElementById('login-btn');
-            const userProfile = document.getElementById('user-profile');
-            const userNameSpan = document.getElementById('user-name');
-            const userAvatar = document.getElementById('user-avatar');
-            const dropdownIcon = document.getElementById('user-dropdown-icon');
-            const dropdownMenu = document.getElementById('dropdown-menu');
-            const logoutBtn = document.getElementById('logout-btn');
+            // const token = localStorage.getItem('token');
+            // const userName = localStorage.getItem('userName');
+            // const loginBtn = document.getElementById('login-btn');
+            // const userProfile = document.getElementById('user-profile');
+            // const userNameSpan = document.getElementById('user-name');
+            // const userAvatar = document.getElementById('user-avatar');
+            // const dropdownIcon = document.getElementById('user-dropdown-icon');
+            // const dropdownMenu = document.getElementById('dropdown-menu');
+            // const logoutBtn = document.getElementById('logout-btn');
 
             // Default avatars
-            const defaultAvatars = [
-                './assets/img/avatars/avatar1.jpg',
-                './assets/img/avatars/avatar2.png',
-                './assets/img/avatars/avatar3.png'
-            ];
+            // const defaultAvatars = [
+            //     './assets/img/avatars/avatar1.jpg',
+            //     './assets/img/avatars/avatar2.png',
+            //     './assets/img/avatars/avatar3.png'
+            // ];
 
-            if (token && userName) {
-                // Xác minh token
-                fetch('http://localhost:5000/api/user', {
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.userName) {
-                            loginBtn.style.display = 'none';
-                            userProfile.style.display = 'flex';
-                            userNameSpan.textContent = `Xin chào, ${data.userName}`;
-                            // Set avatar (use stored avatar or random default)
-                            userAvatar.src = data.avatar || defaultAvatars[Math.floor(Math.random() * defaultAvatars.length)];
-                        } else {
-                            localStorage.removeItem('token');
-                            localStorage.removeItem('userName');
-                        }
-                    })
-                    .catch(() => {
-                        localStorage.removeItem('token');
-                        localStorage.removeItem('userName');
-                    });
-            }
+            // if (token && userName) {
+            //     // Xác minh token
+            //     fetch('http://localhost:5000/api/user', {
+            //             headers: {
+            //                 'Authorization': `Bearer ${token}`
+            //             }
+            //         })
+            //         .then(response => response.json())
+            //         .then(data => {
+            //             if (data.userName) {
+            //                 loginBtn.style.display = 'none';
+            //                 userProfile.style.display = 'flex';
+            //                 userNameSpan.textContent = `Xin chào, ${data.userName}`;
+            //                 // Set avatar (use stored avatar or random default)
+            //                 userAvatar.src = data.avatar || defaultAvatars[Math.floor(Math.random() * defaultAvatars.length)];
+            //             } else {
+            //                 localStorage.removeItem('token');
+            //                 localStorage.removeItem('userName');
+            //             }
+            //         })
+            //         .catch(() => {
+            //             localStorage.removeItem('token');
+            //             localStorage.removeItem('userName');
+            //         });
+            // }
 
             // Toggle dropdown menu
-            dropdownIcon.addEventListener('click', () => {
-                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-            });
+            // dropdownIcon.addEventListener('click', () => {
+            //     dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            // });
 
             // Close dropdown when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!userProfile.contains(e.target)) {
-                    dropdownMenu.style.display = 'none';
-                }
-            });
+            // document.addEventListener('click', (e) => {
+            //     if (!userProfile.contains(e.target)) {
+            //         dropdownMenu.style.display = 'none';
+            //     }
+            // });
 
-            logoutBtn.addEventListener('click', () => {
-                localStorage.removeItem('token');
-                localStorage.removeItem('userName');
-                window.location.reload();
-            });
+            // logoutBtn.addEventListener('click', () => {
+            //     localStorage.removeItem('token');
+            //     localStorage.removeItem('userName');
+            //     window.location.reload();
+            // });
 
             const saleBookBtn = document.querySelector('.sale__content-button');
             if (saleBookBtn) {
