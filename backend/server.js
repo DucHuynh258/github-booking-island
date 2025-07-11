@@ -9,6 +9,12 @@ require('dotenv').config();
 
 const app = express();
 
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../'))); // phục vụ toàn bộ frontend
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../phuquoc_hotel.html'));
+});
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -215,3 +221,53 @@ app.post('/api/contact', async (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server đang chạy trên cổng ${PORT}`));
+
+const Hotel = require('./models/Hotel');
+const Booking = require('./models/Booking');
+
+app.get('/api/hotels', async (req, res) => {
+  const { type, stars, name } = req.query;
+  const query = {};
+  if (type) query.type = type;
+  if (stars) query.stars = Number(stars);
+  if (name) query.name = { $regex: name, $options: 'i' };
+
+  const hotels = await Hotel.find(query);
+  res.json(hotels);
+});
+
+
+app.post('/api/bookings', async (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) return res.status(401).json({ message: 'Bạn cần đăng nhập để đặt phòng' });
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const { hotelId, checkInDate, checkOutDate, roomCount, adults, children } = req.body;
+
+    const booking = new Booking({
+      hotelId,
+      userId: decoded.userId,
+      checkInDate,
+      checkOutDate,
+      roomCount,
+      adults,
+      children
+    });
+
+    await booking.save();
+    res.status(201).json({ message: 'Đặt phòng thành công!' });
+  } catch (error) {
+    res.status(500).json({ message: 'Lỗi server khi đặt phòng' });
+  }
+});
+
+app.get('/api/hotels/:id', async (req, res) => {
+  try {
+    const hotel = await Hotel.findById(req.params.id);
+    if (!hotel) return res.status(404).json({ message: 'Không tìm thấy khách sạn' });
+    res.json(hotel);
+  } catch (err) {
+    res.status(500).json({ message: 'Lỗi server khi lấy thông tin khách sạn' });
+  }
+});
