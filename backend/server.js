@@ -160,7 +160,7 @@ app.post('/api/login', async(req, res) => {
 
 // API Lấy thông tin người dùng 
 app.get('/api/user', async(req, res) => {
-    const token = req.headers.authorization ? .split(' ')[1];
+    const token = req.headers.authorization ?.split(' ')[1];
     if (!token) {
         return res.status(401).json({ message: 'Không có token' });
     }
@@ -184,7 +184,7 @@ app.get('/api/user', async(req, res) => {
 
 // API Cập nhật hồ sơ 
 app.put('/api/update-profile', async(req, res) => {
-    const token = req.headers.authorization ? .split(' ')[1];
+    const token = req.headers.authorization ?.split(' ')[1];
     if (!token) {
         return res.status(401).json({ message: 'Không có token' });
     }
@@ -231,7 +231,7 @@ app.post('/api/contact', async(req, res) => {
 
 // API Đặt vé tàu 
 app.post('/api/book-ticket', async(req, res) => {
-    const token = req.headers.authorization ? .split(' ')[1];
+    const token = req.headers.authorization ?.split(' ')[1];
     if (!token) {
         return res.status(401).json({ message: 'Bạn cần đăng nhập để đặt vé' });
     }
@@ -282,7 +282,7 @@ app.get('/api/hotels', async(req, res) => {
 
 // API Đặt phòng khách sạn 
 app.post('/api/bookings', async(req, res) => {
-    const token = req.headers.authorization ? .split(' ')[1];
+    const token = req.headers.authorization ?.split(' ')[1];
     if (!token) return res.status(401).json({ message: 'Bạn cần đăng nhập để đặt phòng' });
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
