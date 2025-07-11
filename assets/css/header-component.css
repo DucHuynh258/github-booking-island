@@ -142,15 +142,15 @@
 }
 
 .logout-btn{
-    background-color: var(--black-color);
-    color: var(--white-color);
+    background-color: var(--white-color);
+    color: var(--text-color);
     transition: all linear 0.25s;
     text-decoration: none;
 }
 
 .logout-btn:hover {
-    background-color: var(--white-color);
-    color: var(--text-color);
+    background-color: var(--primary-color);
+    color: var(--white-color);
     font-weight: 500;
     text-shadow: 0 0 3px var(--white-color), 0 0 5px rgba(0, 0, 0, 0.6);
 }

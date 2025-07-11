@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function initializeUserProfile() {
     console.log('Initializing user profile...');
-    
+
     const token = localStorage.getItem('token');
     const userName = localStorage.getItem('userName');
     const loginBtn = document.getElementById('login-btn');
@@ -22,11 +22,16 @@ function initializeUserProfile() {
         return;
     }
 
+    // Expose userNameSpan and userAvatar globally
+    window.userNameSpan = userNameSpan;
+    window.userAvatar = userAvatar;
+    console.log('userNameSpan initialized:', window.userNameSpan);
+
     // Default avatars
     const defaultAvatars = [
-        './assets/img/avatars/avatar1.jpg',
-        './assets/img/avatars/avatar2.png',
-        './assets/img/avatars/avatar3.png',
+        '../assets/img/avatars/avatar1.jpg',
+        '../assets/img/avatars/avatar2.png',
+        '../assets/img/avatars/avatar3.png'
     ];
 
     // Logout functionality
@@ -34,19 +39,12 @@ function initializeUserProfile() {
         console.log('Logging out user and redirecting to home.html');
         localStorage.removeItem('token');
         localStorage.removeItem('userName');
-        window.location.href = '../home.html'; // Adjusted for auth/ subdirectory
+        localStorage.removeItem('userAvatar');
+        window.location.href = '../../home.html'; // Adjusted for auth/ subdirectory
     }
 
-
-    if (token && userName) {
-        console.log('Token and userName found, setting initial UI...');
-        loginBtn.style.display = 'none';
-        userProfile.style.display = 'flex';
-        userNameSpan.textContent = `Xin chào, ${userName}`;
-        // Set a temporary avatar until server responds
-        userAvatar.src = defaultAvatars[Math.floor(Math.random() * defaultAvatars.length)];
-
-        // Verify token asynchronously
+    if (token) {
+        // Always fetch user data from server to ensure latest userName
         fetch('http://localhost:5000/api/user', {
             method: 'GET',
             headers: {
@@ -54,36 +52,37 @@ function initializeUserProfile() {
                 'Content-Type': 'application/json'
             }
         })
-        .then(response => {
-            console.log('Server response status:', response.status);
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
             if (data.userName) {
-                console.log('User verified:', data.userName);
-                // Update username and avatar if different
-                if (data.userName !== userName) {
-                    userNameSpan.textContent = `Xin chào, ${data.userName}`;
-                    localStorage.setItem('userName', data.userName);
-                }
-                userAvatar.src = data.avatar || userAvatar.src;
+                console.log('User verified:', { userName: data.userName, avatar: data.avatar ? 'present' : 'not present' });
+                localStorage.setItem('userName', data.userName);
+                localStorage.setItem('userAvatar', data.avatar || defaultAvatars[Math.floor(Math.random() * defaultAvatars.length)]);
+                userNameSpan.textContent = `Xin chào, ${data.userName}`;
+                userAvatar.src = data.avatar || defaultAvatars[Math.floor(Math.random() * defaultAvatars.length)];
+                loginBtn.style.display = 'none';
+                userProfile.style.display = 'flex';
             } else {
-                console.warn('Invalid user data, clearing localStorage');
+                console.warn('Invalid token or no userName, clearing localStorage and updating UI');
                 localStorage.removeItem('token');
                 localStorage.removeItem('userName');
+                localStorage.removeItem('userAvatar');
                 loginBtn.style.display = 'block';
                 userProfile.style.display = 'none';
             }
         })
         .catch(error => {
-            console.error('Error verifying token:', error.message);
+            console.error('Error verifying token:', error);
             localStorage.removeItem('token');
             localStorage.removeItem('userName');
+            localStorage.removeItem('userAvatar');
             loginBtn.style.display = 'block';
             userProfile.style.display = 'none';
         });
     } else {
-        console.log('No token or userName found in localStorage');
+        console.log('No token found in localStorage');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userAvatar');
         loginBtn.style.display = 'block';
         userProfile.style.display = 'none';
     }
@@ -95,7 +94,6 @@ function initializeUserProfile() {
             dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
         });
 
-        // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {
             if (!userProfile.contains(e.target)) {
                 console.log('Closing dropdown menu');
@@ -111,11 +109,7 @@ function initializeUserProfile() {
     if (sidebarLogoutBtn) {
         sidebarLogoutBtn.addEventListener('click', handleLogout);
     }
-
-    // Expose userAvatar for synchronization
-    window.userAvatar = userAvatar;
 }
-
 
 // When the page is scrolled, the header should become sticky
 window.onscroll = function() {

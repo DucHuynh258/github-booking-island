@@ -6,7 +6,6 @@ const cors = require('cors');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-
 const app = express();
 
 const path = require('path');
@@ -17,7 +16,23 @@ app.get('/', (req, res) => {
 });
 // Middleware
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
+
+// Token authentication middleware
+const authenticateToken = (req, res, next) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+        return res.status(401).json({ message: 'Không có token' });
+    }
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded;
+        next();
+    } catch (error) {
+        console.error('Token verification failed:', error);
+        res.status(401).json({ message: 'Token không hợp lệ' });
+    }
+};
 
 // Kết nối MongoDB
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -105,21 +120,35 @@ async function sendBookingConfirmationEmail(bookingDetails) {
     }
 }
 
-
 // ======================= API ENDPOINTS =======================
 
 // API Đăng ký 
 app.post('/api/register', async(req, res) => {
     const { userName, email, password, phone, dateOfBirth, gender, address } = req.body;
     try {
+        if (!userName || !email || !password) {
+            return res.status(400).json({ message: 'Thiếu thông tin bắt buộc' });
+        }
+
+        if (dateOfBirth) {
+            const dob = new Date(dateOfBirth);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            if (dob >= today) {
+                return res.status(400).json({ message: 'Ngày sinh phải ở trong quá khứ' });
+            }
+        }
+
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: 'Email đã tồn tại' });
         }
+
         const hashedPassword = await bcrypt.hash(password, 10);
+
         const user = new User({
             userId: Math.ceil(Math.random() * 100000000).toString(),
-            userName,
+            userName: userName.trim(),
             email,
             password: hashedPassword,
             phone,
@@ -128,13 +157,24 @@ app.post('/api/register', async(req, res) => {
             address,
             registrationDate: new Date(),
         });
+
         await user.save();
-        const formattedDate = new Date(user.registrationDate).toLocaleString('vi-VN');
-        res.status(201).json({
+
+        const formattedDate = new Date(user.registrationDate).toLocaleString('vi-VN', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+
+        res.status(201).json({ 
             message: 'Đăng ký thành công',
             registrationDate: formattedDate
         });
     } catch (error) {
+        console.error('Lỗi đăng ký:', error);
         res.status(500).json({ message: 'Lỗi server' });
     }
 });
@@ -143,32 +183,41 @@ app.post('/api/register', async(req, res) => {
 app.post('/api/login', async(req, res) => {
     const { email, password } = req.body;
     try {
+
+        if (!email || !password) {
+            return res.status(400).json({ message: 'Thiếu email hoặc mật khẩu' });
+        }
+
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ message: 'Email hoặc mật khẩu không đúng' });
         }
+
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ message: 'Email hoặc mật khẩu không đúng' });
         }
+
         const token = jwt.sign({ userId: user.userId, userName: user.userName }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
         res.json({ token, userName: user.userName });
     } catch (error) {
+        console.error('Lỗi đăng nhập:', error);
         res.status(500).json({ message: 'Lỗi server' });
     }
 });
 
-// API Lấy thông tin người dùng 
-app.get('/api/user', async(req, res) => {
-    const token = req.headers.authorization ?.split(' ')[1];
-    if (!token) {
-        return res.status(401).json({ message: 'Không có token' });
-    }
+// API Lấy thông tin người dùng (yêu cầu token)
+app.get('/api/user', authenticateToken, async (req, res) => {
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findOne({ userId: decoded.userId });
-        res.json({
-            userName: decoded.userName,
+        const user = await User.findOne({ userId: req.user.userId });
+        if (!user) {
+            return res.status(404).json({ message: 'Không tìm thấy người dùng' });
+        }
+
+        console.log('Sending user data:', { userName: user.userName, userId: user.userId });
+        res.json({ 
+            userName: user.userName,
             email: user.email,
             phone: user.phone,
             dateOfBirth: user.dateOfBirth,
@@ -178,32 +227,65 @@ app.get('/api/user', async(req, res) => {
             registrationDate: new Date(user.registrationDate).toLocaleString('vi-VN')
         });
     } catch (error) {
-        res.status(401).json({ message: 'Token không hợp lệ' });
+        console.error('Lỗi lấy thông tin người dùng:', error);
+        res.status(500).json({ message: 'Lỗi server' });
     }
 });
 
-// API Cập nhật hồ sơ 
-app.put('/api/update-profile', async(req, res) => {
-    const token = req.headers.authorization ?.split(' ')[1];
-    if (!token) {
-        return res.status(401).json({ message: 'Không có token' });
-    }
+// API Cập nhật hồ sơ
+app.put('/api/update-profile', authenticateToken, async (req, res) => {
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findOne({ userId: decoded.userId });
+        const user = await User.findOne({ userId: req.user.userId });
         if (!user) {
             return res.status(404).json({ message: 'Không tìm thấy người dùng' });
         }
         const { userName, phone, dateOfBirth, gender, address, avatar } = req.body;
-        user.userName = userName || user.userName;
+        
+        if (userName && userName.trim() === '') {
+            return res.status(400).json({ message: 'Họ tên không được để trống' });
+        }
+
+        if (dateOfBirth) {
+            const dob = new Date(dateOfBirth);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            if (dob >= today) {
+                return res.status(400).json({ message: 'Ngày sinh phải ở trong quá khứ' });
+            }
+        }
+
+        // Validate avatar
+        if (avatar) {
+            if (!avatar.startsWith('data:image/')) {
+                return res.status(400).json({ message: 'Định dạng ảnh không hợp lệ' });
+            }
+            const base64Size = (avatar.length * 3) / 4 / 1024 / 1024; // Size in MB
+            if (base64Size > 5) {
+                return res.status(400).json({ message: 'Ảnh đại diện vượt quá 5MB' });
+            }
+        }
+
+        user.userName = userName ? userName.trim() : user.userName;
         user.phone = phone || user.phone;
         user.dateOfBirth = dateOfBirth || user.dateOfBirth;
         user.gender = gender || user.gender;
         user.address = address || user.address;
         user.avatar = avatar || user.avatar;
         await user.save();
-        res.json({ message: 'Cập nhật hồ sơ thành công' });
+
+        console.log('Updated user data:', { userName: user.userName, userId: user.userId, avatar: user.avatar ? 'present' : 'not present' });
+        res.json({ 
+            message: 'Cập nhật hồ sơ thành công',
+            userName: user.userName,
+            email: user.email,
+            phone: user.phone,
+            dateOfBirth: user.dateOfBirth,
+            gender: user.gender,
+            address: user.address,
+            avatar: user.avatar
+        });
     } catch (error) {
+        console.error('Lỗi cập nhật hồ sơ:', error);
         res.status(500).json({ message: 'Lỗi server' });
     }
 });
