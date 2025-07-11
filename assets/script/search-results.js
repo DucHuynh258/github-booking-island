@@ -62,22 +62,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const seatMap = document.getElementById('seat-map');
     const confirmBookingBtn = document.getElementById('confirm-booking');
     let currentTripPrice = 0;
+    let currentTripTime = '';
+    let currentTripBrand = '';
 
     resultsList.addEventListener('click', (event) => {
         if (event.target.classList.contains('select-ticket-btn')) {
             const button = event.target;
+            const resultItem = button.closest('.result-item');
             currentTripPrice = parseInt(button.dataset.price);
+            currentTripTime = resultItem.querySelector('.result-item-time').textContent;
+            currentTripBrand = resultItem.querySelector('.result-item-brand').textContent;
 
             ticketQuantityInput.value = passengers;
             totalPriceSpan.textContent = (currentTripPrice * passengers).toLocaleString('vi-VN');
 
             generateSeatMap();
-            // Dùng classList.add để kích hoạt hiệu ứng CSS
             bookingPopup.classList.add('active');
         }
     });
 
-    // Dùng classList.remove để đóng popup
     closePopupBtn.addEventListener('click', () => bookingPopup.classList.remove('active'));
     window.addEventListener('click', (event) => {
         if (event.target == bookingPopup) bookingPopup.classList.remove('active');
@@ -94,8 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const seat = document.createElement('div');
             seat.className = 'seat';
             seat.textContent = i;
-            if (Math.random() > 0.8) seat.classList.add('occupied');
-            else {
+            if (Math.random() > 0.8) {
+                seat.classList.add('occupied');
+            } else {
                 seat.addEventListener('click', () => {
                     const selectedSeats = document.querySelectorAll('.seat.selected').length;
                     const maxSeats = parseInt(ticketQuantityInput.value);
@@ -119,11 +123,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    confirmBookingBtn.addEventListener('click', () => {
+    confirmBookingBtn.addEventListener('click', async() => {
         const quantity = parseInt(ticketQuantityInput.value);
-        const selectedSeats = document.querySelectorAll('.seat.selected').length;
+        const selectedSeatElements = document.querySelectorAll('.seat.selected');
+        const selectedSeats = Array.from(selectedSeatElements).map(seat => seat.textContent);
         const phoneNumber = phoneNumberInput.value.trim();
+        const token = localStorage.getItem('token');
 
+        if (!token) {
+            Swal.fire({ icon: 'error', title: 'Lỗi', text: 'Bạn cần đăng nhập để thực hiện chức năng này.', confirmButtonColor: 'var(--primary-color)' });
+            return;
+        }
         if (!phoneNumber) {
             Swal.fire({ icon: 'error', title: 'Thông tin còn thiếu', text: 'Vui lòng nhập số điện thoại của bạn!', confirmButtonColor: 'var(--primary-color)' });
             return;
@@ -136,17 +146,58 @@ document.addEventListener('DOMContentLoaded', () => {
             Swal.fire({ icon: 'error', title: 'Lỗi...', text: 'Số lượng vé phải lớn hơn 0!', confirmButtonColor: 'var(--primary-color)' });
             return;
         }
-        if (selectedSeats !== quantity) {
-            Swal.fire({ icon: 'warning', title: 'Chưa chọn đủ ghế', text: `Bạn đã chọn ${quantity} vé, vui lòng chọn đủ ${quantity} ghế.`, confirmButtonColor: 'var(--primary-color)' });
+        if (selectedSeats.length !== quantity) {
+            Swal.fire({ icon: 'warning', title: 'Chưa chọn đủ ghế', text: `Bạn đã đặt ${quantity} vé, vui lòng chọn đủ ${quantity} ghế.`, confirmButtonColor: 'var(--primary-color)' });
             return;
         }
 
-        bookingPopup.classList.remove('active');
-        Swal.fire({
-            icon: 'success',
-            title: 'Đặt vé thành công!',
-            text: 'Vui lòng đến quầy để thanh toán.',
-            confirmButtonColor: 'var(--primary-color)'
-        });
+        const bookingData = {
+            departure: fromText,
+            destination: toText,
+            tripDate: date,
+            tripTime: currentTripTime,
+            brand: currentTripBrand,
+            quantity: quantity,
+            totalPrice: currentTripPrice * quantity,
+            seats: selectedSeats,
+            phone: phoneNumber
+        };
+
+        try {
+            const response = await fetch('/api/book-ticket', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(bookingData)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                bookingPopup.classList.remove('active');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Đặt vé thành công!',
+                    text: result.message, // Hiển thị thông báo từ server
+                    confirmButtonColor: 'var(--primary-color)'
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Có lỗi xảy ra',
+                    text: result.message,
+                    confirmButtonColor: 'var(--primary-color)'
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi kết nối',
+                text: 'Không thể kết nối đến server. Vui lòng thử lại sau.',
+                confirmButtonColor: 'var(--primary-color)'
+            });
+        }
     });
 });
