@@ -66,7 +66,7 @@
                     <div class="row sm-gutter">
                         <div class="col l-3 m-6 c-12">
                             <div class="search-bar">
-                                Phú Quốc
+                                Phú Quý
                             </div>
                         </div>
                         <div class="col l-7 m-6 c-12">
@@ -160,7 +160,7 @@
             <div class="main-section">
                 <div class="grid wide">
                     <div class="main-header">
-                        <span class="main-header__title">Khách sạn Phú Quốc</span>
+                        <span class="main-header__title">Khách sạn Phú Quý</span>
                         <span class="main-header__description">*Giá trung bình phòng 1 đêm cho 2 khách</span>
                     </div>
                     <div class="main-container">
@@ -187,8 +187,8 @@
                                                 <span>Homestay</span>
                                             </label>
                                             <label class="main-filter__option">
-                                                <input type="checkbox" name="accommodation-type" value="resort">
-                                                <span>Resort</span>
+                                                <input type="checkbox" name="accommodation-type" value="apartment">
+                                                <span>Căn hộ (Apartment)</span>
                                             </label>
                                         </div>
                                     </div>
@@ -372,16 +372,6 @@
     <script src="./assets/script/filter.js"></script>
     
     <script>
-    //     document.addEventListener('DOMContentLoaded', function() {
-    // const currentPage = window.location.pathname.split('_')[0].split('/').pop();
-    // const islandNameMap = {
-    //     'phuquoc': 'Phú Quốc',
-    //     'phuquy': 'Phú Quý',
-    //     'binhhung': 'Bình Hưng'  
-    // };
-    // document.getElementById('island-name').textContent = islandNameMap[currentPage] || '';
-// });
-
         // Tương tác với nút lưu (trái tim)
         document.addEventListener('DOMContentLoaded', function() {
             const saveBtns = document.querySelectorAll('.main-content__img-save-btn');
@@ -393,13 +383,14 @@
             });
         });
 // Fetch hotels data from API
+// Fetch hotels data from API
 async function fetchHotels() {
     try {
         // Lấy tên đảo từ tên file
         const currentPage = window.location.pathname.split('_')[0].split('/').pop();
         const islandMap = {
-            'phuquoc': 'PhuQuoc',
-            // 'phuquy': 'PhuQuy', 
+            'phuquy': 'PhuQuy',
+            // 'phuquoc': 'PhuQuoc',
             // 'binhhung': 'BinhHung'
         };
         const island = islandMap[currentPage];

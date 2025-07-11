@@ -353,21 +353,37 @@ app.post('/api/book-ticket', async(req, res) => {
 
 // API Khách sạn 
 app.get('/api/hotels', async(req, res) => {
-    const { type, stars, name } = req.query;
+    const { type, stars, name, island } = req.query;
     const query = {};
-    if (type) query.type = type;
-    if (stars) query.stars = Number(stars);
-    if (name) query.name = { $regex: name, $options: 'i' };
-    const hotels = await Hotel.find(query);
-    res.json(hotels);
+    
+    if (type) {
+        query.type = { $in: type.split(',') };
+    }
+    if (stars) {
+        query.stars = { $in: stars.split(',').map(Number) };
+    }
+    if (name) {
+        query.name = { $regex: name, $options: 'i' };
+    }
+    if (island) {
+        query.island = island;
+    }
+    try {
+        const hotels = await Hotel.find(query);
+        res.json(hotels);
+    } catch (error) {
+        res.status(500).json({ message: 'Lỗi khi tìm kiếm khách sạn' });
+    }
 });
 
-// API Đặt phòng khách sạn 
-app.post('/api/bookings', async(req, res) => {
-    const token = req.headers.authorization ?.split(' ')[1];
+// API Đặt phòng khách sạn
+app.post('/api/book-hotel', async(req, res) => {
+    const token = req.headers.authorization?.split(' ')[1];
     if (!token) return res.status(401).json({ message: 'Bạn cần đăng nhập để đặt phòng' });
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findOne({ userId: decoded.userId });
+        const hotel = await Hotel.findById(req.body.hotelId);
         const { hotelId, checkInDate, checkOutDate, roomCount, adults, children } = req.body;
         const booking = new Booking({
             hotelId,
@@ -379,9 +395,41 @@ app.post('/api/bookings', async(req, res) => {
             children
         });
         await booking.save();
-        res.status(201).json({ message: 'Đặt phòng thành công!' });
+        res.status(201).json({ 
+            message: 'Đặt phòng thành công!',
+            userEmail: user.email,
+            hotelName: hotel.name,
+            hotelLocation: hotel.location,
+            hotelPhone: hotel.phoneNumber
+        });
     } catch (error) {
         res.status(500).json({ message: 'Lỗi server khi đặt phòng' });
+    }
+});
+
+// API gửi email xác nhận đặt phòng
+app.post('/api/send-booking-email', authenticateToken, async (req, res) => {
+    try {
+        const { to, subject, html } = req.body;
+        
+        console.log('Received email request:', { to, subject, html }); // Add this debug line
+        
+        if (!to) {
+            return res.status(400).json({ message: 'Thiếu địa chỉ email người nhận' });
+        }
+        
+        const mailOptions = {
+            from: process.env.CONTACT_EMAIL,
+            to: to,
+            subject: subject,
+            html: html
+        };
+        
+        await transporter.sendMail(mailOptions);
+        res.status(200).json({ message: 'Email xác nhận đã được gửi thành công' });
+    } catch (error) {
+        console.error('Lỗi gửi email:', error);
+        res.status(500).json({ message: 'Không thể gửi email xác nhận' });
     }
 });
 

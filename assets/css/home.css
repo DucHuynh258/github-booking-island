@@ -118,6 +118,7 @@
     line-height: 7rem;
     color: var(--black-color);
     margin-bottom: 28px;
+    z-index: 100;
 }
 
 .slider__btn-box {
