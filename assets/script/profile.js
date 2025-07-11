@@ -26,35 +26,35 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch user data
     if (token) {
         fetch('http://localhost:5000/api/user', {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.userName) {
-                nameInput.value = data.userName || '';
-                emailInput.value = data.email || '';
-                phoneInput.value = data.phone || '';
-                dobInput.value = data.dateOfBirth ? new Date(data.dateOfBirth).toISOString().split('T')[0] : '';
-                genderInput.value = data.gender || '';
-                addressInput.value = data.address || '';
-                const avatarSrc = data.avatar || defaultAvatars[Math.floor(Math.random() * defaultAvatars.length)];
-                profileAvatar.src = avatarSrc;
-                if (window.userAvatar) {
-                    window.userAvatar.src = avatarSrc; // Sync header avatar
+                headers: {
+                    'Authorization': `Bearer ${token}`
                 }
-            } else {
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.userName) {
+                    nameInput.value = data.userName || '';
+                    emailInput.value = data.email || '';
+                    phoneInput.value = data.phone || '';
+                    dobInput.value = data.dateOfBirth ? new Date(data.dateOfBirth).toISOString().split('T')[0] : '';
+                    genderInput.value = data.gender || '';
+                    addressInput.value = data.address || '';
+                    const avatarSrc = data.avatar || defaultAvatars[Math.floor(Math.random() * defaultAvatars.length)];
+                    profileAvatar.src = avatarSrc;
+                    if (window.userAvatar) {
+                        window.userAvatar.src = avatarSrc; // Sync header avatar
+                    }
+                } else {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('userName');
+                    window.location.href = '../../log_in.html';
+                }
+            })
+            .catch(() => {
                 localStorage.removeItem('token');
                 localStorage.removeItem('userName');
                 window.location.href = '../../log_in.html';
-            }
-        })
-        .catch(() => {
-            localStorage.removeItem('token');
-            localStorage.removeItem('userName');
-            window.location.href = '../../log_in.html';
-        });
+            });
     } else {
         window.location.href = '../../log_in.html';
     }
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Handle form submission
-    profileForm.addEventListener('submit', async (e) => {
+    profileForm.addEventListener('submit', async(e) => {
         e.preventDefault();
 
         // Reset error messages
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (avatarInput.files[0]) {
                 const file = avatarInput.files[0];
                 const reader = new FileReader();
-                reader.onload = async (e) => {
+                reader.onload = async(e) => {
                     formData.avatar = e.target.result;
                     await updateProfile(formData);
                 };
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Cập nhật hồ sơ thành công!');
                 localStorage.setItem('userName', formData.userName);
                 if (window.userAvatar && formData.avatar) {
-                    window.userAvatar.src = formData.avatar; 
+                    window.userAvatar.src = formData.avatar;
                 }
                 window.location.reload();
             } else {
