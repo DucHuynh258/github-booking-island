@@ -71,3 +71,38 @@ function setupRoomFilter() {
 window.addEventListener('DOMContentLoaded', function() {
   setupRoomFilter();
 });
+
+// assets/script/hotel.js
+
+function bookHotel(hotelId) {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert('Bạn cần đăng nhập để đặt phòng');
+    return;
+  }
+
+  const checkIn = document.getElementById('checkin').value;
+  const checkOut = document.getElementById('checkout').value;
+
+fetch('/api/bookings', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      hotelId,
+      checkInDate: checkIn,
+      checkOutDate: checkOut,
+      roomCount: 1,
+      adults: 2,
+      children: 0
+    })
+  })
+    .then(res => res.json())
+    .then(data => alert(data.message))
+    .catch(err => {
+      console.error('Đặt phòng thất bại', err);
+      alert('Có lỗi khi đặt phòng.');
+    });
+}

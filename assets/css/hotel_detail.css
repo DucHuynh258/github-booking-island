@@ -1,0 +1,90 @@
+/* hotel_detail.css */
+
+.hotel-detail-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 32px 0;
+}
+
+.hotel-detail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.hotel-detail__img {
+  flex: 1;
+  min-width: 300px;
+  max-width: 50%;
+}
+
+.hotel-detail__img img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+.hotel-detail__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hotel-detail__info h1 {
+  font-size: 2.4rem;
+  margin: 0;
+}
+
+.hotel-detail__location {
+  font-size: 1.6rem;
+  color: var(--text-color);
+}
+
+.hotel-detail__stars {
+  color: #FFD700;
+  font-size: 1.8rem;
+}
+
+.hotel-detail__price {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.hotel-detail__form {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hotel-detail__form label {
+  font-size: 1.4rem;
+}
+
+.hotel-detail__form input {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1.4rem;
+}
+
+.hotel-detail__form button {
+  margin-top: 16px;
+  padding: 10px 16px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.hotel-detail__form button:hover {
+  background-color: #0071c2;
+}
