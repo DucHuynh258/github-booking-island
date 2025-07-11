@@ -14,6 +14,7 @@ function initializeUserProfile() {
     const dropdownIcon = document.getElementById('user-dropdown-icon');
     const dropdownMenu = document.getElementById('dropdown-menu');
     const logoutBtn = document.getElementById('logout-btn');
+    const sidebarLogoutBtn = document.getElementById('sidebar-logout-btn');
 
     // Check if required DOM elements exist
     if (!loginBtn || !userProfile || !userNameSpan || !userAvatar) {
@@ -25,8 +26,17 @@ function initializeUserProfile() {
     const defaultAvatars = [
         './assets/img/avatars/avatar1.jpg',
         './assets/img/avatars/avatar2.png',
-        './assets/img/avatars/avatar3.png'
+        './assets/img/avatars/avatar3.png',
     ];
+
+    // Logout functionality
+    function handleLogout() {
+        console.log('Logging out user and redirecting to home.html');
+        localStorage.removeItem('token');
+        localStorage.removeItem('userName');
+        window.location.href = '../home.html'; // Adjusted for auth/ subdirectory
+    }
+
 
     if (token && userName) {
         console.log('Token and userName found, setting initial UI...');
@@ -35,8 +45,6 @@ function initializeUserProfile() {
         userNameSpan.textContent = `Xin chào, ${userName}`;
         // Set a temporary avatar until server responds
         userAvatar.src = defaultAvatars[Math.floor(Math.random() * defaultAvatars.length)];
-        const loadingSpinner = document.getElementById('loading-spinner');
-        if (loadingSpinner) loadingSpinner.style.display = 'block';
 
         // Verify token asynchronously
         fetch('http://localhost:5000/api/user', {
@@ -96,15 +104,16 @@ function initializeUserProfile() {
         });
     }
 
-    // Logout functionality
+    // Attach logout handlers
     if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-            console.log('Logging out user and redirecting to home.html');
-            localStorage.removeItem('token');
-            localStorage.removeItem('userName');
-            window.location.href = '../../home.html';
-        });
+        logoutBtn.addEventListener('click', handleLogout);
     }
+    if (sidebarLogoutBtn) {
+        sidebarLogoutBtn.addEventListener('click', handleLogout);
+    }
+
+    // Expose userAvatar for synchronization
+    window.userAvatar = userAvatar;
 }
 
 

@@ -124,7 +124,7 @@ html {
     border-radius: 50%;
     object-fit: cover;
     margin-left: 10px;
-    border: 2px solid var(--primary-color);
+    border: 2px solid var(--text-color);
 }
 
 .user-dropdown-icon {

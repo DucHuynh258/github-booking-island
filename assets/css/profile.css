@@ -1,31 +1,97 @@
-.wrapper {
+/* Profile Container */
+.profile-container {
+    padding: 32px 0;
+    min-height: calc(100vh - 108px); /* Adjust for header height */
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #f8f8f8;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    margin-bottom: 24px;
+    font-size: 1.4rem;
+    color: var(--text-color);
+}
+
+.breadcrumb-item {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+.breadcrumb-item.active {
+    color: var(--text-color);
+    font-weight: 300;
+}
+
+.breadcrumb-separator {
+    margin: 0 8px;
+    color: var(--description-color);
+}
+
+/* Sidebar Menu */
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu-item {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    min-height: 100vh;
-    background: #f8f8f8;
-    padding: 20px;
+    padding: 12px 16px;
+    font-size: 1.6rem;
+    color: var(--text-color);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    transition: all 0.2s ease;
 }
 
-.logo-link {
-    position: absolute;
-    top: 20px;
-    left: 20px;
+.sidebar-menu-item.active {
+    background-color: var(--primary-color);
+    color: var(--white-color);
 }
 
-.logo {
-    width: 200px;
+.sidebar-menu-item a {
+    text-decoration: none;
+    color: inherit;
+    flex: 1;
 }
 
-.modal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.sidebar-menu-item:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.sidebar-menu-icon {
+    margin-right: 12px;
+    font-size: 1.8rem;
+}
+
+.sidebar-logout-btn {
     width: 100%;
-    max-width: 600px;
-    margin-top: 80px;
+    margin-left: 40px;
+    font-size: 1.6rem;
+    color: var(--text-color);
+    background: none;
+    border: none;
+    border-radius: 8px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
+.sidebar-logout-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+/* Profile Content */
 .content {
     background: var(--white-color);
     padding: 40px;
@@ -57,6 +123,12 @@
     margin-bottom: 16px;
 }
 
+#profile-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .avatar-upload-btn {
     background-color: var(--primary-color);
     color: var(--white-color);
@@ -77,8 +149,18 @@
     position: relative;
     height: 52px;
     width: 100%;
-    max-width: 284px;
     margin-bottom: 24px;
+}
+
+.content__input-wrapper select.content__input {
+    -webkit-appearance: none;  
+    -moz-appearance: none;     
+    appearance: none;
+    background: url('data:image/svg+xml;utf8,<svg fill="--text-color" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 1rem center;
+    background-color: white;
+    background-size: 30px;
+    padding-right: 2.5rem; 
+    cursor: pointer;
 }
 
 .content__input-label {
@@ -96,7 +178,7 @@
 
 .content__input {
     height: 52px;
-    width: 183%;
+    width: 100%;
     border-radius: 32px;
     padding: 0 18px;
     font-size: 1.3rem;
@@ -129,7 +211,6 @@
 }
 
 .content__submit {
-    margin-left: 12%;
     height: 52px;
     width: 100%;
     max-width: 400px;
@@ -141,6 +222,7 @@
     margin-top: 20px;
     cursor: pointer;
     transition: 0.25s;
+
 }
 
 .content__submit:hover {
@@ -154,4 +236,35 @@
     background-color: var(--white-color);
     padding: 0 4px;
     border-radius: 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 739px) {
+    .sidebar {
+        margin-bottom: 24px;
+    }
+
+    .content {
+        padding: 24px;
+    }
+
+    .content__heading {
+        font-size: 2.4rem;
+    }
+
+    .profile-avatar {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (min-width: 740px) and (max-width: 1023px) {
+    .content {
+        padding: 28px;
+    }
+
+    .profile-avatar {
+        width: 110px;
+        height: 110px;
+    }
 }

@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Default avatars
     const defaultAvatars = [
-        '../img/avatars/avatar1.jpg',
-        '../img/avatars/avatar2.png',
-        '../img/avatars/avatar3.png'
+        './assets/img/avatars/avatar1.jpg',
+        './assets/img/avatars/avatar2.png',
+        './assets/img/avatars/avatar3.png',
     ];
 
     // Fetch user data
@@ -39,7 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 dobInput.value = data.dateOfBirth ? new Date(data.dateOfBirth).toISOString().split('T')[0] : '';
                 genderInput.value = data.gender || '';
                 addressInput.value = data.address || '';
-                profileAvatar.src = data.avatar || defaultAvatars[Math.floor(Math.random() * defaultAvatars.length)];
+                const avatarSrc = data.avatar || defaultAvatars[Math.floor(Math.random() * defaultAvatars.length)];
+                profileAvatar.src = avatarSrc;
+                if (window.userAvatar) {
+                    window.userAvatar.src = avatarSrc; // Sync header avatar
+                }
             } else {
                 localStorage.removeItem('token');
                 localStorage.removeItem('userName');
@@ -61,7 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                profileAvatar.src = e.target.result;
+                const avatarSrc = e.target.result;
+                profileAvatar.src = avatarSrc;
+                if (window.userAvatar) {
+                    window.userAvatar.src = avatarSrc; // Sync header avatar
+                }
             };
             reader.readAsDataURL(file);
         }
@@ -114,6 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
                 reader.readAsDataURL(file);
             } else {
+                formData.avatar = profileAvatar.src;
                 await updateProfile(formData);
             }
         }
@@ -134,6 +143,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 alert('Cập nhật hồ sơ thành công!');
                 localStorage.setItem('userName', formData.userName);
+                if (window.userAvatar && formData.avatar) {
+                    window.userAvatar.src = formData.avatar; 
+                }
                 window.location.reload();
             } else {
                 alert(data.message || 'Cập nhật hồ sơ thất bại');
