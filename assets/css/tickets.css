@@ -561,3 +561,55 @@
 .no-results p {
     color: #6c757d;
 }
+
+.results-heading {
+    line-height: 3.5rem;
+}
+@media (min-width: 740px) and (max-width: 1023px) {
+    .ticket-search-container {
+        height: 600px;
+        padding: 38px;
+    }
+
+    .form-group {
+        margin-top: 12px;
+    }
+
+}
+
+@media (max-width: 739px) {
+        .grid.wide {
+        max-width: 100%;
+        padding: 0 16px;
+    }
+    .row {
+        margin-left: -8px;
+        margin-right: -8px;
+    }
+    .col {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+    /* Adjust column widths for better mobile layout */
+    .c-12,
+    .m-12,
+    .l-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    /* Stack columns on mobile */
+    .c-6,
+    .m-6,
+    .l-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .results-heading {
+        margin-top: 60px;
+    }
+
+    .select-ticket-btn {
+        padding: 12px 8PX !important;
+    }
+}

@@ -73,6 +73,7 @@
 
 .footer__content-item__title {
     font-size: 1.6rem;
+    line-height: 2rem;
     color: var(--text-color);
     text-decoration: none;
     transition: all linear 0.12s;
@@ -88,7 +89,8 @@
     margin-top: 42px;
     font-size: 1.6rem;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .footer__content-decription__like {
@@ -96,11 +98,16 @@
     color: var(--white-color);
     background-color: #0866ff;
     padding: 4px 12px;
+    display: inline;
 }
 
 .footer__content-decription__like-icon {
 
 }
 
+.copyright {
+}
+.copyrightlink {
+}
 
 
