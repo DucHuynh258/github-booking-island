@@ -74,6 +74,7 @@ const ticketBookingSchema = new mongoose.Schema({
 });
 const TicketBooking = mongoose.model('TicketBooking', ticketBookingSchema);
 
+const WebsiteReview = require('./models/WebsiteReview');
 // Schemas cho Khách sạn
 const Hotel = require('./models/Hotel');
 const Booking = require('./models/Booking');
@@ -87,6 +88,38 @@ const transporter = nodemailer.createTransport({
         pass: process.env.CONTACT_PASS
     }
 });
+
+// Hàm gửi email xác nhận đặt vé 
+async function sendBookingConfirmationEmail(bookingDetails) {
+    const mailOptions = {
+        from: process.env.CONTACT_EMAIL,
+        to: bookingDetails.userEmail,
+        subject: `[Booking Island Travel] Xác nhận đặt vé thành công #${bookingDetails.bookingId}`,
+        html: `
+            <h1>Cảm ơn bạn đã đặt vé tại Booking Island Travel!</h1>
+            <p>Xin chào <b>${bookingDetails.userName}</b>,</p>
+            <p>Chúng tôi xác nhận bạn đã đặt vé thành công. Dưới đây là thông tin chi tiết:</p>
+            <ul>
+                <li><b>Mã đặt vé:</b> ${bookingDetails.bookingId}</li>
+                <li><b>Tuyến:</b> ${bookingDetails.departure} → ${bookingDetails.destination}</li>
+                <li><b>Ngày đi:</b> ${bookingDetails.tripDate}</li>
+                <li><b>Giờ khởi hành:</b> ${bookingDetails.tripTime}</li>
+                <li><b>Hãng tàu:</b> ${bookingDetails.brand}</li>
+                <li><b>Số lượng vé:</b> ${bookingDetails.quantity}</li>
+                <li><b>Số ghế:</b> ${bookingDetails.seats.join(', ')}</li>
+                <li><b>Tổng tiền:</b> ${bookingDetails.totalPrice.toLocaleString('vi-VN')} đ</li>
+                <li><b>Số điện thoại liên hệ:</b> ${bookingDetails.phone}</li>
+            </ul>
+            <p>Vui lòng đến quầy vé trước giờ khởi hành 30 phút để nhận vé và thanh toán.</p>
+        `
+    };
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log(`Email xác nhận đã gửi tới ${bookingDetails.userEmail}`);
+    } catch (error) {
+        console.error(`Lỗi khi gửi email xác nhận:`, error);
+    }
+}
 
 // Hàm gửi email xác nhận đặt vé 
 async function sendBookingConfirmationEmail(bookingDetails) {
@@ -311,39 +344,29 @@ app.post('/api/contact', async(req, res) => {
     }
 });
 
-// API Đặt vé tàu 
-app.post('/api/book-ticket', async(req, res) => {
-    const token = req.headers.authorization ?.split(' ')[1];
-    if (!token) {
-        return res.status(401).json({ message: 'Bạn cần đăng nhập để đặt vé' });
-    }
+
+// API Đặt vé tàu
+app.post('/api/book-ticket', authenticateToken, async (req, res) => {
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findOne({ userId: decoded.userId });
+        const user = await User.findOne({ userId: req.user.userId });
         if (!user) {
-            return res.status(404).json({ message: 'Không tìm thấy người dùng' });
+            return res.status(404).json({ message: 'Không tìm thấy thông tin người dùng' });
         }
-        const { departure, destination, tripDate, tripTime, brand, quantity, totalPrice, seats, phone } = req.body;
-        const newBooking = new TicketBooking({
-            bookingId: Math.ceil(Math.random() * 1000000000).toString(),
+        const bookingId = Math.ceil(Math.random() * 1000000000).toString();
+        const bookingData = {
+            ...req.body,
+            bookingId,
             userId: user.userId,
             userName: user.userName,
-            userEmail: user.email,
-            departure,
-            destination,
-            tripDate,
-            tripTime,
-            brand,
-            quantity,
-            totalPrice,
-            seats,
-            phone
-        });
+            userEmail: user.email
+        };
+        const newBooking = new TicketBooking(bookingData);
         await newBooking.save();
-        sendBookingConfirmationEmail(newBooking); // Gửi mail xác nhận
+        // Gửi email xác nhận
+        await sendBookingConfirmationEmail(newBooking);
         res.status(201).json({
             message: 'Đặt vé thành công! Vui lòng kiểm tra email để xem chi tiết.',
-            bookingId: newBooking.bookingId
+            bookingId: bookingId
         });
     } catch (error) {
         console.error('Lỗi khi đặt vé:', error);
@@ -444,6 +467,94 @@ app.get('/api/hotels/:id', async(req, res) => {
     }
 });
 
+// API đánh giá khách sạn
+app.post('/api/hotels/:id/rate', authenticateToken, async (req, res) => {
+  try {
+    const hotel = await Hotel.findById(req.params.id);
+    if (!hotel) {
+      return res.status(404).json({ message: 'Không tìm thấy khách sạn' });
+    }
+    // Get user details
+    const user = await User.findOne({ userId: req.user.userId });
+    if (!user) {
+      return res.status(404).json({ message: 'Không tìm thấy thông tin người dùng' });
+    }
+    const { rating, comment } = req.body;
+    
+    // Validate rating
+    if (!rating || rating < 1 || rating > 5) {
+      return res.status(400).json({ message: 'Đánh giá phải từ 1-5 sao' });
+    }
+    // Check if user already rated
+    const existingRating = hotel.ratings.find(r => r.userId === req.user.userId);
+    if (existingRating) {
+      existingRating.rating = rating;
+      existingRating.comment = comment;
+      existingRating.createdAt = new Date();
+    } else {
+      hotel.ratings.push({
+        userId: req.user.userId,
+        userName: user.userName || 'Khách',
+        userAvatar: user.avatar || '/assets/img/avatars/avatar1.jpg',
+        rating,
+        comment,
+        createdAt: new Date()
+      });
+    }
+    // Calculate average rating
+    const totalRating = hotel.ratings.reduce((sum, r) => sum + r.rating, 0);
+    hotel.averageRating = totalRating / hotel.ratings.length;
+    await hotel.save();
+    res.json({ message: 'Đánh giá thành công', averageRating: hotel.averageRating });
+  } catch (error) {
+    console.error('Rating error:', error);
+    res.status(500).json({ message: 'Lỗi khi đánh giá khách sạn' });
+  }});
+
+  // API endpoint to submit website review
+app.post('/api/website-review', authenticateToken, async (req, res) => {
+  try {
+    const user = await User.findOne({ userId: req.user.userId });
+    if (!user) {
+      return res.status(404).json({ message: 'Không tìm thấy thông tin người dùng' });
+    }
+    const { rating, comment } = req.body;
+    
+    // Validate rating
+    if (!rating || rating < 1 || rating > 5) {
+      return res.status(400).json({ message: 'Đánh giá phải từ 1-5 sao' });
+    }
+    // Validate comment
+    if (!comment || comment.trim().length === 0) {
+      return res.status(400).json({ message: 'Nội dung đánh giá không được để trống' });
+    }
+    const review = new WebsiteReview({
+      userId: user.userId,
+      userName: user.userName || 'Khách',
+      userAvatar: user.avatar || '/assets/img/avatars/avatar1.jpg',
+      rating,
+      comment: comment.trim(),
+    });
+    await review.save();
+    res.json({ message: 'Đánh giá thành công', review });
+  } catch (error) {
+    console.error('Website review error:', error);
+    res.status(500).json({ message: 'Lỗi khi lưu đánh giá' });
+  }
+});
+// API endpoint to get website reviews
+app.get('/api/website-reviews', async (req, res) => {
+  try {
+    const reviews = await WebsiteReview.find()
+      .sort({ createdAt: -1 }) // Sort by newest first
+      .limit(5) // Limit to 5 reviews
+      .exec();
+    res.json(reviews);
+  } catch (error) {
+    console.error('Error fetching website reviews:', error);
+    res.status(500).json({ message: 'Lỗi khi tải đánh giá' });
+  }
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server đang chạy trên cổng ${PORT}`));

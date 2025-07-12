@@ -512,6 +512,7 @@
 
 .main-content__title {
     font-size: 1.9rem;
+    line-height: 2.2rem;
     font-weight: 700;
     color: #0071c2;
     text-decoration: none;
@@ -690,3 +691,39 @@
 }
 
 
+@media (min-width: 740px) and (max-width: 1023px) {
+    .filter {
+        padding: 12px 12px 24px 12px;
+    }
+
+    .filter-search-btn {
+        padding: 8px 0;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+}
+
+@media (max-width: 739px) {
+    .filter {
+        display: none;
+    }
+
+    .filter-search-btn {
+        padding: 8px 0;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+
+    .main-content__item {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .main-content__room-info {
+        flex-direction: column;
+    }
+
+    .main-content__booking {
+        margin-top: 12px;
+    }
+}

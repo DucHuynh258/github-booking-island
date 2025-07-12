@@ -143,7 +143,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    width: 80%;
+    width: 100%;
     min-width: 0;
     padding: 16px;
     background-color: rgb(0, 0, 0, 0.2);
@@ -402,4 +402,124 @@
 .custom-success-icon {
   color: #28a745;
   border-color: #28a745;
+}
+
+.rating-section {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.rating-section h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.current-rating {
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+}
+.star-rating {
+  font-size: 2.4rem;
+  color: #ffd700;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+.star-rating i {
+  margin-right: 0.5rem;
+  transition: all 0.2s;
+}
+.star-rating i:hover {
+  transform: scale(1.2);
+}
+.star-rating i.fas {
+  color: #ffd700;
+}
+#rating-comment {
+  width: 100%;
+  height: 100px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: none;
+}
+.rating-submit-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.rating-submit-btn:hover {
+  opacity: 0.9;
+}
+.ratings-list {
+  margin-top: 2rem;
+}
+.rating-item {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1rem;
+}
+.rating-item__header {
+  display: flex;
+  margin-bottom: 0.5rem;
+  align-items: center;
+}
+.rating-item__user {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  font-size: 1.3rem;
+  margin-bottom: 6px;
+}
+
+.rating-item__stars {
+  color: #ffd700;
+  font-size: 2.5rem;
+  transform: translateY(-2px);
+}
+.rating-item__date {
+  color: #666;
+  font-size: 1.2rem;
+  margin-bottom: 6px;
+}
+.rating-item__comment {
+  color: #333;
+  font-size: 1.4rem;
+}
+
+.rating-user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+@media (min-width: 740px) and (max-width: 1023px) {  
+    .main-content__item .row {
+      display: unset;
+    }
+  
+    #hotel-price {
+      margin-bottom: 32px;
+    }
+}
+
+@media (max-width: 739px) {
+  .app-container {
+    margin-top: 80px;
+  }
+
+  .main-content__item .row {
+    display: unset;
+  }
+
+  #hotel-price {
+    margin-bottom: 32px;
+  }
 }

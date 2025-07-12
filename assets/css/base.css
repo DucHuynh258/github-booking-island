@@ -21,6 +21,7 @@ html {
     line-height: 1.6rem;
     font-family: 'Be Vietnam Pro', sans-serif;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 /* Button */

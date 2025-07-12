@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            const response = await fetch('/api/book-ticket', {
+           const response = await fetch('http://localhost:5000/api/book-ticket', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

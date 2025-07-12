@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer"
     />
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/base.css">
     <link rel="stylesheet" href="./assets/css/header-component.css">
     <link rel="stylesheet" href="./assets/css/footer-component.css">
-    <link rel="stylesheet" href="./assets/css/base.css">
     <link rel="stylesheet" href="./assets/css/home.css">
     <link rel="stylesheet" href="./assets/css/grid.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -21,7 +21,7 @@
         <header class="header">
             <div class="grid wide">
                 <div class="logo">
-                    <a class="logo__link" href="">
+                    <a class="logo__link" href="./home.html">
                         <img src="./assets/img/base/logo.png" alt="logo" class="logo__img">
                     </a>
                 </div>
@@ -34,9 +34,7 @@
                         <li class="navbar__item">
                             <a class="navbar__link" href="./hotel.html">STAY</a>
                         </li>
-                        <li class="navbar__item">
-                            <a class="navbar__link" href="">TOURS</a>
-                        </li>
+
                         <li class="navbar__item">
                             <a class="navbar__link" href="./tickets.html">TICKETS</a>
                         </li>
@@ -89,7 +87,7 @@
                         <div class="slider__more-path__content">
                             <div class="slider__more-path__more">
                                 <div class="slider__more-path__more-link--block">
-                                    <a href="" class="slider__more-path__more-link">
+                                    <a href="#more" class="slider__more-path__more-link">
                                         Biết Thêm
                                         <i class="fa-solid fa-arrow-right"></i>
                                     </a>
@@ -112,7 +110,7 @@
                 <!-- Slider -->
 
                 <!-- Popular place -->
-                <div class="popular-places mt-108 autoDisplay">
+                <div id="more" class="popular-places mt-108 autoDisplay">
                     <div class="popular-places__header-with-nav">
                         <div class="popular-places__header">
                             <h3 class="popular-places__heading">Điểm Đến Phổ Biến</h3>
@@ -268,7 +266,7 @@
                             <i class="advertisement-1__main-part__icon fa-solid fa-book-open"></i>
                             <h4 class="advertisement-1__main-part__heading">Book A Tour</h4>
                             <span class="advertisement-1__main-part__content">Khám Phá Vẻ Đẹp Hoang Sơ Của Các Hòn Đảo Việt Nam. Điểm Đến Lý Tưởng Cho Những Ai Yêu Thiên Nhiên Và Biển.</span>
-                            <a class="advertisement-1__main-part__more" href="">
+                            <a class="advertisement-1__main-part__more" href="./hotel.html">
                                 TÌM HIỂU THÊM
                                 <i class="advertisement-1__main-part__more-icon fas fa-chevron-right"></i>
                             </a>
@@ -284,7 +282,7 @@
 
                 <!-- Sale section -->
                 <div class="mt-108 row sm-gutter sale autoDisplay">
-                    <div class="col l-4">
+                    <div class="col l-4 m-12">
                         <div class="sale__img-with-sale">
                             <div class="sale__img"></div>
                             <div class="sale__sale-section">
@@ -293,7 +291,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col l-8">
+                    <div class="col l-8 m-12">
                         <div class="sale__content">
                             <div class="sale__content-title">
                                 <div class="sale__content__big-to-small">
@@ -308,8 +306,10 @@
                             </div>
 
                             <button class="sale__content-button">
-                                Book A Ticket Now
-                                <i class="sale__content-button__icon fa-solid fa-arrow-right"></i>
+                                <a href="./tickets.html" class="sale__content-button__link">
+                                    Book A Ticket Now
+                                    <i class="sale__content-button__icon fa-solid fa-arrow-right"></i>
+                                </a>
                             </button>
                         </div>
                     </div>
@@ -333,27 +333,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <ul class="about-review mt-64 row">
-                        <div class="col l-4">
-                            <li class="about-review__box">
-                                <h4 class="about-review__heading">20+</h4>
-                                <span class="about-review__title">Năm Kinh Nghiệm</span>
-                            </li>
-                        </div>
-                        <div class="col l-4">
-                            <li class="about-review__box">
-                                <h4 class="about-review__heading">8T</h4>
-                                <span class="about-review__title">Khách Hàng Hài Lòng</span>
-                            </li>
-                        </div>
-                        <div class="col l-4">
-                            <li class="about-review__box">
-                                <h4 class="about-review__heading">4.99</h4>
-                                <span class="about-review__title">Đánh Giá Chung</span>
-                            </li>
-                        </div>
-                    </ul>
                 </div>
                 <!-- About section -->
 
@@ -397,79 +376,25 @@
                 <!-- Advertisement -->
 
                 <!-- Review -->
-                <div class="review mt-108 autoDisplay">
-                    <h3 class="review__heading">Được hàng nghìn du khách yêu thích</h3>
-                    <ul class="review__list row">
-                        <div class="col l-4 review__item-box">
-                            <li class="review__item">
-                                <div class="review__rating-with-content">
-                                    <div class="review__rating">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div>
-                                    <div class="review__content">
-                                        <span>Tôi vừa trở về từ một chuyến đi tuyệt vời nhất đến đảo Phú Quý, tất cả là nhờ công ty du lịch này! Ngay từ lúc liên hệ, họ đã cực kỳ nhiệt tình và chu đáo, lên lịch trình phù hợp với sở thích và ngân sách của tôi. Tôi không thể chờ được để đặt chuyến phiêu lưu tiếp theo với họ! </span>
-                                    </div>
-                                </div>
-                                <div class="review__user-section">
-                                    <img src="./assets/img/home_page/avt1.jpg" alt="" class="review__user-avt">
-                                    <div class="review__user-infor">
-                                        <span class="review__user-name">Huỳnh Hữu Tài</span>
-                                        <span class="review__user-place">Phú Quý</span>
-                                    </div>
-                                </div>
-                            </li>
+                <!-- Website Review Section -->
+                <div class="website-reviews mt-108 autoDisplay">
+                    <h3 class="website-reviews__heading">Đánh giá từ người dùng</h3>
+                    <div class="website-reviews__container">
+                        <div class="website-reviews__form">
+                            <div class="star-rating" id="website-rating">
+                                <i class="far fa-star" data-rating="1"></i>
+                                <i class="far fa-star" data-rating="2"></i>
+                                <i class="far fa-star" data-rating="3"></i>
+                                <i class="far fa-star" data-rating="4"></i>
+                                <i class="far fa-star" data-rating="5"></i>
+                            </div>
+                            <textarea id="website-comment" placeholder="Chia sẻ trải nghiệm của bạn..."></textarea>
+                            <button onclick="submitWebsiteReview()" class="website-review-submit">Gửi đánh giá</button>
                         </div>
-                        <div class="col l-4 review__item-box">
-                            <li class="review__item">
-                                <div class="review__rating-with-content">
-                                    <div class="review__rating">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="review__rating--disable fa-solid fa-star"></i>
-                                    </div>
-                                    <div class="review__content">
-                                        <span>Phú Quý đẹp, biển xanh, người dân thân thiện, đồ ăn tươi ngon. Đảo yên bình, rất thích hợp để nghỉ ngơi. Dịch vụ còn hơi đơn giản nhưng bù lại rất đáng để trải nghiệm!</span>
-                                    </div>
-                                </div>
-                                <div class="review__user-section">
-                                    <img src="./assets/img/home_page/avt3.jpg" alt="" class="review__user-avt">
-                                    <div class="review__user-infor">
-                                        <span class="review__user-name">Tạ Thị Thanh Phương</span>
-                                        <span class="review__user-place">Phú Quý</span>
-                                    </div>
-                                </div>
-                            </li>
+                        <div class="website-reviews__list" id="website-reviews-list">
+                            <!-- Reviews will be loaded here dynamically -->
                         </div>
-                        <div class="col l-4 review__item-box">
-                            <li class="review__item review__item--user">
-                                <div class="review__rating-with-content">
-                                    <div class="review__rating">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                    </div>
-                                    <div class="review__content">
-                                        <span>Chuyến đi rất tuyệt vời với lịch trình hợp lý, hướng dẫn viên nhiệt tình và cảnh đẹp ấn tượng. Mọi thứ đều được sắp xếp chu đáo, giúp mình có khoảng thời gian thư giãn và nhiều trải nghiệm đáng nhớ. đúng là một chuyến đi đáng giá và mình rất hài lòng.</span>
-                                    </div>
-                                </div>
-                                <div class="review__user-section">
-                                    <img src="./assets/img/home_page/avt2.jpg" alt="" class="review__user-avt">
-                                    <div class="review__user-infor">
-                                        <span class="review__user-name">Phan Bảo Long</span>
-                                        <span class="review__user-place">Phú Quý</span>
-                                    </div>
-                                </div>
-                            </li>
-                        </div>
-                    </ul>
+                    </div>
                 </div>
                 <!-- Review -->
             </div>
@@ -525,7 +450,6 @@
                                 <span>Like Để Cập Nhật Cẩm Nang Du Lịch</span>
                                 <div class="footer__content-decription__like">
                                     <i class="footer__content-decription__like-icon fa-solid fa-thumbs-up"></i>
-                                    <span>Like 5.3T</span>
                                 </div>
                             </div>
                         </div>
@@ -586,6 +510,99 @@
             }
             updateButtons();
         });
+
+// Website Review System
+let websiteRating = 0;
+document.querySelectorAll('#website-rating i').forEach(star => {
+    star.addEventListener('click', () => {
+        websiteRating = parseInt(star.dataset.rating);
+        updateWebsiteStars(websiteRating);
+    });
+});
+function updateWebsiteStars(rating) {
+    document.querySelectorAll('#website-rating i').forEach(star => {
+        const starRating = parseInt(star.dataset.rating);
+        if (starRating <= rating) {
+            star.classList.remove('far');
+            star.classList.add('fas');
+        } else {
+            star.classList.remove('fas');
+            star.classList.add('far');
+        }
+    });
+}
+async function submitWebsiteReview() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        alert('Vui lòng đăng nhập để đánh giá');
+        return;
+    }
+    if (!websiteRating) {
+        alert('Vui lòng chọn số sao đánh giá');
+        return;
+    }
+    const comment = document.getElementById('website-comment').value;
+    if (!comment.trim()) {
+        alert('Vui lòng nhập nội dung đánh giá');
+        return;
+    }
+    try {
+        const response = await fetch('http://localhost:5000/api/website-review', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                rating: websiteRating,
+                comment: comment
+            })
+        });
+        const data = await response.json();
+        if (response.ok) {
+            alert('Cảm ơn bạn đã đánh giá!');
+            websiteRating = 0;
+            document.getElementById('website-comment').value = '';
+            updateWebsiteStars(0);
+            loadWebsiteReviews();
+        } else {
+            throw new Error(data.message);
+        }
+    } catch (error) {
+        alert(error.message || 'Không thể gửi đánh giá lúc này');
+    }
+}
+async function loadWebsiteReviews() {
+    try {
+        const response = await fetch('http://localhost:5000/api/website-reviews');
+        const reviews = await response.json();
+        
+        const reviewsList = document.getElementById('website-reviews-list');
+        reviewsList.innerHTML = reviews.map(review => `
+            <div class="website-review-item">
+                <div class="website-review-item__header">
+                    <img src="${review.userAvatar || '../assets/img/avatars/avatar1.jpg'}" 
+                         alt="${review.userName}" 
+                         class="website-review-item__avatar">
+                    <div class="website-review-item__info">
+                        <div class="website-review-item__name">${review.userName}</div>
+                        <div class="website-review-item__date">
+                            ${new Date(review.createdAt).toLocaleDateString('vi-VN')}
+                        </div>
+                    </div>
+                </div>
+                <div class="website-review-item__rating">
+                    ${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}
+                </div>
+                <div class="website-review-item__comment">${review.comment}</div>
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error('Error loading reviews:', error);
+    }
+}
+// Load reviews when page loads
+document.addEventListener('DOMContentLoaded', loadWebsiteReviews);
 
         // Slider functionality
         document.addEventListener('DOMContentLoaded', function() {

@@ -33,24 +33,36 @@ document.addEventListener('DOMContentLoaded', () => {
       applyFilters();
     });
   });
-  async function applyFilters() {
-    try {
-      const queryParams = new URLSearchParams();
-      
-      if (currentFilters.type.length) {
-        queryParams.append('type', currentFilters.type.join(','));
-      }
-      if (currentFilters.stars.length) {
-        queryParams.append('stars', currentFilters.stars.join(','));
-      }
-      if (currentFilters.searchText) {
-        queryParams.append('name', currentFilters.searchText);
-      }
-      const response = await fetch(`http://localhost:5000/api/hotels?${queryParams}`);
-      const hotels = await response.json();
-      renderHotels(hotels);
-    } catch (error) {
-      console.error('Error applying filters:', error);
+async function applyFilters() {
+  try {
+    const queryParams = new URLSearchParams();
+    
+    // Xử lý các tham số lọc riêng biệt
+    if (currentFilters.type.length) {
+      queryParams.append('type', currentFilters.type.join(','));
     }
+    
+    if (currentFilters.stars.length) {
+      queryParams.append('stars', currentFilters.stars.join(','));
+    }
+    
+    if (currentFilters.searchText) {
+      queryParams.append('name', currentFilters.searchText);
+    }
+    // Thêm tham số island để lọc theo đảo cụ thể
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('phuquoc')) {
+      queryParams.append('island', 'PhuQuoc');
+    } else if (currentPath.includes('phuquy')) {
+      queryParams.append('island', 'PhuQuy'); 
+    } else if (currentPath.includes('binhhung')) {
+      queryParams.append('island', 'BinhHung');
+    }
+    const response = await fetch(`http://localhost:5000/api/hotels?${queryParams}`);
+    const hotels = await response.json();
+    renderHotels(hotels);
+  } catch (error) {
+    console.error('Error applying filters:', error);
   }
+}
 });

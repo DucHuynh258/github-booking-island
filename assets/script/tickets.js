@@ -73,6 +73,49 @@ document.addEventListener('DOMContentLoaded', () => {
             const day = String(today.getDate()).padStart(2, '0');
             const todayDateString = `${year}-${month}-${day}`;
 
+            // Hàm xử lý đặt vé
+async function bookTicket(tripDetails) {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Lỗi',
+      text: 'Bạn cần đăng nhập để đặt vé',
+      confirmButtonColor: 'var(--primary-color)'
+    });
+    return;
+  }
+  try {
+    const response = await fetch('http://localhost:5000/api/book-ticket', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(tripDetails)
+    });
+    const result = await response.json();
+    
+    if (response.ok) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Đặt vé thành công!',
+        text: 'Vui lòng kiểm tra email để xem chi tiết vé.',
+        confirmButtonColor: 'var(--primary-color)'
+      });
+    } else {
+      throw new Error(result.message || 'Có lỗi xảy ra khi đặt vé');
+    }
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Lỗi',
+      text: error.message || 'Không thể kết nối đến server',
+      confirmButtonColor: 'var(--primary-color)'
+    });
+  }
+}
+
             if (departureValue && destinationValue) {
                 window.location.href = `search-results.html?departure=${departureValue}&destination=${destinationValue}&date=${todayDateString}&passengers=1`;
             } else {

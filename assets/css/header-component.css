@@ -41,7 +41,7 @@
 .header {
     margin-top: 8px;
     position: relative;
-    z-index: 1; 
+z-index: 1000;
 }
 
 .header>div {
@@ -83,7 +83,7 @@
 }
 
 .navbar__item {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     margin: 0 26px;
     position: relative;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -163,3 +163,121 @@
     color: #fff;
 }
 /* Header */
+
+.mobile-menu-btn {
+    display: none;
+}
+/* Additional tablet adjustments */
+@media (min-width: 740px) and (max-width: 1023px) {
+    .logo {
+        display: none;
+    }
+
+    .btn--m {
+    }
+}
+
+/* Mobile menu button */
+/* Mobile menu styles */
+@media (max-width: 739px) {
+    .mobile-menu-btn {
+        display: block;
+        position: relative;
+        transition: all 0.3s ease;
+        font-size: 3rem;
+        background-color: var(--white-color);
+        color: var(--black-color);
+        border: none;
+        outline: none;
+        padding: px;
+        z-index: 1001;
+    }
+    
+    .navbar {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: var(--white-color);
+        padding: 80px 20px;
+        transition: 0.3s ease-in-out;
+        box-shadow: -2px 0 4px rgba(0,0,0,0.1);
+        z-index: 1000;
+    }
+    
+    .navbar.active {
+        right: 0;
+    }
+    
+    .navbar__list {
+        flex-direction: column;
+        transform: none;
+        margin-top: 20px;
+    }
+    
+    .navbar__item {
+        margin: 16px 0;
+        width: 100%;
+        opacity: 0;
+        transform: translateX(50px);
+        transition: all 0.3s ease;
+    }
+    
+    .navbar.active .navbar__item {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    .header {
+        position: fixed;
+        top: -8px;
+        left: 0;
+        right: 0;
+        background: var(--white-color);
+        z-index: 999;
+        padding: 8px 0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .sticky {
+        display: none; /* Disable sticky class for mobile */
+    }
+    
+    .navbar__link {
+        font-size: 1.8rem;
+        display: block;
+        padding: 10px 0;
+    }
+    
+    .navbar__link::after {
+        display: none;
+    }
+
+    .register-box {
+        margin: 20px 0;
+        transform: none;
+    }
+    
+    .user-profile {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .dropdown-menu {
+        position: static;
+        width: 100%;
+        margin-top: 10px;
+        box-shadow: none;
+        border: 1px solid var(--border-color);
+    }
+    .logo {
+        display: none;
+    }
+    .register-box {
+        margin: 0;
+    }
+    .user-profile {
+        flex-direction: row;
+        align-items: center;
+    }
+}

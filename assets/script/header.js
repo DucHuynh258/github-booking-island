@@ -1,10 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     initializeUserProfile();
+    initializeMobileMenu();
 });
 
 function initializeUserProfile() {
     console.log('Initializing user profile...');
 
+      const header = document.querySelector('.header > div');
+    const navbar = document.querySelector('.navbar');
     const token = localStorage.getItem('token');
     const userName = localStorage.getItem('userName');
     const loginBtn = document.getElementById('login-btn');
@@ -16,6 +19,28 @@ function initializeUserProfile() {
     const logoutBtn = document.getElementById('logout-btn');
     const sidebarLogoutBtn = document.getElementById('sidebar-logout-btn');
 
+    const mobileMenuBtn = document.createElement('button');
+    mobileMenuBtn.className = 'mobile-menu-btn';
+    mobileMenuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    
+    header.insertBefore(mobileMenuBtn, navbar);
+    
+    // Toggle menu on button click with animation
+    mobileMenuBtn.addEventListener('click', () => {
+        navbar.classList.toggle('active');
+        document.body.style.overflow = navbar.classList.contains('active') ? 'hidden' : '';
+        mobileMenuBtn.innerHTML = navbar.classList.contains('active') ? 
+            '<i class="fa-solid fa-xmark"></i>' : 
+            '<i class="fa-solid fa-bars"></i>';
+    });
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!navbar.contains(e.target) && !mobileMenuBtn.contains(e.target) && navbar.classList.contains('active')) {
+            navbar.classList.remove('active');
+            document.body.style.overflow = '';
+            mobileMenuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        }
+    });
     // Check if required DOM elements exist
     if (!loginBtn || !userProfile || !userNameSpan || !userAvatar) {
         console.error('Missing required DOM elements for user profile initialization');

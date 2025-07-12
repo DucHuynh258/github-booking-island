@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="./assets/css/header-component.css">
     <link rel="stylesheet" href="./assets/css/footer-component.css">
     <link rel="stylesheet" href="./assets/css/base.css">
-    <link rel="stylesheet" href="./assets/css/hotel_detail.css">
     <link rel="stylesheet" href="./assets/css/grid.css">
+    <link rel="stylesheet" href="./assets/css/hotel_detail.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 </head>
@@ -20,7 +20,7 @@
     <header class="header">
       <div class="grid wide">
         <div class="logo">
-          <a class="logo__link" href="">
+          <a class="logo__link" href="./home.html">
             <img src="./assets/img/base/logo.png" alt="logo" class="logo__img">
           </a>
         </div>
@@ -32,9 +32,6 @@
             </li>
             <li class="navbar__item">
               <a class="navbar__link" href="./hotel.html">HOTEL</a>
-            </li>
-            <li class="navbar__item">
-              <a class="navbar__link" href="">TOURS</a>
             </li>
             <li class="navbar__item">
               <a class="navbar__link" href="./tickets.html">TICKETS</a>
@@ -164,6 +161,29 @@
                     </div>
                   </div>
                   <button onclick="bookNow()" class="main-content__book-btn">Đặt phòng</button>
+                  </div>
+                  <!-- Rating Section -->
+  <div class="rating-section mt-4">
+    <h3>Đánh giá khách sạn</h3>
+    <div class="current-rating">
+      <span>Đánh giá trung bình: </span>
+      <span id="average-rating">0</span>/5
+    </div>
+    <div class="rating-form">
+      <div class="star-rating">
+        <i class="far fa-star" data-rating="1"></i>
+        <i class="far fa-star" data-rating="2"></i>
+        <i class="far fa-star" data-rating="3"></i>
+        <i class="far fa-star" data-rating="4"></i>
+        <i class="far fa-star" data-rating="5"></i>
+      </div>
+      <textarea id="rating-comment" placeholder="Nhận xét của bạn"></textarea>
+      <button onclick="submitRating()" class="rating-submit-btn">Gửi đánh giá</button>
+    </div>
+    <div id="ratings-list" class="ratings-list"></div>
+  </div>
+                </div>
+                
                           </div>
                         </div>
 
